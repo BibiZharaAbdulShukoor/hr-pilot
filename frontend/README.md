@@ -134,6 +134,7 @@ CHAT_MODEL=openai/gpt-4o-mini
 
 JWT_SECRET=HR_PILOT_SECRET_KEY
 
+
 Future Improvements
 
 * Candidate ranking improvements
