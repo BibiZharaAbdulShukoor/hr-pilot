@@ -11,6 +11,9 @@ import {
 
 import { Link } from "react-router-dom";
 
+import Navbar from "../components/Navbar";
+
+
 
 export default function Landing() {
 
@@ -116,6 +119,13 @@ duration-700
 >
 
 
+{/* NAVBAR */}
+
+<Navbar />
+
+
+
+
 
 {/* HERO */}
 
@@ -131,7 +141,9 @@ mx-auto
 
 px-8
 
-py-20
+pt-36
+
+pb-20
 
 
 grid
@@ -372,16 +384,6 @@ Login
 
 
 </div>
-
-
-
-
-
-
-
-
-
-
 {/* AI IMAGE */}
 
 
@@ -790,14 +792,6 @@ leading-6
 
 </section>
 
-
-
-
-
-
-
-
-
 {/* HOW IT WORKS */}
 
 
@@ -1105,11 +1099,7 @@ Create Account
 
 </section>
 
-
-
-
-
-</div>
+    </div>
 
 
   );

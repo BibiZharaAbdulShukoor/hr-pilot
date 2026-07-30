@@ -8,10 +8,16 @@ import {
   ShieldCheck,
 } from "lucide-react";
 
+
 import { NavLink } from "react-router-dom";
 
 
+import zahraImage from "../assets/zahra.jpeg";
+
+
+
 function Sidebar() {
+
 
 
   const links = [
@@ -56,15 +62,28 @@ function Sidebar() {
 
 
 
+
   return (
+
 
     <aside
 
+
       className="
+
+      fixed
+
+      top-20
+
+      left-0
+
 
       w-72
 
-      min-h-screen
+      h-[calc(100vh-5rem)]
+
+      overflow-y-auto
+
 
 
       bg-gradient-to-br
@@ -111,106 +130,6 @@ function Sidebar() {
       "
 
     >
-
-
-
-
-
-      {/* BRAND */}
-
-
-      <div
-
-        className="
-
-        flex
-
-        items-center
-
-        gap-3
-
-        mb-10
-
-        "
-
-      >
-
-
-        <img
-
-          src="https://cdn.vectorstock.com/i/500p/53/18/ai-banner-concept-in-the-digital-style-generative-vector-51365318.jpg"
-
-          alt="AI Logo"
-
-          className="
-
-          w-12
-
-          h-12
-
-          rounded-2xl
-
-          object-cover
-
-          shadow-lg
-
-          "
-
-        />
-
-
-
-        <div>
-
-
-          <h2
-
-            className="
-
-            text-xl
-
-            font-bold
-
-            text-slate-800
-
-            dark:text-white
-
-            "
-
-          >
-
-            HR Pilot
-
-          </h2>
-
-
-
-          <p
-
-            className="
-
-            text-xs
-
-            text-slate-500
-
-            dark:text-white/60
-
-            "
-
-          >
-
-            AI Hiring System
-
-          </p>
-
-
-        </div>
-
-
-      </div>
-
-
-
 
 
 
@@ -394,15 +313,6 @@ function Sidebar() {
 
 
       </nav>
-
-
-
-
-
-
-
-
-
       {/* AI STATUS */}
 
 
@@ -578,6 +488,8 @@ function Sidebar() {
 
 
 
+
+
       {/* PROFILE */}
 
 
@@ -618,41 +530,54 @@ function Sidebar() {
 
         <div
 
-  className="
+          className="
 
-  w-11
+          w-11
 
-  h-11
+          h-11
 
-  rounded-full
+          rounded-full
 
-  overflow-hidden
+          overflow-hidden
 
-  shadow-lg
+          shadow-lg
 
-  "
+          flex
 
->
+          items-center
 
-  <img
+          justify-center
 
-    src="https://static.vecteezy.com/system/resources/thumbnails/046/016/671/small_2x/woman-sitting-at-table-with-laptop-free-photo.jpeg"
+          "
 
-    alt="Zahra & Kakkar"
+        >
 
-    className="
 
-    w-full
 
-    h-full
+          <img
 
-    object-cover
+            src={zahraImage}
 
-    "
+            alt="Zahra Kakkar"
 
-  />
 
-</div>
+            className="
+
+            w-full
+
+            h-full
+
+            object-cover
+
+            object-center
+
+            "
+
+          />
+
+
+        </div>
+
 
 
 
@@ -706,11 +631,7 @@ function Sidebar() {
 
       </div>
 
-
-
-
-
-    </aside>
+      </aside>
 
 
   );

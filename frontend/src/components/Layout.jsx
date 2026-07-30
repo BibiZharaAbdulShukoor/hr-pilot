@@ -4,6 +4,7 @@ import Footer from "./Footer";
 import { Outlet } from "react-router-dom";
 
 
+
 function Layout() {
 
 
@@ -105,11 +106,16 @@ function Layout() {
 
 
 
+      {/* MAIN AREA */}
+
+
       <div
         className="
         relative
         z-10
         flex
+
+        pt-20
         "
       >
 
@@ -119,30 +125,27 @@ function Layout() {
 
         <Sidebar />
 
-
-
-
-
-
         {/* CONTENT */}
 
 
         <main
-          className="
-          flex-1
-          min-h-screen
+  className="
+  flex-1
+  min-h-screen
 
-          p-8
+  ml-72
 
-          text-slate-800
+  p-8
 
-          dark:text-slate-100
+  text-slate-800
 
-          transition-all
+  dark:text-slate-100
 
-          duration-500
-          "
-        >
+  transition-all
+
+  duration-500
+  "
+>
 
 
 
@@ -177,7 +180,7 @@ function Layout() {
       <div
         className="
         relative
-        z-10
+        ml-72
         "
       >
 

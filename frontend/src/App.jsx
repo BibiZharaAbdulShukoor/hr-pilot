@@ -37,6 +37,7 @@ function App() {
       <Routes>
 
 
+
         {/* PUBLIC ROUTES */}
 
 
@@ -58,6 +59,25 @@ function App() {
           path="/register"
           element={<Register />}
         />
+
+
+
+
+
+        {/* PUBLIC INFORMATION PAGES */}
+
+
+        <Route
+          path="/about"
+          element={<About />}
+        />
+
+
+        <Route
+          path="/contact"
+          element={<Contact />}
+        />
+
 
 
 
@@ -104,16 +124,18 @@ function App() {
           />
 
 
+
           <Route
             path="/jobs/edit/:id"
             element={<EditJob />}
           />
 
+
+
           <Route
             path="/jobs/:id"
             element={<JobDetails />}
           />
-
 
 
 
@@ -162,22 +184,14 @@ function App() {
 
 
           <Route
-            path="/about"
-            element={<About />}
+            path="/notifications"
+            element={<Notifications />}
           />
 
-
-
-          <Route
-            path="/contact"
-            element={<Contact />}
-          />
-
-<Route path
-="/notifications" element={<Notifications />} />
 
 
         </Route>
+
 
 
       </Routes>
