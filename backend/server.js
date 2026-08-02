@@ -52,7 +52,6 @@ app.get("/", (req, res) => {
 });
 // test upload
 const fs = require("fs");
-const path = require("path");
 
 app.get("/check-uploads", (req, res) => {
   const uploadPath = path.join(__dirname, "uploads");
