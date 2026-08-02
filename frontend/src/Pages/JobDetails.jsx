@@ -11,198 +11,101 @@ import {
   AlertCircle,
 } from "lucide-react";
 
+import { getJobById } from "../api/dashboardApi";
 
-import {
-  getJobById,
-} from "../api/dashboardApi";
+export default function JobDetails() {
+  const { id } = useParams();
 
+  const navigate = useNavigate();
 
+  const [job, setJob] = useState(null);
 
-export default function JobDetails(){
+  const [loading, setLoading] = useState(true);
 
+  const [error, setError] = useState("");
 
-const { id } = useParams();
+  useEffect(() => {
+    loadJob();
+  }, []);
 
-const navigate = useNavigate();
+  async function loadJob() {
+    try {
+      const res = await getJobById(id);
 
+      setJob(res.data.data);
+    } catch (err) {
+      console.log(err);
 
-const [job,setJob] = useState(null);
+      setError("Failed to load job");
+    } finally {
+      setLoading(false);
+    }
+  }
 
-const [loading,setLoading] = useState(true);
+  function findCandidates() {
+    navigate(`/matching/${id}`);
+  }
 
-const [error,setError] = useState("");
-
-
-
-
-
-useEffect(()=>{
-
-loadJob();
-
-},[]);
-
-
-
-
-
-async function loadJob(){
-
-
-try{
-
-
-const res = await getJobById(id);
-
-
-setJob(
-res.data.data
-);
-
-
-}
-
-catch(err){
-
-
-console.log(err);
-
-
-setError(
-"Failed to load job"
-);
-
-
-}
-
-finally{
-
-
-setLoading(false);
-
-
-}
-
-
-}
-
-
-
-
-
-
-function findCandidates(){
-
-
-navigate(`/matching/${id}`);
-
-
-}
-
-
-
-
-
-
-
-
-if(loading){
-
-
-return (
-
-<div className="
+  if (loading) {
+    return (
+      <div
+        className="
 h-96
 flex
 items-center
 justify-center
-">
-
-
-<Loader
-size={50}
-className="
+"
+      >
+        <Loader
+          size={50}
+          className="
 animate-spin
 text-[#0CA0C7]
 "
-/>
+        />
+      </div>
+    );
+  }
 
-
-</div>
-
-
-);
-
-
-}
-
-
-
-
-
-
-
-if(!job){
-
-
-return (
-
-<div className="
+  if (!job) {
+    return (
+      <div
+        className="
 bg-white
 dark:bg-[#111827]
 rounded-3xl
 shadow-xl
 p-10
 text-center
-">
-
-
-<Briefcase
-size={70}
-className="
+"
+      >
+        <Briefcase
+          size={70}
+          className="
 mx-auto
 text-gray-300
 mb-5
 "
-/>
+        />
 
-
-<h2 className="
+        <h2
+          className="
 text-3xl
 font-black
 dark:text-white
-">
+"
+        >
+          Job Not Found
+        </h2>
+      </div>
+    );
+  }
 
-Job Not Found
-
-</h2>
-
-
-</div>
-
-);
-
-
-}
-
-
-
-
-
-
-
-return (
-
-<div className="space-y-8">
-
-
-
-
-
-{
-error && (
-
-<div className="
+  return (
+    <div className="space-y-8">
+      {error && (
+        <div
+          className="
 bg-red-100
 dark:bg-red-500/10
 text-red-600
@@ -213,31 +116,18 @@ flex
 items-center
 gap-3
 font-bold
-">
+"
+        >
+          <AlertCircle />
 
-<AlertCircle/>
+          {error}
+        </div>
+      )}
 
-{error}
+      {/* HEADER */}
 
-</div>
-
-)
-
-}
-
-
-
-
-
-
-
-{/* HEADER */}
-
-
-
-<div
-
-className="
+      <div
+        className="
 relative
 overflow-hidden
 rounded-[2rem]
@@ -256,84 +146,59 @@ dark:via-[#0f172a]
 dark:to-[#020617]
 
 "
-
->
-
-
-
-<div className="
+      >
+        <div
+          className="
 flex
 items-center
 gap-5
 relative
-">
-
-
-<div className="
+"
+        >
+          <div
+            className="
 p-5
 rounded-3xl
 bg-white/20
 backdrop-blur-xl
-">
+"
+          >
+            <Briefcase size={45} />
+          </div>
 
-<Briefcase size={45}/>
-
-</div>
-
-
-
-
-<div>
-
-
-<h1 className="
+          <div>
+            <h1
+              className="
 text-4xl
 font-black
-">
+"
+            >
+              {job.title}
+            </h1>
 
-{job.title}
-
-</h1>
-
-
-<p className="
+            <p
+              className="
 mt-2
 opacity-90
-">
+"
+            >
+              AI Recruitment Matching System
+            </p>
+          </div>
+        </div>
+      </div>
 
-AI Recruitment Matching System
+      {/* INFO CARDS */}
 
-</p>
-
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-
-{/* INFO CARDS */}
-
-
-
-<div className="
+      <div
+        className="
 grid
 md:grid-cols-3
 gap-6
-">
-
-
-
-<div className="
+"
+      >
+        <div
+          className="
 bg-gradient-to-br
 from-white
 to-cyan-50
@@ -348,51 +213,38 @@ border
 border-slate-200
 dark:border-slate-700
 p-6
-">
-
-
-<Calendar
-className="
+"
+        >
+          <Calendar
+            className="
 text-[#0CA0C7]
 dark:text-[#61D7E5]
 "
-/>
+          />
 
-
-<p className="
+          <p
+            className="
 mt-3
 text-slate-500
 dark:text-slate-300
-">
+"
+          >
+            Created
+          </p>
 
-Created
-
-</p>
-
-
-<h3 className="
+          <h3
+            className="
 text-xl
 font-black
 dark:text-white
-">
+"
+          >
+            {new Date(job.created_at).toLocaleDateString()}
+          </h3>
+        </div>
 
-{
-new Date(job.created_at)
-.toLocaleDateString()
-}
-
-</h3>
-
-
-</div>
-
-
-
-
-
-
-
-<div className="
+        <div
+          className="
 bg-gradient-to-br
 from-white
 to-cyan-50
@@ -407,52 +259,38 @@ border
 border-slate-200
 dark:border-slate-700
 p-6
-">
-
-
-<Award
-className="
+"
+        >
+          <Award
+            className="
 text-purple-600
 dark:text-purple-400
 "
-/>
+          />
 
-
-
-<p className="
+          <p
+            className="
 mt-3
 text-slate-500
 dark:text-slate-300
-">
+"
+          >
+            Required Skills
+          </p>
 
-Required Skills
-
-</p>
-
-
-
-<h3 className="
+          <h3
+            className="
 text-xl
 font-black
 dark:text-white
-">
+"
+          >
+            {job.skills?.length || 0}
+          </h3>
+        </div>
 
-{
-job.skills?.length || 0
-}
-
-</h3>
-
-
-</div>
-
-
-
-
-
-
-
-<div className="
+        <div
+          className="
 bg-gradient-to-br
 from-white
 to-cyan-50
@@ -467,58 +305,41 @@ border
 border-slate-200
 dark:border-slate-700
 p-6
-">
-
-
-<Users
-className="
+"
+        >
+          <Users
+            className="
 text-green-600
 dark:text-green-400
 "
-/>
+          />
 
-
-<p className="
+          <p
+            className="
 mt-3
 text-slate-500
 dark:text-slate-300
-">
+"
+          >
+            AI Matching
+          </p>
 
-AI Matching
-
-</p>
-
-
-<h3 className="
+          <h3
+            className="
 text-xl
 font-black
 dark:text-white
-">
+"
+          >
+            Ready
+          </h3>
+        </div>
+      </div>
 
-Ready
+      {/* DESCRIPTION */}
 
-</h3>
-
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-{/* DESCRIPTION */}
-
-
-
-<div className="
+      <div
+        className="
 bg-gradient-to-br
 from-white
 to-cyan-50
@@ -536,54 +357,42 @@ border-slate-200
 dark:border-slate-700
 
 p-8
-">
-
-
-<h2 className="
+"
+      >
+        <h2
+          className="
 text-2xl
 font-black
 dark:text-white
 mb-4
-">
+"
+        >
+          Job Description
+        </h2>
 
-Job Description
-
-</h2>
-
-
-<p className="
+        <p
+          className="
 text-slate-600
 dark:text-slate-300
 leading-8
-">
+"
+        >
+          {job.description}
+        </p>
 
-{job.description}
-
-</p>
-
-
-
-
-
-<div className="
+        <div
+          className="
 flex
 flex-wrap
 gap-3
 mt-6
-">
-
-
-{
-Array.isArray(job.skills) &&
-
-job.skills.map((skill,index)=>(
-
-
-<span
-
-key={index}
-
-className="
+"
+        >
+          {Array.isArray(job.skills) &&
+            job.skills.map((skill, index) => (
+              <span
+                key={index}
+                className="
 px-4
 py-2
 rounded-full
@@ -599,46 +408,24 @@ dark:text-cyan-300
 
 font-bold
 "
+              >
+                {skill}
+              </span>
+            ))}
+        </div>
+      </div>
 
->
+      {/* BUTTON */}
 
-{skill}
-
-</span>
-
-
-))
-
-}
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-
-{/* BUTTON */}
-
-
-
-<div className="
+      <div
+        className="
 flex
 justify-center
-">
-
-
-<button
-
-onClick={findCandidates}
-
-className="
+"
+      >
+        <button
+          onClick={findCandidates}
+          className="
 flex
 items-center
 gap-3
@@ -678,29 +465,11 @@ hover:scale-105
 transition
 
 "
-
->
-
-
-<Sparkles/>
-
-
-Find Best Candidates
-
-
-</button>
-
-
-</div>
-
-
-
-
-
-</div>
-
-
-);
-
-
+        >
+          <Sparkles />
+          Find Best Candidates
+        </button>
+      </div>
+    </div>
+  );
 }

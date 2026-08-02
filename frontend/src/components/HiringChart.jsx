@@ -8,7 +8,6 @@ import {
   CartesianGrid,
 } from "recharts";
 
-
 const data = [
   {
     month: "Jan",
@@ -36,15 +35,9 @@ const data = [
   },
 ];
 
-
-
 export default function HiringChart() {
-
-
   return (
-
     <div
-
       className="
 
       rounded-3xl
@@ -82,13 +75,8 @@ export default function HiringChart() {
 
 
       "
-
     >
-
-
-
       <h2
-
         className="
 
         text-xl
@@ -112,123 +100,55 @@ export default function HiringChart() {
 
 
         "
-
       >
-
         Hiring Analytics
-
-
       </h2>
 
-
-
-
-
-
-
       <div
-
         className="
 
         h-72
 
         "
-
       >
-
-
-
         <ResponsiveContainer width="100%" height="100%">
-
-
           <LineChart data={data}>
-
-
             <CartesianGrid
-
               strokeDasharray="3 3"
-
               stroke="#94a3b8"
-
               opacity={0.3}
-
             />
 
+            <XAxis dataKey="month" stroke="#64748b" />
 
-
-            <XAxis
-
-              dataKey="month"
-
-              stroke="#64748b"
-
-            />
-
-
-
-            <YAxis
-
-              stroke="#64748b"
-
-            />
-
-
+            <YAxis stroke="#64748b" />
 
             <Tooltip
-
               contentStyle={{
+                backgroundColor: "#111827",
 
-                backgroundColor:"#111827",
+                borderRadius: "12px",
 
-                borderRadius:"12px",
+                border: "1px solid #334155",
 
-                border:"1px solid #334155",
-
-                color:"#61D7E5"
-
+                color: "#61D7E5",
               }}
-
             />
-
-
 
             <Line
-
               type="monotone"
-
               dataKey="hires"
-
               stroke="#0CA0C7"
-
               strokeWidth={4}
-
               dot={{
+                fill: "#61D7E5",
 
-                fill:"#61D7E5",
-
-                strokeWidth:2
-
+                strokeWidth: 2,
               }}
-
             />
-
-
           </LineChart>
-
-
         </ResponsiveContainer>
-
-
-
       </div>
-
-
-
-
     </div>
-
-
   );
-
-
 }

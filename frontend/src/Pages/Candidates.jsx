@@ -3,48 +3,25 @@ import CandidateSearch from "../components/CandidateSearch";
 
 import { useEffect, useMemo, useState } from "react";
 
-import {
-  Users,
-  Mail,
-  BadgeCheck,
-  Sparkles,
-} from "lucide-react";
+import { Users, Mail, BadgeCheck, Sparkles } from "lucide-react";
 
-import {
-  getCandidates,
-  deleteCandidate,
-} from "../api/dashboardApi";
-
-
+import { getCandidates, deleteCandidate } from "../api/dashboardApi";
 
 export default function Candidates() {
+  const [candidates, setCandidates] = useState([]);
 
+  const [search, setSearch] = useState("");
 
-  const [candidates,setCandidates] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const [search,setSearch] = useState("");
+  const [error, setError] = useState("");
 
-  const [loading,setLoading] = useState(true);
-
-  const [error,setError] = useState("");
-
-
-
-
-  useEffect(()=>{
-
+  useEffect(() => {
     loadCandidates();
+  }, []);
 
-  },[]);
-
-
-
-
-
-  async function loadCandidates(){
-
-    try{
-
+  async function loadCandidates() {
+    try {
       setLoading(true);
 
       setError("");
@@ -53,103 +30,34 @@ export default function Candidates() {
 
       const data = res.data?.data || [];
 
-      setCandidates(
-        Array.isArray(data)
-        ?
-        data
-        :
-        []
-      );
+      setCandidates(Array.isArray(data) ? data : []);
+    } catch (error) {
+      console.error("Candidates Error:", error);
 
-
-    }catch(error){
-
-      console.error(
-        "Candidates Error:",
-        error
-      );
-
-      setError(
-        "Failed to load candidates"
-      );
-
-
-    }finally{
-
+      setError("Failed to load candidates");
+    } finally {
       setLoading(false);
-
     }
-
   }
 
+  async function handleDelete(candidate) {
+    const confirmDelete = window.confirm(`Delete ${candidate.name}?`);
 
+    if (!confirmDelete) return;
 
-
-
-
-  async function handleDelete(candidate){
-
-
-    const confirmDelete =
-    window.confirm(
-      `Delete ${candidate.name}?`
-    );
-
-
-    if(!confirmDelete)
-      return;
-
-
-
-
-    try{
-
-
+    try {
       await deleteCandidate(candidate.id);
 
+      setCandidates((prev) => prev.filter((item) => item.id !== candidate.id));
+    } catch (error) {
+      console.error("Delete Error:", error);
 
-
-      setCandidates(prev=>
-
-        prev.filter(
-          item=>item.id !== candidate.id
-        )
-
-      );
-
-
-
-    }catch(error){
-
-      console.error(
-        "Delete Error:",
-        error
-      );
-
-
-      alert(
-        "Delete failed"
-      );
-
+      alert("Delete failed");
     }
-
-
   }
 
-
-
-
-
-
-
-
-  const filteredCandidates =
-  useMemo(()=>{
-
-
-    return candidates.filter(candidate=>{
-
-
+  const filteredCandidates = useMemo(() => {
+    return candidates.filter((candidate) => {
       const text = `
 
       ${candidate.name || ""}
@@ -160,42 +68,16 @@ export default function Candidates() {
 
       `.toLowerCase();
 
-
-
-      return text.includes(
-        search.toLowerCase()
-      );
-
-
+      return text.includes(search.toLowerCase());
     });
+  }, [search, candidates]);
 
+  return (
+    <div className="space-y-10">
+      {/* HERO */}
 
-  },[
-    search,
-    candidates
-  ]);
-
-
-
-
-
-
-
-
-return (
-
-<div className="space-y-10">
-
-
-
-
-
-{/* HERO */}
-
-
-<div
-
-className="
+      <div
+        className="
 
 relative
 
@@ -228,13 +110,9 @@ dark:via-[#0f172a]
 dark:to-[#020617]
 
 "
-
->
-
-
-<div
-
-className="
+      >
+        <div
+          className="
 
 absolute
 
@@ -255,21 +133,12 @@ dark:bg-[#0CA0C7]/20
 blur-3xl
 
 "
+        />
 
-/>
-
-
-
-
-<div className="relative z-10">
-
-
-<div className="flex items-center gap-3">
-
-
-<div
-
-className="
+        <div className="relative z-10">
+          <div className="flex items-center gap-3">
+            <div
+              className="
 
 p-3
 
@@ -284,37 +153,25 @@ border
 border-white/20
 
 "
+            >
+              <Sparkles size={30} />
+            </div>
 
->
-
-<Sparkles size={30}/>
-
-</div>
-
-
-
-<div>
-
-<h1
-
-className="
+            <div>
+              <h1
+                className="
 
 text-5xl
 
 font-black
 
 "
+              >
+                Candidate Management 🚀
+              </h1>
 
->
-
-Candidate Management 🚀
-
-</h1>
-
-
-<p
-
-className="
+              <p
+                className="
 
 mt-3
 
@@ -323,41 +180,19 @@ text-lg
 text-white/80
 
 "
+              >
+                Manage AI analyzed candidates and recruitment profiles.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
 
->
+      {/* ERROR */}
 
-Manage AI analyzed candidates and recruitment profiles.
-
-</p>
-
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-
-{/* ERROR */}
-
-
-{
-error &&
-
-<div
-
-className="
+      {error && (
+        <div
+          className="
 
 bg-red-500/20
 
@@ -376,28 +211,15 @@ border
 border-red-400/30
 
 "
+        >
+          {error}
+        </div>
+      )}
 
->
+      {/* STAT CARDS */}
 
-{error}
-
-</div>
-
-}
-
-
-
-
-
-
-
-
-{/* STAT CARDS */}
-
-
-<div
-
-className="
+      <div
+        className="
 
 grid
 
@@ -406,44 +228,29 @@ md:grid-cols-3
 gap-6
 
 "
+      >
+        {[
+          {
+            title: "Total Candidates",
+            value: candidates.length,
+            icon: <Users size={35} />,
+          },
 
->
+          {
+            title: "Active Profiles",
+            value: candidates.length,
+            icon: <BadgeCheck size={35} />,
+          },
 
-
-
-{
-
-[
-
-{
-title:"Total Candidates",
-value:candidates.length,
-icon:<Users size={35}/>
-},
-
-{
-title:"Active Profiles",
-value:candidates.length,
-icon:<BadgeCheck size={35}/>
-},
-
-{
-title:"Email Records",
-value:candidates.filter(
-(c)=>c.email
-).length,
-icon:<Mail size={35}/>
-}
-
-].map((item,index)=>(
-
-
-
-<div
-
-key={index}
-
-className="
+          {
+            title: "Email Records",
+            value: candidates.filter((c) => c.email).length,
+            icon: <Mail size={35} />,
+          },
+        ].map((item, index) => (
+          <div
+            key={index}
+            className="
 
 relative
 
@@ -496,18 +303,11 @@ duration-500
 hover:scale-[1.03]
 
 "
+          >
+            {/* Glow */}
 
->
-
-
-
-
-
-{/* Glow */}
-
-<div
-
-className="
+            <div
+              className="
 
 absolute
 
@@ -528,140 +328,68 @@ dark:bg-[#0CA0C7]/20
 blur-3xl
 
 "
-
-/>
-
-
-
-
-
-
-
-<div
-
-className="
-
-relative
-
-z-10
-
-"
-
->
-
-
-<div
-
-className="
-
-w-14
-
-h-14
-
-rounded-2xl
-
-flex
-
-items-center
-
-justify-center
-
-
-
-bg-white/20
-
-
-
-backdrop-blur-xl
-
-
-
-border
-
-border-white/20
-
-"
-
->
-
-{item.icon}
-
-</div>
-
-
-
-
-
-<p
-
-className="
-
-mt-5
-
-text-white/80
-
-font-medium
-
-"
-
->
-
-{item.title}
-
-</p>
-
-
-
-
-
-<h2
-
-className="
-
-text-4xl
-
-font-black
-
-mt-1
-
-"
-
->
-
-{item.value}
-
-</h2>
-
-
-
-
-</div>
-
-
-
-</div>
-
-
-
-))
-
-
-}
-
-
-</div>
-
-
-
-<CandidateSearch value={search} onChange={setSearch} />
-
-
-{/* CANDIDATE LIST */}
-
-
-<div
-
-className="
+            />
+
+            <div
+              className="
+    relative
+    z-10
+    flex
+    items-center
+    justify-between
+  "
+            >
+              {/* Left */}
+              <div className="flex items-center gap-4">
+                <div
+                  className="
+        w-14
+        h-14
+        rounded-2xl
+        flex
+        items-center
+        justify-center
+        bg-white/20
+        backdrop-blur-xl
+        border
+        border-white/20
+      "
+                >
+                  {item.icon}
+                </div>
+
+                <h3
+                  className="
+        text-lg
+        font-bold
+        text-white
+      "
+                >
+                  {item.title}
+                </h3>
+              </div>
+
+              {/* Right */}
+              <h2
+                className="
+      text-4xl
+      font-black
+      text-white
+    "
+              >
+                {item.value}
+              </h2>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <CandidateSearch value={search} onChange={setSearch} />
+
+      {/* CANDIDATE LIST */}
+
+      <div
+        className="
 
 grid
 
@@ -672,24 +400,12 @@ xl:grid-cols-3
 gap-8
 
 "
-
->
-
-
-
-{
-
-loading ?
-
-
-[...Array(6)].map((_,index)=>(
-
-
-<div
-
-key={index}
-
-className="
+      >
+        {loading ? (
+          [...Array(6)].map((_, index) => (
+            <div
+              key={index}
+              className="
 
 h-96
 
@@ -702,22 +418,11 @@ dark:bg-white/10
 animate-pulse
 
 "
-
-/>
-
-
-))
-
-
-:
-
-
-filteredCandidates.length===0 ?
-
-
-<div
-
-className="
+            />
+          ))
+        ) : filteredCandidates.length === 0 ? (
+          <div
+            className="
 
 col-span-full
 
@@ -726,15 +431,10 @@ text-center
 py-20
 
 "
-
->
-
-
-<Users
-
-size={70}
-
-className="
+          >
+            <Users
+              size={70}
+              className="
 
 mx-auto
 
@@ -743,14 +443,10 @@ text-gray-300
 mb-5
 
 "
+            />
 
-/>
-
-
-
-<h2
-
-className="
+            <h2
+              className="
 
 text-2xl
 
@@ -761,53 +457,20 @@ text-gray-500
 dark:text-gray-300
 
 "
-
->
-
-No Candidates Found
-
-</h2>
-
-
-
-</div>
-
-
-
-:
-
-
-filteredCandidates.map(candidate=>(
-
-
-<CandidateCard
-
-key={candidate.id}
-
-candidate={candidate}
-
-onDelete={handleDelete}
-
-/>
-
-
-))
-
-
-}
-
-
-
-</div>
-
-
-
-
-
-</div>
-
-
-);
-
-
+            >
+              No Candidates Found
+            </h2>
+          </div>
+        ) : (
+          filteredCandidates.map((candidate) => (
+            <CandidateCard
+              key={candidate.id}
+              candidate={candidate}
+              onDelete={handleDelete}
+            />
+          ))
+        )}
+      </div>
+    </div>
+  );
 }

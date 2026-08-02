@@ -14,214 +14,98 @@ import { useNavigate } from "react-router-dom";
 
 import { createJob } from "../api/dashboardApi";
 
-
-
 export default function CreateJob() {
-
-
   const navigate = useNavigate();
 
-
-
-  const [formData,setFormData] = useState({
-
-    title:"",
-    company:"",
-    location:"",
-    employment_type:"Full Time",
-    experience:"Junior",
-    salary:"",
-    description:"",
-
+  const [formData, setFormData] = useState({
+    title: "",
+    company: "",
+    location: "",
+    employment_type: "Full Time",
+    experience: "Junior",
+    salary: "",
+    description: "",
   });
 
+  const [loading, setLoading] = useState(false);
 
+  const [message, setMessage] = useState("");
 
+  const [success, setSuccess] = useState(false);
 
-  const [loading,setLoading] = useState(false);
-
-  const [message,setMessage] = useState("");
-
-  const [success,setSuccess] = useState(false);
-
-
-
-
-
-
-
-  function handleChange(e){
-
-
+  function handleChange(e) {
     setFormData({
-
       ...formData,
 
-      [e.target.name]:e.target.value,
-
+      [e.target.name]: e.target.value,
     });
-
-
   }
 
-
-
-
-
-
-
-  async function handleSubmit(e){
-
+  async function handleSubmit(e) {
     e.preventDefault();
 
-
-    if(
+    if (
       !formData.title.trim() ||
       !formData.company.trim() ||
       !formData.description.trim()
-    ){
-
-
+    ) {
       setSuccess(false);
 
-      setMessage(
-        "Title, Company and Description are required"
-      );
-
+      setMessage("Title, Company and Description are required");
 
       return;
-
     }
 
-
-
-
-
-    try{
-
-
+    try {
       setLoading(true);
 
       setMessage("");
 
-
-
       const res = await createJob({
+        title: formData.title.trim(),
 
-        title:formData.title.trim(),
+        company: formData.company.trim(),
 
-        company:formData.company.trim(),
+        location: formData.location.trim(),
 
-        location:formData.location.trim(),
+        employment_type: formData.employment_type,
 
-        employment_type:formData.employment_type,
+        experience: formData.experience,
 
-        experience:formData.experience,
+        salary: formData.salary.trim(),
 
-        salary:formData.salary.trim(),
-
-        description:formData.description.trim(),
-
+        description: formData.description.trim(),
       });
-
-
-
-
 
       setSuccess(true);
 
-
-      setMessage(
-        "Job created successfully 🎉"
-      );
-
-
-
-
+      setMessage("Job created successfully 🎉");
 
       const jobId = res.data?.data?.id;
 
-
-
-      setTimeout(()=>{
-
-
-        if(jobId){
-
+      setTimeout(() => {
+        if (jobId) {
           navigate(`/jobs/${jobId}`);
-
-        }
-        else{
-
+        } else {
           navigate("/jobs");
-
         }
-
-
-      },1000);
-
-
-
-
-    }catch(error){
-
-
-      console.log(
-        "Create Job Error:",
-        error.response?.data || error.message
-      );
-
-
+      }, 1000);
+    } catch (error) {
+      console.log("Create Job Error:", error.response?.data || error.message);
 
       setSuccess(false);
 
-
-
-      setMessage(
-
-        error.response?.data?.message ||
-
-        "Failed to create job"
-
-      );
-
-
-
-    }finally{
-
-
+      setMessage(error.response?.data?.message || "Failed to create job");
+    } finally {
       setLoading(false);
-
-
     }
-
-
-
   }
 
-
-
-
-
-
-
   return (
-
-
     <div className="space-y-10">
-
-
-
-
-
-
-
       {/* HERO */}
 
-
-
       <section
-
         className="
 
         relative
@@ -267,15 +151,8 @@ export default function CreateJob() {
         dark:border-white/10
 
         "
-
       >
-
-
-
-
-
         <div
-
           className="
 
           absolute
@@ -297,18 +174,9 @@ export default function CreateJob() {
           blur-3xl
 
           "
-
         />
 
-
-
-
-
-
-
-
         <div
-
           className="
 
           relative
@@ -320,15 +188,8 @@ export default function CreateJob() {
           gap-5
 
           "
-
         >
-
-
-
-
-
           <div
-
             className="
 
             p-5
@@ -350,25 +211,12 @@ export default function CreateJob() {
             border-white/20
 
             "
-
           >
-
-            <Briefcase size={45}/>
-
-
+            <Briefcase size={45} />
           </div>
 
-
-
-
-
-
-
           <div>
-
-
             <h1
-
               className="
 
               text-5xl
@@ -376,20 +224,11 @@ export default function CreateJob() {
               font-black
 
               "
-
             >
-
               Create New Job 🚀
-
-
             </h1>
 
-
-
-
-
             <p
-
               className="
 
               mt-3
@@ -397,38 +236,17 @@ export default function CreateJob() {
               text-white/90
 
               "
-
             >
-
               Create professional job posts and let AI find the best candidates
-
             </p>
-
-
-
-
           </div>
-
-
-
-
         </div>
-
-
-
-
       </section>
 
       {/* FORM */}
 
-
       <form
-
-
         onSubmit={handleSubmit}
-
-
-
         className="
 
         relative
@@ -480,19 +298,10 @@ export default function CreateJob() {
         duration-700
 
         "
-
       >
-
-
-
-
-
         {/* GLOW EFFECT */}
 
-
-
         <div
-
           className="
 
           absolute
@@ -514,36 +323,14 @@ export default function CreateJob() {
           blur-3xl
 
           "
-
         />
 
-
-
-
-
-
-
         <div className="relative z-10 space-y-6">
-
-
-
-
-
-
-
           {/* TITLE + COMPANY */}
 
-
-
           <div className="grid md:grid-cols-2 gap-6">
-
-
-
             <div>
-
-
               <label
-
                 className="
 
                 font-bold
@@ -553,28 +340,15 @@ export default function CreateJob() {
                 dark:text-white
 
                 "
-
               >
-
                 Job Title *
-
               </label>
 
-
-
               <input
-
-
                 name="title"
-
                 value={formData.title}
-
                 onChange={handleChange}
-
-
                 placeholder="React Developer"
-
-
                 className="
 
                 w-full
@@ -616,23 +390,11 @@ export default function CreateJob() {
                 focus:ring-[#0CA0C7]
 
                 "
-
               />
-
-
             </div>
 
-
-
-
-
-
-
             <div>
-
-
               <label
-
                 className="
 
                 font-bold
@@ -642,22 +404,12 @@ export default function CreateJob() {
                 dark:text-white
 
                 "
-
               >
-
                 Company *
-
               </label>
 
-
-
-
-
               <div className="relative">
-
-
                 <Building
-
                   className="
 
                   absolute
@@ -669,28 +421,13 @@ export default function CreateJob() {
                   text-slate-400
 
                   "
-
                 />
 
-
-
-
                 <input
-
-
                   name="company"
-
-
                   value={formData.company}
-
-
                   onChange={handleChange}
-
-
                   placeholder="Google"
-
-
-
                   className="
 
                   w-full
@@ -724,39 +461,16 @@ export default function CreateJob() {
                   dark:text-white
 
                   "
-
                 />
-
-
               </div>
-
-
             </div>
-
-
           </div>
-
-
-
-
-
-
-
-
 
           {/* LOCATION + SALARY */}
 
-
-
           <div className="grid md:grid-cols-2 gap-6">
-
-
-
             <div>
-
-
               <label
-
                 className="
 
                 font-bold
@@ -766,23 +480,12 @@ export default function CreateJob() {
                 dark:text-white
 
                 "
-
               >
-
                 Location
-
               </label>
 
-
-
-
-
               <div className="relative">
-
-
-
                 <MapPin
-
                   className="
 
                   absolute
@@ -794,29 +497,13 @@ export default function CreateJob() {
                   text-slate-400
 
                   "
-
                 />
 
-
-
-
-
                 <input
-
-
                   name="location"
-
-
                   value={formData.location}
-
-
                   onChange={handleChange}
-
-
                   placeholder="Kabul / Remote"
-
-
-
                   className="
 
                   w-full
@@ -850,28 +537,12 @@ export default function CreateJob() {
                   dark:text-white
 
                   "
-
                 />
-
-
               </div>
-
-
-
             </div>
 
-
-
-
-
-
-
-
             <div>
-
-
               <label
-
                 className="
 
                 font-bold
@@ -881,24 +552,12 @@ export default function CreateJob() {
                 dark:text-white
 
                 "
-
               >
-
                 Salary
-
               </label>
 
-
-
-
-
-
               <div className="relative">
-
-
-
                 <DollarSign
-
                   className="
 
                   absolute
@@ -910,30 +569,13 @@ export default function CreateJob() {
                   text-slate-400
 
                   "
-
                 />
 
-
-
-
-
                 <input
-
-
                   name="salary"
-
-
                   value={formData.salary}
-
-
                   onChange={handleChange}
-
-
                   placeholder="$1000 - $2500"
-
-
-
-
                   className="
 
                   w-full
@@ -967,51 +609,18 @@ export default function CreateJob() {
                   dark:text-white
 
                   "
-
                 />
-
-
-
               </div>
-
-
-
             </div>
-
-
-
           </div>
-
-
-
-
-
-
-
-
 
           {/* TYPE + EXPERIENCE */}
 
-
-
           <div className="grid md:grid-cols-2 gap-6">
-
-
-
             <select
-
-
               name="employment_type"
-
-
               value={formData.employment_type}
-
-
               onChange={handleChange}
-
-
-
-
               className="
 
               p-4
@@ -1039,10 +648,7 @@ export default function CreateJob() {
               dark:text-white
 
               "
-
             >
-
-
               <option>Full Time</option>
 
               <option>Part Time</option>
@@ -1050,30 +656,12 @@ export default function CreateJob() {
               <option>Remote</option>
 
               <option>Internship</option>
-
-
             </select>
 
-
-
-
-
-
-
             <select
-
-
               name="experience"
-
-
               value={formData.experience}
-
-
               onChange={handleChange}
-
-
-
-
               className="
 
               p-4
@@ -1101,55 +689,23 @@ export default function CreateJob() {
               dark:text-white
 
               "
-
             >
-
-
               <option>Junior</option>
 
               <option>Mid Level</option>
 
               <option>Senior</option>
-
-
             </select>
-
-
-
           </div>
-
-
-
-
-
-
-
-
 
           {/* DESCRIPTION */}
 
-
-
-
           <textarea
-
-
             name="description"
-
-
             value={formData.description}
-
-
             onChange={handleChange}
-
-
             rows="7"
-
-
             placeholder="Required skills and responsibilities..."
-
-
-
             className="
 
             w-full
@@ -1183,24 +739,11 @@ export default function CreateJob() {
             resize-none
 
             "
-
           />
-
-
-
-
-
-
-
 
           {/* AI BOX */}
 
-
-
-
           <div
-
-
             className="
 
             flex
@@ -1236,37 +779,17 @@ export default function CreateJob() {
             dark:text-[#61D7E5]
 
             "
-
           >
-
-
-
-            <Sparkles size={22}/>
-
-
-
-            AI will generate skills and embeddings automatically for candidate matching.
-
-
-
+            <Sparkles size={22} />
+            AI will generate skills and embeddings automatically for candidate
+            matching.
           </div>
-
-          
 
           {/* SUBMIT BUTTON */}
 
-
-
           <button
-
-
             type="submit"
-
-
             disabled={loading}
-
-
-
             className="
 
             w-full
@@ -1314,54 +837,14 @@ export default function CreateJob() {
             duration-300
 
             "
-
           >
-
-
-
-
-            {
-
-
-              loading
-
-              ?
-
-              "Creating Job..."
-
-              :
-
-              "Create Job"
-
-            }
-
-
-
+            {loading ? "Creating Job..." : "Create Job"}
           </button>
-
-
-
-
-
-
-
-
 
           {/* MESSAGE */}
 
-
-
-
-          {
-
-          message && (
-
-
-
+          {message && (
             <div
-
-
-
               className={`
 
               flex
@@ -1379,81 +862,22 @@ export default function CreateJob() {
 
 
               ${
-
                 success
-
-                ?
-
-
-                "text-green-600 dark:text-green-400"
-
-
-                :
-
-
-                "text-red-600 dark:text-red-400"
-
-
+                  ? "text-green-600 dark:text-green-400"
+                  : "text-red-600 dark:text-red-400"
               }
 
 
 
               `}
-
-
-
             >
-
-
-
-
-              {
-
-
-                success
-
-                ?
-
-                <CheckCircle size={22}/>
-
-                :
-
-                <AlertCircle size={22}/>
-
-
-
-              }
-
-
+              {success ? <CheckCircle size={22} /> : <AlertCircle size={22} />}
 
               {message}
-
-
-
             </div>
-
-
-
-          )
-
-          }
-
-
-
-
-
+          )}
         </div>
-
-
-
       </form>
-
-
-
-
     </div>
-
-
   );
-
 }

@@ -1,136 +1,65 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
-import {
-  Mail,
-  Lock,
-  LogIn,
-  ArrowLeft,
-  Brain,
-} from "lucide-react";
+import { Mail, Lock, LogIn, ArrowLeft, Brain } from "lucide-react";
 
 import { useAuth } from "../context/AuthContext";
 import { loginUser } from "../api/auth";
 
-
-
 export default function Login() {
-
-
   const navigate = useNavigate();
 
   const { login } = useAuth();
 
+  const [email, setEmail] = useState("");
 
+  const [password, setPassword] = useState("");
 
-  const [email,setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const [password,setPassword] = useState("");
+  const [error, setError] = useState("");
 
-  const [loading,setLoading] = useState(false);
-
-  const [error,setError] = useState("");
-
-
-
-
-
-  async function handleSubmit(e){
-
-
+  async function handleSubmit(e) {
     e.preventDefault();
-
 
     setLoading(true);
 
     setError("");
 
-
-
-    if(!email || !password){
-
-
-      setError(
-        "Email and password are required"
-      );
-
+    if (!email || !password) {
+      setError("Email and password are required");
 
       setLoading(false);
 
       return;
-
-
     }
 
-
-
-    try{
-
-
+    try {
       const res = await loginUser({
-
         email,
 
         password,
-
       });
 
-
-
       login(
-
         res.data.user,
 
-        res.data.token
-
+        res.data.token,
       );
-
-
 
       navigate("/dashboard");
-
-
-
-    }catch(err){
-
-
+    } catch (err) {
       console.log(err);
 
-
-
-      setError(
-
-        err.response?.data?.message ||
-
-        "Login failed"
-
-      );
-
-
-
-    }finally{
-
-
+      setError(err.response?.data?.message || "Login failed");
+    } finally {
       setLoading(false);
-
-
     }
-
-
   }
 
-
-
-
-
-return (
-
-
-
-<div
-
-
-className="
+  return (
+    <div
+      className="
 
 min-h-screen
 
@@ -168,19 +97,11 @@ dark:to-[#020617]
 px-4
 
 "
+    >
+      {/* BACKGROUND GLOW */}
 
->
-
-
-
-
-{/* BACKGROUND GLOW */}
-
-
-
-<div
-
-className="
+      <div
+        className="
 
 absolute
 
@@ -199,15 +120,10 @@ bg-[#61D7E5]/30
 blur-[120px]
 
 "
+      />
 
-/>
-
-
-
-
-<div
-
-className="
+      <div
+        className="
 
 absolute
 
@@ -226,26 +142,13 @@ bg-[#0CA0C7]/30
 blur-[120px]
 
 "
+      />
 
-/>
+      {/* BACK BUTTON */}
 
-
-
-
-
-
-
-{/* BACK BUTTON */}
-
-
-
-<button
-
-
-onClick={()=>navigate("/")}
-
-
-className="
+      <button
+        onClick={() => navigate("/")}
+        className="
 
 absolute
 
@@ -294,33 +197,14 @@ hover:scale-105
 transition
 
 "
+      >
+        <ArrowLeft size={18} />
+        Back Home
+      </button>
 
-
->
-
-
-<ArrowLeft size={18}/>
-
-
-Back Home
-
-
-</button>
-
-
-
-
-
-
-
-
-<form
-
-
-onSubmit={handleSubmit}
-
-
-className="
+      <form
+        onSubmit={handleSubmit}
+        className="
 
 
 relative
@@ -362,19 +246,11 @@ p-10
 
 
 "
+      >
+        {/* LOGO */}
 
->
-
-
-
-
-{/* LOGO */}
-
-
-
-<div
-
-className="
+        <div
+          className="
 
 flex
 
@@ -383,13 +259,9 @@ justify-center
 mb-5
 
 "
-
->
-
-
-<div
-
-className="
+        >
+          <div
+            className="
 
 w-16
 
@@ -415,33 +287,13 @@ justify-center
 shadow-lg
 
 "
+          >
+            <Brain size={35} className="text-white" />
+          </div>
+        </div>
 
->
-
-<Brain
-
-size={35}
-
-className="text-white"
-
-/>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-<h1
-
-
-className="
+        <h1
+          className="
 
 text-3xl
 
@@ -456,23 +308,12 @@ dark:text-white
 
 
 "
+        >
+          HR Pilot Login
+        </h1>
 
->
-
-
-HR Pilot Login
-
-
-</h1>
-
-
-
-
-
-<p
-
-
-className="
+        <p
+          className="
 
 text-center
 
@@ -485,25 +326,13 @@ dark:text-white/60
 mb-8
 
 "
+        >
+          Sign in to your AI recruitment platform
+        </p>
 
->
-
-Sign in to your AI recruitment platform
-
-</p>
-
-
-
-
-
-
-
-{
-error &&
-
-<div
-
-className="
+        {error && (
+          <div
+            className="
 
 bg-red-100
 
@@ -518,32 +347,16 @@ mb-5
 text-sm
 
 "
+          >
+            {error}
+          </div>
+        )}
 
->
+        {/* EMAIL */}
 
-{error}
-
-</div>
-
-}
-
-
-
-
-
-
-
-
-{/* EMAIL */}
-
-
-
-<div className="mb-5">
-
-
-<label
-
-className="
+        <div className="mb-5">
+          <label
+            className="
 
 font-bold
 
@@ -552,31 +365,21 @@ text-slate-700
 dark:text-white
 
 "
+          >
+            Email
+          </label>
 
->
-
-Email
-
-</label>
-
-
-
-<div
-
-className="
+          <div
+            className="
 
 relative
 
 mt-2
 
 "
-
->
-
-
-<Mail
-
-className="
+          >
+            <Mail
+              className="
 
 absolute
 
@@ -587,29 +390,15 @@ top-4
 text-gray-400
 
 "
+              size={20}
+            />
 
-size={20}
-
-/>
-
-
-
-<input
-
-
-type="email"
-
-
-value={email}
-
-
-onChange={(e)=>setEmail(e.target.value)}
-
-
-placeholder="admin@gmail.com"
-
-
-className="
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="admin@gmail.com"
+              className="
 
 w-full
 
@@ -639,34 +428,15 @@ focus:ring-2
 focus:ring-[#0CA0C7]
 
 "
+            />
+          </div>
+        </div>
 
- />
+        {/* PASSWORD */}
 
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-
-
-{/* PASSWORD */}
-
-
-
-<div className="mb-8">
-
-
-<label
-
-className="
+        <div className="mb-8">
+          <label
+            className="
 
 font-bold
 
@@ -675,33 +445,21 @@ text-slate-700
 dark:text-white
 
 "
+          >
+            Password
+          </label>
 
->
-
-Password
-
-</label>
-
-
-
-<div
-
-className="
+          <div
+            className="
 
 relative
 
 mt-2
 
 "
-
->
-
-
-
-<Lock
-
-
-className="
+          >
+            <Lock
+              className="
 
 absolute
 
@@ -712,30 +470,15 @@ top-4
 text-gray-400
 
 "
+              size={20}
+            />
 
-
-size={20}
-
-/>
-
-
-
-<input
-
-
-type="password"
-
-
-value={password}
-
-
-onChange={(e)=>setPassword(e.target.value)}
-
-
-placeholder="********"
-
-
-className="
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="********"
+              className="
 
 w-full
 
@@ -765,29 +508,13 @@ focus:ring-2
 focus:ring-[#0CA0C7]
 
 "
+            />
+          </div>
+        </div>
 
-/>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-
-<button
-
-
-disabled={loading}
-
-
-className="
+        <button
+          disabled={loading}
+          className="
 
 w-full
 
@@ -832,42 +559,14 @@ transition
 disabled:opacity-50
 
 "
+        >
+          <LogIn size={20} />
 
+          {loading ? "Signing In..." : "Login"}
+        </button>
 
->
-
-
-<LogIn size={20}/>
-
-
-{
-
-loading
-
-?
-
-"Signing In..."
-
-:
-
-"Login"
-
-}
-
-
-</button>
-
-
-
-
-
-
-
-
-<p
-
-
-className="
+        <p
+          className="
 
 text-center
 
@@ -878,20 +577,11 @@ text-slate-600
 dark:text-white/70
 
 "
-
->
-
-
-Don't have an account?
-
-
-<Link
-
-
-to="/register"
-
-
-className="
+        >
+          Don't have an account?
+          <Link
+            to="/register"
+            className="
 
 ml-2
 
@@ -900,32 +590,11 @@ font-bold
 text-[#0CA0C7]
 
 "
-
-
->
-
-Register
-
-
-</Link>
-
-
-</p>
-
-
-
-
-
-</form>
-
-
-
-
-
-</div>
-
-
-);
-
-
+          >
+            Register
+          </Link>
+        </p>
+      </form>
+    </div>
+  );
 }

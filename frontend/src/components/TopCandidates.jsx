@@ -1,13 +1,8 @@
 import { Trophy, User, Mail, Sparkles } from "lucide-react";
 
-
 export default function TopCandidates({ candidates = [] }) {
-
-
   return (
-
     <div
-
       className="
 
       relative
@@ -63,18 +58,10 @@ export default function TopCandidates({ candidates = [] }) {
       duration-700
 
       "
-
     >
-
-
-
-
       {/* GLOW LIGHT */}
 
-
-
       <div
-
         className="
 
         absolute
@@ -110,26 +97,12 @@ export default function TopCandidates({ candidates = [] }) {
         animate-float
 
         "
-
       />
 
-
-
-
-
       <div className="relative z-10">
-
-
-
-
-
         {/* HEADER */}
 
-
-
-
         <div
-
           className="
 
           flex
@@ -141,13 +114,8 @@ export default function TopCandidates({ candidates = [] }) {
           mb-6
 
           "
-
         >
-
-
-
           <div
-
             className="
 
             bg-white/20
@@ -173,23 +141,12 @@ export default function TopCandidates({ candidates = [] }) {
             border-white/20
 
             "
-
           >
-
-            <Trophy size={24}/>
-
+            <Trophy size={24} />
           </div>
 
-
-
-
-
-
           <div>
-
-
             <h2
-
               className="
 
               text-xl
@@ -197,19 +154,11 @@ export default function TopCandidates({ candidates = [] }) {
               font-black
 
               "
-
             >
-
               Top AI Candidates
-
-
             </h2>
 
-
-
-
             <p
-
               className="
 
               text-sm
@@ -217,45 +166,17 @@ export default function TopCandidates({ candidates = [] }) {
               text-white/80
 
               "
-
             >
-
               Best matched candidates
-
-
             </p>
-
-
-
           </div>
-
-
-
-
         </div>
-
-
-
-
-
-
-
-
 
         {/* CONTENT */}
 
-
-
         <div className="space-y-4">
-
-
-
           {candidates.length === 0 ? (
-
-
-
             <div
-
               className="
 
               bg-white/10
@@ -285,13 +206,8 @@ export default function TopCandidates({ candidates = [] }) {
               border-white/20
 
               "
-
             >
-
-
-
               <Sparkles
-
                 className="
 
                 mx-auto
@@ -301,39 +217,14 @@ export default function TopCandidates({ candidates = [] }) {
                 text-white/60
 
                 "
-
               />
 
-
-
-
-              <p className="text-white/70">
-
-                No AI matches yet
-
-              </p>
-
-
-
-
+              <p className="text-white/70">No AI matches yet</p>
             </div>
-
-
-
           ) : (
-
-
-
-            candidates.map((candidate,index)=>(
-
-
-
+            candidates.map((candidate, index) => (
               <div
-
-
                 key={candidate.id}
-
-
                 className="
 
 
@@ -386,23 +277,10 @@ export default function TopCandidates({ candidates = [] }) {
 
 
                 "
-
-
               >
-
-
-
-
-
-
                 {/* Candidate Info */}
 
-
-
-
-
                 <div
-
                   className="
 
                   flex
@@ -412,13 +290,8 @@ export default function TopCandidates({ candidates = [] }) {
                   gap-3
 
                   "
-
                 >
-
-
-
                   <div
-
                     className="
 
                     bg-white/20
@@ -434,45 +307,22 @@ export default function TopCandidates({ candidates = [] }) {
                     rounded-xl
 
                     "
-
                   >
-
-                    <User size={22}/>
-
-
+                    <User size={22} />
                   </div>
 
-
-
-
-
-
-
                   <div>
-
-
                     <h3
-
                       className="
 
                       font-black
 
                       "
-
                     >
-
                       {candidate.name}
-
-
                     </h3>
 
-
-
-
-
-
                     <div
-
                       className="
 
                       flex
@@ -486,49 +336,18 @@ export default function TopCandidates({ candidates = [] }) {
                       text-white/70
 
                       "
-
                     >
-
-
-                      <Mail size={13}/>
-
-
+                      <Mail size={13} />
 
                       {candidate.email}
-
-
-
                     </div>
-
-
-
-
                   </div>
-
-
-
                 </div>
-
-
-
-
-
-
-
-
 
                 {/* SCORE */}
 
-
-
-
-
                 <div className="text-right">
-
-
-
                   <div
-
                     className="
 
                     bg-white
@@ -566,22 +385,11 @@ export default function TopCandidates({ candidates = [] }) {
                     shadow-md
 
                     "
-
                   >
-
-
                     {candidate.score}%
-
-
                   </div>
 
-
-
-
-
-
                   <p
-
                     className="
 
                     text-xs
@@ -591,55 +399,15 @@ export default function TopCandidates({ candidates = [] }) {
                     mt-2
 
                     "
-
                   >
-
                     Rank #{index + 1}
-
-
                   </p>
-
-
-
-
-
                 </div>
-
-
-
-
-
-
-
               </div>
-
-
-
             ))
-
-
-
           )}
-
-
-
-
-
         </div>
-
-
-
-
-
       </div>
-
-
-
-
-
     </div>
-
-
   );
-
 }

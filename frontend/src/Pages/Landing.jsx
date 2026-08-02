@@ -12,83 +12,55 @@ import {
 import { Link } from "react-router-dom";
 
 import Navbar from "../components/Navbar";
-
-
+import Footer from "../components/Footer";
 
 export default function Landing() {
-
-
   const features = [
-
     {
-      icon: <Brain size={35}/>,
+      icon: <Brain size={35} />,
       title: "AI Recruitment",
-      text:
-      "Advanced artificial intelligence helps recruiters discover the right talent faster."
+      text: "Advanced artificial intelligence helps recruiters discover the right talent faster.",
     },
 
-
     {
-      icon: <Users size={35}/>,
+      icon: <Users size={35} />,
       title: "Smart Candidate Matching",
-      text:
-      "Match candidates with jobs using skills, experience and semantic similarity."
+      text: "Match candidates with jobs using skills, experience and semantic similarity.",
     },
 
-
     {
-      icon: <FileSearch size={35}/>,
+      icon: <FileSearch size={35} />,
       title: "CV Intelligence",
-      text:
-      "Automatically analyze resumes and extract important candidate information."
+      text: "Automatically analyze resumes and extract important candidate information.",
     },
-
 
     {
-      icon: <Target size={35}/>,
+      icon: <Target size={35} />,
       title: "Better Decisions",
-      text:
-      "Make accurate hiring decisions with AI-powered recruitment insights."
+      text: "Make accurate hiring decisions with AI-powered recruitment insights.",
     },
-
   ];
-
-
-
-
 
   const stats = [
-
     {
-      number:"10K+",
-      title:"Candidate Profiles"
+      number: "10K+",
+      title: "Candidate Profiles",
     },
 
-
     {
-      number:"95%",
-      title:"Matching Accuracy"
+      number: "95%",
+      title: "Matching Accuracy",
     },
 
-
     {
-      number:"60%",
-      title:"Faster Hiring"
+      number: "60%",
+      title: "Faster Hiring",
     },
-
-
   ];
 
-
-
-
-
   return (
-
-
-<div
-
-className="
+    <div
+      className="
 
 min-h-screen
 
@@ -115,25 +87,15 @@ transition-all
 duration-700
 
 "
+    >
+      {/* NAVBAR */}
 
->
+      <Navbar />
 
+      {/* HERO */}
 
-{/* NAVBAR */}
-
-<Navbar />
-
-
-
-
-
-{/* HERO */}
-
-
-
-<section
-
-className="
+      <section
+        className="
 
 max-w-7xl
 
@@ -155,17 +117,10 @@ gap-16
 items-center
 
 "
-
->
-
-
-
-<div>
-
-
-<div
-
-className="
+      >
+        <div>
+          <div
+            className="
 
 inline-flex
 
@@ -190,25 +145,13 @@ text-[#0CA0C7]
 font-semibold
 
 "
+          >
+            <Sparkles size={18} />
+            AI Powered Recruitment Platform
+          </div>
 
->
-
-
-<Sparkles size={18}/>
-
-
-AI Powered Recruitment Platform
-
-
-</div>
-
-
-
-
-
-<h1
-
-className="
+          <h1
+            className="
 
 mt-6
 
@@ -225,43 +168,23 @@ text-slate-800
 dark:text-white
 
 "
-
->
-
-
-Hire Smarter
-
-
-<br/>
-
-
-With
-
-
-<span
-
-className="
+          >
+            Hire Smarter
+            <br />
+            With
+            <span
+              className="
 
 text-[#0CA0C7]
 
 "
+            >
+              HR Pilot AI
+            </span>
+          </h1>
 
->
-
-HR Pilot AI
-
-</span>
-
-
-</h1>
-
-
-
-
-
-<p
-
-className="
+          <p
+            className="
 
 mt-6
 
@@ -274,24 +197,14 @@ text-slate-600
 dark:text-white/70
 
 "
+          >
+            HR Pilot uses artificial intelligence to analyze CVs, match
+            candidates and help companies build powerful teams with faster and
+            smarter hiring decisions.
+          </p>
 
->
-
-
-HR Pilot uses artificial intelligence to analyze CVs,
-match candidates and help companies build powerful teams
-with faster and smarter hiring decisions.
-
-
-</p>
-
-
-
-
-
-<div
-
-className="
+          <div
+            className="
 
 mt-8
 
@@ -302,15 +215,10 @@ flex-wrap
 gap-4
 
 "
-
->
-
-
-<Link
-
-to="/register"
-
-className="
+          >
+            <Link
+              to="/register"
+              className="
 
 px-8
 
@@ -335,21 +243,13 @@ hover:scale-105
 transition
 
 "
+            >
+              Get Started
+            </Link>
 
->
-
-Get Started
-
-</Link>
-
-
-
-
-<Link
-
-to="/login"
-
-className="
+            <Link
+              to="/login"
+              className="
 
 px-8
 
@@ -370,27 +270,15 @@ hover:bg-[#61D7E5]/20
 transition
 
 "
+            >
+              Login
+            </Link>
+          </div>
+        </div>
+        {/* AI IMAGE */}
 
->
-
-Login
-
-</Link>
-
-
-
-</div>
-
-
-
-</div>
-{/* AI IMAGE */}
-
-
-
-<div
-
-className="
+        <div
+          className="
 
 relative
 
@@ -399,14 +287,9 @@ flex
 justify-center
 
 "
-
->
-
-
-
-<div
-
-className="
+        >
+          <div
+            className="
 
 absolute
 
@@ -421,19 +304,10 @@ blur-[120px]
 rounded-full
 
 "
+          ></div>
 
->
-
-</div>
-
-
-
-
-
-
-<div
-
-className="
+          <div
+            className="
 
 relative
 
@@ -454,21 +328,11 @@ p-8
 shadow-2xl
 
 "
-
->
-
-
-
-<img
-
-
-src="https://cdn.vectorstock.com/i/500p/53/18/ai-banner-concept-in-the-digital-style-generative-vector-51365318.jpg"
-
-
-alt="AI Recruitment"
-
-
-className="
+          >
+            <img
+              src="https://cdn.vectorstock.com/i/500p/53/18/ai-banner-concept-in-the-digital-style-generative-vector-51365318.jpg"
+              alt="AI Recruitment"
+              className="
 
 rounded-[2rem]
 
@@ -479,36 +343,15 @@ h-96
 object-cover
 
 "
+            />
+          </div>
+        </div>
+      </section>
 
-/>
+      {/* STATS */}
 
-
-
-</div>
-
-
-</div>
-
-
-
-
-</section>
-
-
-
-
-
-
-
-
-
-{/* STATS */}
-
-
-
-<section
-
-className="
+      <section
+        className="
 
 max-w-6xl
 
@@ -523,20 +366,11 @@ md:grid-cols-3
 gap-6
 
 "
-
->
-
-
-{
-
-stats.map((item,index)=>(
-
-
-<div
-
-key={index}
-
-className="
+      >
+        {stats.map((item, index) => (
+          <div
+            key={index}
+            className="
 
 bg-white
 
@@ -555,13 +389,9 @@ border
 border-[#61D7E5]/20
 
 "
-
->
-
-
-<h2
-
-className="
+          >
+            <h2
+              className="
 
 text-4xl
 
@@ -570,18 +400,12 @@ font-black
 text-[#0CA0C7]
 
 "
+            >
+              {item.number}
+            </h2>
 
->
-
-{item.number}
-
-</h2>
-
-
-
-<p
-
-className="
+            <p
+              className="
 
 mt-2
 
@@ -592,39 +416,17 @@ dark:text-white/70
 font-semibold
 
 "
+            >
+              {item.title}
+            </p>
+          </div>
+        ))}
+      </section>
 
->
+      {/* FEATURES */}
 
-{item.title}
-
-</p>
-
-
-</div>
-
-
-))
-
-}
-
-
-</section>
-
-
-
-
-
-
-
-
-
-{/* FEATURES */}
-
-
-
-<section
-
-className="
+      <section
+        className="
 
 max-w-7xl
 
@@ -635,13 +437,9 @@ px-8
 py-20
 
 "
-
->
-
-
-<h2
-
-className="
+      >
+        <h2
+          className="
 
 text-4xl
 
@@ -654,18 +452,12 @@ text-slate-800
 dark:text-white
 
 "
+        >
+          Powerful AI Features
+        </h2>
 
->
-
-Powerful AI Features
-
-</h2>
-
-
-
-<div
-
-className="
+        <div
+          className="
 
 grid
 
@@ -676,20 +468,11 @@ gap-6
 mt-12
 
 "
-
->
-
-
-{
-
-features.map((item,index)=>(
-
-
-<div
-
-key={index}
-
-className="
+        >
+          {features.map((item, index) => (
+            <div
+              key={index}
+              className="
 
 bg-white
 
@@ -712,29 +495,19 @@ hover:-translate-y-2
 transition
 
 "
-
->
-
-
-<div
-
-className="
+            >
+              <div
+                className="
 
 text-[#0CA0C7]
 
 "
+              >
+                {item.icon}
+              </div>
 
->
-
-{item.icon}
-
-</div>
-
-
-
-<h3
-
-className="
+              <h3
+                className="
 
 mt-5
 
@@ -747,18 +520,12 @@ text-slate-800
 dark:text-white
 
 "
+              >
+                {item.title}
+              </h3>
 
->
-
-{item.title}
-
-</h3>
-
-
-
-<p
-
-className="
+              <p
+                className="
 
 mt-3
 
@@ -771,34 +538,18 @@ dark:text-white/70
 leading-6
 
 "
+              >
+                {item.text}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
 
->
+      {/* HOW IT WORKS */}
 
-{item.text}
-
-</p>
-
-
-</div>
-
-
-))
-
-}
-
-
-</div>
-
-
-</section>
-
-{/* HOW IT WORKS */}
-
-
-
-<section
-
-className="
+      <section
+        className="
 
 py-20
 
@@ -807,13 +558,9 @@ bg-white
 dark:bg-black/20
 
 "
-
->
-
-
-<h2
-
-className="
+      >
+        <h2
+          className="
 
 text-4xl
 
@@ -826,20 +573,12 @@ text-slate-800
 dark:text-white
 
 "
+        >
+          How HR Pilot Works
+        </h2>
 
->
-
-How HR Pilot Works
-
-</h2>
-
-
-
-
-
-<div
-
-className="
+        <div
+          className="
 
 max-w-5xl
 
@@ -856,50 +595,33 @@ gap-8
 px-8
 
 "
+        >
+          {[
+            {
+              icon: <UploadCloud />,
+              title: "Upload CV",
+            },
 
->
+            {
+              icon: <Brain />,
+              title: "AI Analysis",
+            },
 
-
-
-{
-
-[
-
-{
-icon:<UploadCloud/>,
-title:"Upload CV"
-},
-
-{
-icon:<Brain/>,
-title:"AI Analysis"
-},
-
-{
-icon:<Zap/>,
-title:"Best Match"
-}
-
-
-].map((step,index)=>(
-
-
-<div
-
-key={index}
-
-className="
+            {
+              icon: <Zap />,
+              title: "Best Match",
+            },
+          ].map((step, index) => (
+            <div
+              key={index}
+              className="
 
 text-center
 
 "
-
->
-
-
-<div
-
-className="
+            >
+              <div
+                className="
 
 mx-auto
 
@@ -924,18 +646,12 @@ items-center
 justify-center
 
 "
+              >
+                {step.icon}
+              </div>
 
->
-
-{step.icon}
-
-</div>
-
-
-
-<h3
-
-className="
+              <h3
+                className="
 
 mt-5
 
@@ -946,45 +662,18 @@ text-xl
 dark:text-white
 
 "
+              >
+                {step.title}
+              </h3>
+            </div>
+          ))}
+        </div>
+      </section>
 
->
+      {/* CTA */}
 
-{step.title}
-
-</h3>
-
-
-
-</div>
-
-
-))
-
-
-}
-
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-
-
-
-
-{/* CTA */}
-
-
-
-<section
-
-className="
+      <section
+        className="
 
 max-w-6xl
 
@@ -1011,24 +700,11 @@ text-white
 shadow-2xl
 
 "
+      >
+        <ShieldCheck size={45} className="mx-auto" />
 
->
-
-
-
-<ShieldCheck
-
-size={45}
-
-className="mx-auto"
-
-/>
-
-
-
-<h2
-
-className="
+        <h2
+          className="
 
 mt-5
 
@@ -1037,39 +713,25 @@ text-4xl
 font-black
 
 "
+        >
+          Ready To Transform Hiring?
+        </h2>
 
->
-
-Ready To Transform Hiring?
-
-</h2>
-
-
-
-<p
-
-className="
+        <p
+          className="
 
 mt-4
 
 text-white/90
 
 "
+        >
+          Start building smarter teams with AI recruitment technology.
+        </p>
 
->
-
-Start building smarter teams with AI recruitment technology.
-
-</p>
-
-
-
-
-<Link
-
-to="/register"
-
-className="
+        <Link
+          to="/register"
+          className="
 
 inline-block
 
@@ -1088,20 +750,11 @@ rounded-2xl
 font-bold
 
 "
-
->
-
-Create Account
-
-</Link>
-
-
-
-</section>
-
+        >
+          Create Account
+        </Link>
+      </section>
+      <Footer />
     </div>
-
-
   );
-
 }

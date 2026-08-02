@@ -9,65 +9,23 @@ import {
   Linkedin,
   Globe,
   Sparkles,
-  FileText,
   Trash2,
   Eye,
 } from "lucide-react";
 
 import { useNavigate } from "react-router-dom";
 
-
-export default function CandidateCard({
-  candidate,
-  onDelete,
-}) {
-
-
+export default function CandidateCard({ candidate, onDelete }) {
   const navigate = useNavigate();
 
-
-
-
-  function openCV(){
-
-    if(candidate.cv_file){
-
-      window.open(
-        `http://localhost:5000/uploads/${candidate.cv_file}`,
-        "_blank"
-      );
-
-    }
-
-  }
-
-
-
-
-
-
   const skills = Array.isArray(candidate.skills)
-
     ? candidate.skills
-
     : typeof candidate.skills === "string"
-
-    ? candidate.skills
-        .split(",")
-        .map(skill => skill.trim())
-
-    : [];
-
-
-
-
-
+      ? candidate.skills.split(",").map((skill) => skill.trim())
+      : [];
 
   return (
-
-
     <div
-
       className="
 
       relative
@@ -119,19 +77,10 @@ export default function CandidateCard({
       hover:-translate-y-2
 
       "
-
     >
-
-
-
-
-
       {/* HEADER */}
 
-
-
       <div
-
         className="
 
         relative
@@ -157,18 +106,10 @@ export default function CandidateCard({
         dark:to-[#020617]
 
         "
-
       >
-
-
-
-
         {/* GLOW */}
 
-
-
         <div
-
           className="
 
           absolute
@@ -198,17 +139,9 @@ export default function CandidateCard({
           top-[-70px]
 
           "
-
         />
 
-
-
-
-
-
-
         <div
-
           className="
 
           relative
@@ -220,15 +153,8 @@ export default function CandidateCard({
           items-center
 
           "
-
         >
-
-
-
-
-
           <div
-
             className="
 
             flex
@@ -238,15 +164,8 @@ export default function CandidateCard({
             gap-4
 
             "
-
           >
-
-
-
-
-
             <div
-
               className="
 
               bg-white/20
@@ -274,25 +193,12 @@ export default function CandidateCard({
               rounded-2xl
 
               "
-
             >
-
-              <User size={35}/>
-
+              <User size={35} />
             </div>
 
-
-
-
-
-
-
             <div>
-
-
-
               <h2
-
                 className="
 
                 text-2xl
@@ -300,20 +206,11 @@ export default function CandidateCard({
                 font-black
 
                 "
-
               >
-
                 {candidate.name}
-
               </h2>
 
-
-
-
-
-
               <p
-
                 className="
 
                 opacity-90
@@ -321,29 +218,13 @@ export default function CandidateCard({
                 mt-1
 
                 "
-
               >
-
                 {candidate.experience_level || "Candidate"}
-
               </p>
-
-
-
             </div>
-
-
-
           </div>
 
-
-
-
-
-
-
           <div
-
             className="
 
             bg-white/20
@@ -371,38 +252,15 @@ export default function CandidateCard({
             rounded-2xl
 
             "
-
           >
-
-            <Sparkles size={28}/>
-
+            <Sparkles size={28} />
           </div>
-
-
-
-
-
-
         </div>
-
-
-
-
       </div>
-
-
-
-
-
-
 
       {/* BODY */}
 
-
-
-
       <div
-
         className="
 
         p-6
@@ -410,21 +268,10 @@ export default function CandidateCard({
         space-y-5
 
         "
-
       >
-
-
-
-
-
-
-
         {/* AI SCORE */}
 
-
-
         <div
-
           className="
 
           flex
@@ -456,13 +303,8 @@ export default function CandidateCard({
           dark:border-white/10
 
           "
-
         >
-
-
-
           <div
-
             className="
 
             flex
@@ -482,20 +324,12 @@ export default function CandidateCard({
             font-black
 
             "
-
           >
-
-            <Sparkles size={20}/>
-
+            <Sparkles size={20} />
             AI Score
-
           </div>
 
-
-
-
           <div
-
             className="
 
             text-3xl
@@ -507,41 +341,22 @@ export default function CandidateCard({
             dark:text-[#61D7E5]
 
             "
-
           >
-
             {candidate.score || 0}%
-
           </div>
-
-
-
         </div>
 
-
-
-
-
-
-
         {/* INFORMATION */}
         {/* INFORMATION */}
-
 
         <div
-
           className="
 
           space-y-3
 
           "
-
         >
-
-
-
           <div
-
             className="
 
             flex
@@ -559,33 +374,19 @@ export default function CandidateCard({
 
 
             "
-
           >
-
-            <Mail size={18}
-
-            className="
+            <Mail
+              size={18}
+              className="
             text-[#0CA0C7]
             dark:text-[#61D7E5]
             "
             />
 
-            <span>
-
-              {candidate.email || "No email"}
-
-            </span>
-
+            <span>{candidate.email || "No email"}</span>
           </div>
 
-
-
-
-
-
-
           <div
-
             className="
 
             flex
@@ -601,34 +402,19 @@ export default function CandidateCard({
             dark:text-slate-300
 
             "
-
           >
-
-            <Phone size={18}
-
-            className="
+            <Phone
+              size={18}
+              className="
             text-[#0CA0C7]
             dark:text-[#61D7E5]
             "
             />
 
-            <span>
-
-              {candidate.phone || "No phone"}
-
-            </span>
-
+            <span>{candidate.phone || "No phone"}</span>
           </div>
 
-
-
-
-
-
-
-
           <div
-
             className="
 
             flex
@@ -644,34 +430,19 @@ export default function CandidateCard({
             dark:text-slate-300
 
             "
-
           >
-
-            <MapPin size={18}
-
-            className="
+            <MapPin
+              size={18}
+              className="
             text-[#0CA0C7]
             dark:text-[#61D7E5]
             "
             />
 
-            <span>
-
-              {candidate.location || "No location"}
-
-            </span>
-
+            <span>{candidate.location || "No location"}</span>
           </div>
 
-
-
-
-
-
-
-
           <div
-
             className="
 
             flex
@@ -687,34 +458,19 @@ export default function CandidateCard({
             dark:text-slate-300
 
             "
-
           >
-
-            <GraduationCap size={18}
-
-            className="
+            <GraduationCap
+              size={18}
+              className="
             text-[#0CA0C7]
             dark:text-[#61D7E5]
             "
             />
 
-            <span>
-
-              {candidate.education || "No education"}
-
-            </span>
-
+            <span>{candidate.education || "No education"}</span>
           </div>
 
-
-
-
-
-
-
-
           <div
-
             className="
 
             flex
@@ -730,54 +486,25 @@ export default function CandidateCard({
             dark:text-slate-300
 
             "
-
           >
-
-            <Briefcase size={18}
-
-            className="
+            <Briefcase
+              size={18}
+              className="
             text-[#0CA0C7]
             dark:text-[#61D7E5]
             "
             />
 
-            <span>
-
-              {candidate.years_of_experience || 0}
-
-              {" "}
-              Years Experience
-
-            </span>
-
+            <span>{candidate.years_of_experience || 0} Years Experience</span>
           </div>
-
-
-
         </div>
-
-
-
-
-
-
-
-
 
         {/* SKILLS */}
 
-
-
-        {
-          skills.length > 0 && (
-
-
-            <div>
-
-
-              <h3
-
-                className="
+        {skills.length > 0 && (
+          <div>
+            <h3
+              className="
 
                 font-black
 
@@ -792,21 +519,12 @@ export default function CandidateCard({
                 dark:text-white
 
                 "
+            >
+              Skills
+            </h3>
 
-              >
-
-                Skills
-
-              </h3>
-
-
-
-
-
-
-              <div
-
-                className="
+            <div
+              className="
 
                 flex
 
@@ -815,20 +533,11 @@ export default function CandidateCard({
                 gap-2
 
                 "
-
-              >
-
-
-
-                {
-                  skills.map((skill,index)=>(
-
-
-                    <span
-
-                      key={index}
-
-                      className="
+            >
+              {skills.map((skill, index) => (
+                <span
+                  key={index}
+                  className="
 
                       px-3
 
@@ -861,43 +570,17 @@ export default function CandidateCard({
                       font-bold
 
                       "
-
-                    >
-
-                      {skill}
-
-                    </span>
-
-
-                  ))
-                }
-
-
-
-              </div>
-
-
-
+                >
+                  {skill}
+                </span>
+              ))}
             </div>
-
-
-          )
-        }
-
-
-
-
-
-
-
-
+          </div>
+        )}
 
         {/* SOCIAL */}
 
-
-
         <div
-
           className="
 
           flex
@@ -907,23 +590,13 @@ export default function CandidateCard({
           pt-2
 
           "
-
         >
-
-
-
-          {
-            candidate.github && (
-
-              <a
-
-                href={candidate.github}
-
-                target="_blank"
-
-                rel="noreferrer"
-
-                className="
+          {candidate.github && (
+            <a
+              href={candidate.github}
+              target="_blank"
+              rel="noreferrer"
+              className="
 
                 text-slate-700
 
@@ -934,33 +607,17 @@ export default function CandidateCard({
                 transition
 
                 "
+            >
+              <Github size={22} />
+            </a>
+          )}
 
-              >
-
-                <Github size={22}/>
-
-              </a>
-
-            )
-          }
-
-
-
-
-
-
-          {
-            candidate.linkedin && (
-
-              <a
-
-                href={candidate.linkedin}
-
-                target="_blank"
-
-                rel="noreferrer"
-
-                className="
+          {candidate.linkedin && (
+            <a
+              href={candidate.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              className="
 
                 text-blue-600
 
@@ -969,33 +626,17 @@ export default function CandidateCard({
                 transition
 
                 "
+            >
+              <Linkedin size={22} />
+            </a>
+          )}
 
-              >
-
-                <Linkedin size={22}/>
-
-              </a>
-
-            )
-          }
-
-
-
-
-
-
-          {
-            candidate.portfolio && (
-
-              <a
-
-                href={candidate.portfolio}
-
-                target="_blank"
-
-                rel="noreferrer"
-
-                className="
+          {candidate.portfolio && (
+            <a
+              href={candidate.portfolio}
+              target="_blank"
+              rel="noreferrer"
+              className="
 
                 text-green-600
 
@@ -1004,133 +645,16 @@ export default function CandidateCard({
                 transition
 
                 "
-
-              >
-
-                <Globe size={22}/>
-
-              </a>
-
-            )
-          }
-
-
-
-        </div>
-
-
-
-
-
-
-
-
-
-        {/* CV BUTTON */}
-
-
-
-        {
-          candidate.cv_file && (
-
-
-            <button
-
-              onClick={openCV}
-
-              className="
-
-              mt-3
-
-              w-full
-
-
-
-              flex
-
-              justify-center
-
-              items-center
-
-              gap-2
-
-
-
-              py-3
-
-
-
-              rounded-2xl
-
-
-
-              bg-gradient-to-r
-
-              from-[#0CA0C7]
-
-              to-[#61D7E5]
-
-
-dark:from-[#111827]
-
-          dark:via-[#0f172a]
-
-          dark:to-[#020617]
-
-
-              text-white
-
-
-
-              font-black
-
-
-
-              shadow-lg
-
-
-
-              hover:scale-[1.02]
-
-
-
-              transition
-
-              "
-
             >
-
-              <FileText size={18}/>
-
-              View CV
-
-            </button>
-
-
-          )
-        }
-
-
-
-
-
-
+              <Globe size={22} />
+            </a>
+          )}
+        </div>
       </div>
-
-
-
-
-
-
-
-
 
       {/* FOOTER BUTTONS */}
 
-
-
       <div
-
         className="
 
         border-t
@@ -1152,26 +676,11 @@ dark:from-[#111827]
         gap-3
 
         "
-
       >
-
-
-
-
-
-
         {/* VIEW */}
 
-
-
         <button
-
-          onClick={()=>
-
-            navigate(`/candidate/${candidate.id}`)
-
-          }
-
+          onClick={() => navigate(`/candidate/${candidate.id}`)}
           className="
 
           flex-1
@@ -1239,31 +748,15 @@ dark:from-[#111827]
           hover:scale-105
 
           "
-
         >
-
-          <Eye size={18}/>
-
+          <Eye size={18} />
           View Profile
-
         </button>
-
-
-
-
-
-
-
-
 
         {/* DELETE */}
 
-
-
         <button
-
-          onClick={()=>onDelete(candidate)}
-
+          onClick={() => onDelete(candidate)}
           className="
 
           w-12
@@ -1327,23 +820,10 @@ dark:from-[#111827]
           dark:hover:bg-red-500/20
 
           "
-
         >
-
-          <Trash2 size={20}/>
-
+          <Trash2 size={20} />
         </button>
-
-
-
       </div>
-
-
-
-
-
     </div>
-
   );
-
 }

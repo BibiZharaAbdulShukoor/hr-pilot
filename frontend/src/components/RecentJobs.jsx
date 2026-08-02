@@ -1,9 +1,7 @@
 import { Briefcase, Clock } from "lucide-react";
 
 export default function RecentJobs({ jobs = [] }) {
-
   return (
-
     <div
       className="
       bg-gradient-to-br
@@ -33,10 +31,7 @@ export default function RecentJobs({ jobs = [] }) {
       duration-700
       "
     >
-
-
       {/* HEADER */}
-
 
       <div
         className="
@@ -46,8 +41,6 @@ export default function RecentJobs({ jobs = [] }) {
         mb-6
         "
       >
-
-
         <div
           className="
           bg-gradient-to-br
@@ -82,7 +75,6 @@ export default function RecentJobs({ jobs = [] }) {
           dark:border-white/10
           "
         >
-
           <Briefcase
             size={24}
             className="
@@ -90,14 +82,9 @@ export default function RecentJobs({ jobs = [] }) {
             dark:text-[#61D7E5]
             "
           />
-
         </div>
 
-
-
         <div>
-
-
           <h2
             className="
             text-xl
@@ -108,12 +95,8 @@ export default function RecentJobs({ jobs = [] }) {
             dark:text-white
             "
           >
-
             Recent Jobs
-
           </h2>
-
-
 
           <p
             className="
@@ -124,38 +107,37 @@ export default function RecentJobs({ jobs = [] }) {
             dark:text-white/60
             "
           >
-
             Latest created positions
-
           </p>
-
-
-
         </div>
-
-
-
       </div>
-
-
-
-
-
-
 
       {/* JOB LIST */}
 
+      {/* JOB LIST */}
 
+      <div
+        className="
+  space-y-4
 
-      <div className="space-y-4">
+  max-h-[420px]
 
+  overflow-y-auto
 
-        {
-          jobs.length === 0 ? (
+  pr-2
 
+  scrollbar-thin
 
-            <div
-              className="
+  scrollbar-thumb-[#0CA0C7]
+
+  dark:scrollbar-thumb-[#61D7E5]
+
+  scrollbar-track-transparent
+  "
+      >
+        {jobs.length === 0 ? (
+          <div
+            className="
               bg-slate-100
 
               dark:bg-white/10
@@ -181,37 +163,22 @@ export default function RecentJobs({ jobs = [] }) {
 
               dark:border-white/10
               "
-            >
-
-
-              <p
-                className="
+          >
+            <p
+              className="
                 text-slate-400
 
                 dark:text-white/60
                 "
-              >
-
-                No jobs available
-
-              </p>
-
-
-            </div>
-
-
-
-          ) : (
-
-
-            jobs.map((job)=>(
-
-
-              <div
-                key={job.id}
-
-
-                className="
+            >
+              No jobs available
+            </p>
+          </div>
+        ) : (
+          jobs.map((job) => (
+            <div
+              key={job.id}
+              className="
                 flex
 
                 justify-between
@@ -263,22 +230,12 @@ export default function RecentJobs({ jobs = [] }) {
 
                 duration-300
                 "
-              >
+            >
+              {/* INFO */}
 
-
-
-
-
-                {/* INFO */}
-
-
-
-                <div>
-
-
-
-                  <h3
-                    className="
+              <div>
+                <h3
+                  className="
                     font-black
 
 
@@ -287,19 +244,12 @@ export default function RecentJobs({ jobs = [] }) {
 
                     dark:text-white
                     "
-                  >
+                >
+                  {job.title}
+                </h3>
 
-                    {job.title}
-
-                  </h3>
-
-
-
-
-
-
-                  <div
-                    className="
+                <div
+                  className="
                     flex
 
                     items-center
@@ -322,43 +272,22 @@ export default function RecentJobs({ jobs = [] }) {
 
                     mt-2
                     "
-                  >
-
-
-
-                    <Clock
-                      size={14}
-                      className="
+                >
+                  <Clock
+                    size={14}
+                    className="
                       text-[#0CA0C7]
                       dark:text-[#61D7E5]
                       "
-                    />
-
-
-
-                    Recently Added
-
-
-
-                  </div>
-
-
-
-
+                  />
+                  Recently Added
                 </div>
+              </div>
 
+              {/* STATUS */}
 
-
-
-
-
-
-                {/* STATUS */}
-
-
-
-                <div
-                  className="
+              <div
+                className="
                   bg-[#61D7E5]/20
 
 
@@ -393,38 +322,13 @@ export default function RecentJobs({ jobs = [] }) {
 
                   text-sm
                   "
-                >
-
-                  Active
-
-
-                </div>
-
-
-
-
-
+              >
+                Active
               </div>
-
-
-
-            ))
-
-
-          )
-
-        }
-
-
-
+            </div>
+          ))
+        )}
       </div>
-
-
-
-
-
     </div>
-
   );
-
 }

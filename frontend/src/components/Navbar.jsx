@@ -1,11 +1,6 @@
 import { useState } from "react";
 
-import {
-  NavLink,
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
-
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 
 import {
   Brain,
@@ -18,144 +13,68 @@ import {
   LogOut,
 } from "lucide-react";
 
-
 import { useTheme } from "../context/ThemeContext";
 import { useAuth } from "../context/AuthContext";
 
-
-
 function Navbar() {
-
-
   const { darkMode, toggleTheme } = useTheme();
-
 
   const { user, logout } = useAuth();
 
-
   const navigate = useNavigate();
-
 
   const location = useLocation();
 
-
-
   const [showProfile, setShowProfile] = useState(false);
-
-
-
-
 
   const isLanding = location.pathname === "/";
 
-
   const showNotification = user && !isLanding;
 
-
-
-
-
-
   function handleLogout() {
-
-
     logout();
 
-
     navigate("/login");
-
-
   }
 
+  const getUserInitials = () => {
+    if (!user?.name) {
+      return "HR";
+    }
 
+    const words = user.name
 
+      .trim()
 
+      .split(" ")
 
+      .filter(Boolean);
 
+    if (words.length === 1) {
+      return words[0][0].toUpperCase();
+    }
 
- const getUserInitials = () => {
-
-
-  if (!user?.name) {
-
-    return "HR";
-
-  }
-
-
-
-  const words = user.name
-
-    .trim()
-
-    .split(" ")
-
-    .filter(Boolean);
-
-
-
-
-  if (words.length === 1) {
-
-
-    return words[0][0].toUpperCase();
-
-
-  }
-
-
-
-
-  return (
-
-    words[0][0] +
-
-    words[words.length - 1][0]
-
-  ).toUpperCase();
-
-
-
-};
-
-
-
-
-
+    return (words[0][0] + words[words.length - 1][0]).toUpperCase();
+  };
 
   const navItems = isLanding
-
     ? [
-
         {
           name: "About",
           path: "/about",
           icon: Info,
         },
 
-
         {
           name: "Contact",
           path: "/contact",
           icon: Mail,
         },
-
       ]
-
     : [];
 
-
-
-
-
-
-
   return (
-
-
     <header
-
-
       className="
 
       fixed
@@ -225,26 +144,13 @@ function Navbar() {
 
 
       "
-
     >
-
-
-
-
-
       {/* LOGO */}
 
-
       <div className="flex items-center gap-3">
-
-
         <img
-
           src="https://cdn.vectorstock.com/i/500p/53/18/ai-banner-concept-in-the-digital-style-generative-vector-51365318.jpg"
-
           alt="AI Logo"
-
-
           className="
 
           w-12
@@ -258,18 +164,10 @@ function Navbar() {
           shadow-lg
 
           "
-
         />
 
-
-
-
-
         <div>
-
-
           <h1
-
             className="
 
             text-2xl
@@ -284,19 +182,11 @@ function Navbar() {
 
 
             "
-
           >
-
             HR Pilot
-
           </h1>
 
-
-
-
-
           <p
-
             className="
 
             text-xs
@@ -309,23 +199,14 @@ function Navbar() {
 
 
             "
-
           >
-
             AI Recruitment Platform
-
           </p>
-
-
         </div>
-
-
       </div>
       {/* NAVIGATION */}
 
-
       <nav
-
         className="
 
         flex
@@ -335,33 +216,15 @@ function Navbar() {
         gap-8
 
         "
-
       >
-
-
-
-        {navItems.map((item)=>{
-
-
+        {navItems.map((item) => {
           const Icon = item.icon;
 
-
-
           return (
-
-
             <NavLink
-
-
               key={item.path}
-
-
               to={item.path}
-
-
-              className={({isActive}) =>
-
-
+              className={({ isActive }) =>
                 `
 
                 flex
@@ -386,67 +249,26 @@ function Navbar() {
 
 
                 ${
-
                   isActive
-
-                  ?
-
-                  "text-[#0CA0C7]"
-
-                  :
-
-                  "text-slate-600 dark:text-white/70 hover:text-[#0CA0C7]"
-
+                    ? "text-[#0CA0C7]"
+                    : "text-slate-600 dark:text-white/70 hover:text-[#0CA0C7]"
                 }
 
 
                 `
-
-
               }
-
-
             >
-
-
-
-              <Icon size={18}/>
-
-
+              <Icon size={18} />
 
               {item.name}
-
-
-
             </NavLink>
-
-
           );
-
-
         })}
-
-
-
       </nav>
-
-
-
-
-
-
-
-
 
       {/* RIGHT SIDE */}
 
-
-
-
-
       <div
-
-
         className="
 
         flex
@@ -456,22 +278,10 @@ function Navbar() {
         gap-5
 
         "
-
       >
-
-
-
-
-
         {/* AI ACCURACY */}
 
-
-
-
-
         <div
-
-
           className="
 
           flex
@@ -508,33 +318,11 @@ function Navbar() {
           backdrop-blur-xl
 
           "
-
         >
-
-
-
-          <Brain
-
-
-            size={20}
-
-
-            className="text-[#0CA0C7] dark:text-[#61D7E5]"
-
-
-          />
-
-
-
-
+          <Brain size={20} className="text-[#0CA0C7] dark:text-[#61D7E5]" />
 
           <div>
-
-
-
             <p
-
-
               className="
 
               text-xs
@@ -545,20 +333,11 @@ function Navbar() {
               dark:text-white/60
 
               "
-
             >
-
               AI Accuracy
-
             </p>
 
-
-
-
-
             <p
-
-
               className="
 
               text-sm
@@ -571,41 +350,16 @@ function Navbar() {
               dark:text-[#61D7E5]
 
               "
-
             >
-
               94%
-
             </p>
-
-
-
           </div>
-
-
-
         </div>
-
-
-
-
-
-
-
-
 
         {/* THEME BUTTON */}
 
-
-
-
-
         <button
-
-
           onClick={toggleTheme}
-
-
           className="
 
           p-2
@@ -643,34 +397,15 @@ function Navbar() {
           duration-300
 
           "
-
         >
-
-
-          {darkMode ? (
-
-            <Sun size={20}/>
-
-          ) : (
-
-            <Moon size={20}/>
-
-          )}
-
-
+          {darkMode ? <Sun size={20} /> : <Moon size={20} />}
         </button>
 
         {/* NOTIFICATION */}
 
-
         {showNotification && (
-
           <button
-
-
             onClick={() => navigate("/notifications")}
-
-
             className="
 
             relative
@@ -722,19 +457,10 @@ function Navbar() {
             duration-300
 
             "
-
           >
-
-
-
-            <Bell size={22}/>
-
-
-
+            <Bell size={22} />
 
             <span
-
-
               className="
 
               absolute
@@ -756,35 +482,14 @@ function Navbar() {
 
 
               "
-
             />
-
-
           </button>
-
-
         )}
-
-
-
-
-
-
-
-
 
         {/* PROFILE */}
 
-
-
-
-
         {!isLanding && (
-
-
           <div
-
-
             className="
 
             relative
@@ -796,18 +501,9 @@ function Navbar() {
             gap-2
 
             "
-
           >
-
-
-
-
             <button
-
-
               onClick={() => setShowProfile(!showProfile)}
-
-
               className="
 
               flex
@@ -817,15 +513,8 @@ function Navbar() {
               gap-2
 
               "
-
             >
-
-
-
-
               <div
-
-
                 className="
 
                 w-11
@@ -882,25 +571,12 @@ function Navbar() {
                 shadow-lg
 
                 "
-
               >
-
-
                 {getUserInitials()}
-
-
               </div>
 
-
-
-
-
               <ChevronDown
-
-
                 size={18}
-
-
                 className="
 
                 text-slate-600
@@ -909,22 +585,13 @@ function Navbar() {
                 dark:text-white/70
 
                 "
-
               />
-
-
             </button>
 
             {/* PROFILE MENU */}
 
-
-
             {showProfile && (
-
-
               <div
-
-
                 className="
 
                 absolute
@@ -954,13 +621,8 @@ function Navbar() {
                 z-50
 
                 "
-
               >
-
-
-
                 <p
-
                   className="
 
                   font-bold
@@ -970,19 +632,11 @@ function Navbar() {
                   dark:text-white
 
                   "
-
                 >
-
                   {user?.name || "User"}
-
                 </p>
 
-
-
-
-
                 <p
-
                   className="
 
                   text-sm
@@ -994,24 +648,12 @@ function Navbar() {
                   mb-4
 
                   "
-
                 >
-
                   {user?.email}
-
                 </p>
 
-
-
-
-
-
                 <button
-
-
                   onClick={handleLogout}
-
-
                   className="
 
                   w-full
@@ -1039,48 +681,17 @@ function Navbar() {
                   transition
 
                   "
-
                 >
-
-
-                  <LogOut size={18}/>
-
-
+                  <LogOut size={18} />
                   Logout
-
-
                 </button>
-
-
-
-
-
               </div>
-
-
             )}
-
-
-
           </div>
-
-
         )}
-
-
-
       </div>
-
-
-
-
     </header>
-
-
   );
-
-
 }
-
 
 export default Navbar;

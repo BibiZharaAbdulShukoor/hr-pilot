@@ -1,18 +1,10 @@
 import { CalendarDays } from "lucide-react";
 
-
 export default function CalendarWidget() {
-
-
   const today = new Date();
 
-
-
   return (
-
-
     <div
-
       className="
 
       rounded-3xl
@@ -50,15 +42,8 @@ export default function CalendarWidget() {
 
 
       "
-
     >
-
-
-
-
-
       <div
-
         className="
 
         flex
@@ -70,27 +55,16 @@ export default function CalendarWidget() {
         mb-5
 
         "
-
       >
-
-
-
         <CalendarDays
-
           className="
 
           text-[#0CA0C7]
 
           "
-
         />
 
-
-
-
-
         <h2
-
           className="
 
           text-xl
@@ -112,28 +86,12 @@ export default function CalendarWidget() {
 
 
           "
-
         >
-
           HR Calendar
-
-
         </h2>
-
-
-
       </div>
 
-
-
-
-
-
-
-
-
       <div
-
         className="
 
         bg-[#61D7E5]/10
@@ -157,13 +115,8 @@ export default function CalendarWidget() {
 
 
         "
-
       >
-
-
-
         <p
-
           className="
 
           text-slate-500
@@ -171,20 +124,11 @@ export default function CalendarWidget() {
           dark:text-slate-400
 
           "
-
         >
-
           Today
-
-
         </p>
 
-
-
-
-
         <h3
-
           className="
 
           text-3xl
@@ -198,32 +142,16 @@ export default function CalendarWidget() {
 
 
           "
-
         >
-
           {today.toLocaleDateString("en-US", {
             weekday: "long",
             month: "short",
             day: "numeric",
           })}
-
-
         </h3>
-
-
-
       </div>
 
-
-
-
-
-
-
-
-
       <div
-
         className="
 
         mt-5
@@ -231,13 +159,8 @@ export default function CalendarWidget() {
         space-y-3
 
         "
-
       >
-
-
-
         <div
-
           className="
 
           p-4
@@ -276,22 +199,11 @@ export default function CalendarWidget() {
 
 
           "
-
         >
-
           10:00 Interview - React Developer
-
-
         </div>
 
-
-
-
-
-
-
         <div
-
           className="
 
           p-4
@@ -330,26 +242,10 @@ export default function CalendarWidget() {
 
 
           "
-
         >
-
           14:00 Review Candidates
-
-
         </div>
-
-
-
-
-
       </div>
-
-
-
-
     </div>
-
-
   );
-
 }

@@ -1,1008 +1,805 @@
+import { useState } from "react";
+
 import {
   User,
   Mail,
-  Sparkles,
-  Trophy,
-  Eye,
   Brain,
   Code,
   Briefcase,
+  Trophy,
   Medal,
+  Sparkles,
+  Eye,
+  ChevronDown,
+  ChevronUp,
+  CheckCircle2,
 } from "lucide-react";
 
 import { useNavigate } from "react-router-dom";
 
-
 export default function MatchCard({ candidate, rank }) {
-
   const navigate = useNavigate();
 
+  const [openRecommendation, setOpenRecommendation] = useState(false);
 
   const score = Number(
-    candidate.score ??
-    candidate.similarity ??
-    candidate.matchScore ??
-    0
+    candidate.score ?? candidate.similarity ?? candidate.matchScore ?? 0,
   );
-
 
   const embeddingScore = Number(
-    candidate.embeddingScore ??
-    candidate.embedding_score ??
-    0
+    candidate.embeddingScore ?? candidate.embedding_score ?? 0,
   );
 
-
-  const skillScore = Number(
-    candidate.skillScore ??
-    candidate.skill_score ??
-    0
-  );
-
+  const skillScore = Number(candidate.skillScore ?? candidate.skill_score ?? 0);
 
   const experienceScore = Number(
-    candidate.experienceScore ??
-    candidate.experience_score ??
-    0
+    candidate.experienceScore ?? candidate.experience_score ?? 0,
   );
 
+  const explanation = candidate.explanation || candidate.reason || "";
 
-  const explanation =
-    candidate.explanation ||
-    candidate.reason ||
-    "";
-
-
-
-  const skills =
-    Array.isArray(candidate.skills)
-
+  const skills = Array.isArray(candidate.skills)
     ? candidate.skills
+    : typeof candidate.skills === "string"
+      ? candidate.skills.split(",").map((item) => item.trim())
+      : [];
 
-    :
+  function scoreColor() {
+    if (score >= 90) return "text-emerald-500 dark:text-emerald-400";
 
-    typeof candidate.skills === "string"
+    if (score >= 70) return "text-[#0CA0C7] dark:text-[#61D7E5]";
 
-    ?
-
-    candidate.skills
-      .split(",")
-      .map((skill)=>skill.trim())
-
-    :
-
-    [];
-
-
-
-
-  function scoreColor(){
-
-    if(score >= 90)
-      return "text-emerald-600 dark:text-emerald-400";
-
-
-    if(score >=70)
-      return "text-cyan-600 dark:text-cyan-400";
-
-
-    return "text-orange-600 dark:text-orange-400";
-
+    return "text-slate-500 dark:text-slate-300";
   }
 
+  function progressColor() {
+    if (score >= 90) return "bg-emerald-500 dark:bg-emerald-400";
 
+    if (score >= 70) return "bg-[#0CA0C7] dark:bg-[#61D7E5]";
 
-
-
-  function progressColor(){
-
-    if(score >=90)
-      return "bg-emerald-500";
-
-
-    if(score >=70)
-      return "bg-cyan-500";
-
-
-    return "bg-orange-500";
-
+    return "bg-slate-400 dark:bg-slate-500";
   }
 
-
-
-
-
-  function RankBadge(){
-
-
-    if(rank === 1){
-
+  function RankBadge() {
+    if (rank === 1) {
       return (
-
-        <span
+        <div
           className="
-          flex
+          inline-flex
           items-center
-          gap-1
+          gap-2
 
-          px-4
-          py-2
+          px-3
+          py-1.5
 
           rounded-full
 
           bg-yellow-100
-          text-yellow-700
+          text-yellow-600
 
           dark:bg-yellow-500/20
           dark:text-yellow-300
 
+          text-xs
           font-bold
-          text-sm
           "
         >
-
-          <Trophy size={16}/>
-
+          <Trophy size={13} />
           Best Match
-
-        </span>
-
+        </div>
       );
-
     }
 
-
-
-    if(rank <= 3){
-
+    if (rank <= 3) {
       return (
-
-        <span
+        <div
           className="
-          flex
+          inline-flex
           items-center
-          gap-1
+          gap-2
 
-          px-4
-          py-2
+          px-3
+          py-1.5
 
           rounded-full
 
           bg-cyan-100
-          text-cyan-700
+          text-[#0CA0C7]
 
-          dark:bg-cyan-500/20
-          dark:text-cyan-300
+          dark:bg-[#0CA0C7]/20
+          dark:text-[#61D7E5]
 
+          text-xs
           font-bold
-          text-sm
           "
         >
-
-          <Medal size={16}/>
-
+          <Medal size={13} />
           Top {rank}
-
-        </span>
-
+        </div>
       );
-
     }
 
+    return (
+      <div
+        className="
+        inline-flex
+        items-center
 
-    return null;
+        px-3
+        py-1.5
 
+        rounded-full
+
+        bg-slate-100
+        text-slate-600
+
+        dark:bg-slate-700
+        dark:text-slate-300
+
+        text-xs
+        font-semibold
+        "
+      >
+        Rank #{rank}
+      </div>
+    );
   }
 
-
-
-
-
-
   return (
-
     <div
-
       className="
-      relative
+      w-full
       overflow-hidden
 
+      rounded-[2rem]
 
       bg-gradient-to-br
-
       from-white
       to-cyan-50
 
-
       dark:bg-gradient-to-br
-
       dark:from-[#111827]
       dark:via-[#0f172a]
       dark:to-[#020617]
 
-
-      rounded-[2rem]
-
+      border
+      border-white/60
+      dark:border-slate-700
 
       shadow-xl
 
+      transition-all
+      duration-700
+
+      hover:-translate-y-2
+      "
+    >
+      <div
+        className="
+        grid
+
+        lg:grid-cols-[270px_420px_1fr]
+
+        divide-y
+
+        lg:divide-y-0
+
+        lg:divide-x
+
+        divide-slate-200
+        dark:divide-slate-700
+        "
+      >
+        {/* ================= LEFT PANEL ================= */}
+        <div className="p-6 flex flex-col">
+          <RankBadge />
+
+          <div className="mt-6 flex items-center gap-4">
+            <div
+              className="
+              h-16
+              w-16
+
+              rounded-2xl
+
+              bg-gradient-to-br
+              from-[#0CA0C7]
+              to-[#61D7E5]
+
+              flex
+              items-center
+              justify-center
+
+              shadow-lg
+              "
+            >
+              <User size={30} className="text-white" />
+            </div>
+
+            <div className="min-w-0">
+              <h2
+                className="
+                text-3xl
+
+                font-bold
+
+                text-slate-800
+                dark:text-white
+
+                truncate
+                "
+              >
+                {candidate.name || "Unknown Candidate"}
+              </h2>
+
+              <div
+                className="
+                mt-2
+
+                flex
+
+                items-center
+
+                gap-2
+
+                text-slate-600
+                dark:text-slate-300
+
+                text-sm
+                "
+              >
+                <Mail size={14} />
+
+                <span className="truncate">
+                  {candidate.email || "No Email"}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* ================= CENTER PANEL ================= */}
+        <div className="p-6">
+          <div
+            className="
+            flex
+            items-center
+            justify-between
+            "
+          >
+            <h3
+              className="
+              text-base
+
+              font-bold
+
+              text-slate-800
+              dark:text-white
+              "
+            >
+              AI Match Score
+            </h3>
+
+            <span
+              className={`
+              text-4xl
+
+              font-extrabold
+
+              ${scoreColor()}
+              `}
+            >
+              {score.toFixed(1)}%
+            </span>
+          </div>
+
+          {/* Progress */}
+
+          <div className="mt-3">
+            <div
+              className="
+              h-2
+
+              rounded-full
+
+              overflow-hidden
+
+              bg-slate-200
+              dark:bg-slate-700
+              "
+            >
+              <div
+                className={`
+                h-full
+
+                rounded-full
+
+                transition-all
+
+                duration-700
+
+                ${progressColor()}
+                `}
+                style={{
+                  width: `${score}%`,
+                }}
+              />
+            </div>
+          </div>
+
+          {/* Score Cards */}
+
+          <div className="mt-6 grid grid-cols-3 gap-3">
+            <ScoreItem
+              icon={<Brain size={18} />}
+              title="Semantic"
+              value={embeddingScore}
+            />
+
+            <ScoreItem
+              icon={<Code size={18} />}
+              title="Skills"
+              value={skillScore}
+            />
+
+            <ScoreItem
+              icon={<Briefcase size={18} />}
+              title="Experience"
+              value={experienceScore}
+            />
+          </div>
+        </div>
+        {/* ================= RIGHT PANEL ================= */}
+        <div className="p-6 flex flex-col justify-between">
+          {/* Skills */}
+
+          <div>
+            <h3
+              className="
+              text-base
+
+              font-bold
+
+              text-slate-800
+              dark:text-white
+
+              mb-4
+              "
+            >
+              Skills
+            </h3>
+
+            <div className="flex flex-wrap gap-2">
+              {skills.length > 0 ? (
+                skills.map((skill, index) => (
+                  <div
+                    key={index}
+                    className="
+                    flex
+
+                    items-center
+
+                    gap-2
+
+                    rounded-full
+
+                    px-3
+
+                    py-1.5
+
+                    bg-cyan-100
+
+                    border
+
+                    border-cyan-200
+
+                    dark:bg-[#0CA0C7]/10
+
+                    dark:border-[#0CA0C7]/20
+                    "
+                  >
+                    <CheckCircle2
+                      size={13}
+                      className="
+                      text-[#0CA0C7]
+                      dark:text-[#61D7E5]
+                      "
+                    />
+
+                    <span
+                      className="
+                      text-xs
+
+                      font-semibold
+
+                      text-slate-700
+                      dark:text-slate-200
+                      "
+                    >
+                      {skill}
+                    </span>
+                  </div>
+                ))
+              ) : (
+                <span
+                  className="
+                  text-slate-500
+                  dark:text-slate-400
+                  "
+                >
+                  No skills available
+                </span>
+              )}
+            </div>
+          </div>
+
+          {/* AI Recommendation */}
+
+          {explanation && (
+            <div
+              className="
+              mt-6
+
+              rounded-2xl
+
+              border
+
+              border-slate-200
+
+              dark:border-slate-700
+
+              overflow-hidden
+              "
+            >
+              <button
+                onClick={() => setOpenRecommendation(!openRecommendation)}
+                className="
+                w-full
+
+                px-4
+
+                py-3
+
+                flex
+
+                items-center
+
+                justify-between
+
+                bg-cyan-50
+
+                hover:bg-cyan-100
+
+                dark:bg-white/10
+
+                dark:hover:bg-white/20
+
+                transition
+                "
+              >
+                <div className="flex items-center gap-3">
+                  <div
+                    className="
+                    w-9
+
+                    h-9
+
+                    rounded-xl
+
+                    bg-gradient-to-br
+
+                    from-[#0CA0C7]
+
+                    to-[#61D7E5]
+
+                    flex
+
+                    items-center
+
+                    justify-center
+                    "
+                  >
+                    <Sparkles size={16} className="text-white" />
+                  </div>
+
+                  <div className="text-left">
+                    <h4
+                      className="
+                      text-sm
+
+                      font-bold
+
+                      text-slate-800
+                      dark:text-white
+                      "
+                    >
+                      AI Recommendation
+                    </h4>
+
+                    <p
+                      className="
+                      text-xs
+
+                      text-slate-600
+                      dark:text-slate-400
+                      "
+                    >
+                      View AI analysis
+                    </p>
+                  </div>
+                </div>
+
+                {openRecommendation ? (
+                  <ChevronUp
+                    className="
+                    text-[#0CA0C7]
+                    dark:text-[#61D7E5]
+                    "
+                  />
+                ) : (
+                  <ChevronDown
+                    className="
+                    text-[#0CA0C7]
+                    dark:text-[#61D7E5]
+                    "
+                  />
+                )}
+              </button>
+
+              {openRecommendation && (
+                <div
+                  className="
+                  p-5
+
+                  bg-white
+
+                  dark:bg-[#111827]
+
+                  border-t
+
+                  border-slate-200
+
+                  dark:border-slate-700
+                  "
+                >
+                  <div
+                    className="
+                    border-l-4
+
+                    border-[#0CA0C7]
+
+                    dark:border-[#61D7E5]
+
+                    pl-4
+                    "
+                  >
+                    <p
+                      className="
+                      text-sm
+
+                      leading-7
+
+                      text-slate-600
+
+                      dark:text-slate-300
+                      "
+                    >
+                      {explanation}
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Button */}
+
+          <button
+            onClick={() =>
+              navigate(`/candidate/${candidate.candidate_id || candidate.id}`)
+            }
+            className="
+            mt-6
+
+            w-full
+
+            rounded-2xl
+
+            py-3
+
+            bg-gradient-to-r
+
+            from-[#0CA0C7]
+
+            to-[#61D7E5]
+
+
+            dark:from-[#111827]
+
+            dark:via-[#0f172a]
+
+            dark:to-[#020617]
+
+
+            text-white
+
+            font-black
+
+
+            flex
+
+            items-center
+
+            justify-center
+
+            gap-2
+
+
+            shadow-lg
+
+
+            hover:scale-[1.02]
+
+
+            transition-all
+            "
+          >
+            <Eye size={18} />
+            View Candidate Profile
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+function ScoreItem({ icon, title, value }) {
+  const percentage = Number(value || 0);
+
+  function valueColor() {
+    if (percentage >= 90) return "text-emerald-500 dark:text-emerald-400";
+
+    if (percentage >= 70) return "text-[#0CA0C7] dark:text-[#61D7E5]";
+
+    return "text-slate-500 dark:text-slate-300";
+  }
+
+  function progressColor() {
+    if (percentage >= 90) return "bg-emerald-500 dark:bg-emerald-400";
+
+    if (percentage >= 70) return "bg-[#0CA0C7] dark:bg-[#61D7E5]";
+
+    return "bg-slate-400 dark:bg-slate-500";
+  }
+
+  return (
+    <div
+      className="
+      rounded-xl
 
       border
 
-      border-white/60
+      border-cyan-100
 
       dark:border-slate-700
+
+
+      bg-white
+
+      dark:bg-[#1A2332]
+
+
+      p-3
 
 
       transition-all
 
-      duration-700
+
+      duration-300
 
 
-      hover:-translate-y-2
+      hover:border-[#0CA0C7]
 
+      dark:hover:border-[#61D7E5]
+
+
+      hover:-translate-y-1
       "
-
     >
-
-
-
-      {/* HEADER GLOW */}
-
-      <div
-
-        className="
-        absolute
-
-        w-52
-
-        h-52
-
-        rounded-full
-
-
-        bg-cyan-400/20
-
-
-        dark:bg-[#0CA0C7]/20
-
-
-        blur-3xl
-
-
-        right-[-70px]
-
-        top-[-70px]
-
-        "
-
-      />
-
-
-
-
-      <div className="relative z-10">
-
-
-
-      {/* HEADER */}
-
-      <div
-
-        className="
-        relative
-
-        p-6
-
-        text-white
-
-
-        bg-gradient-to-r
-
-        from-[#0CA0C7]
-
-        to-[#61D7E5]
-
-
-        dark:from-[#111827]
-
-        dark:via-[#0f172a]
-
-        dark:to-[#020617]
-
-
-        rounded-t-[2rem]
-
-        "
-
-      >
-
-
-        <div
-
-          className="
-          flex
-          justify-between
-          items-start
-          "
-
-        >
-
-
-          <div>
-
-            <div
-              className="
-              flex
-              items-center
-              gap-2
-
-              font-black
-              "
-            >
-
-              <Sparkles size={22}/>
-
-              AI Rank #{rank}
-
-            </div>
-
-
-            <p className="mt-3 opacity-90">
-              AI Candidate Recommendation
-            </p>
-
-
-          </div>
-
-
-
-
-          <div
-
-            className="
-            bg-white/20
-
-            dark:bg-white/10
-
-            backdrop-blur-xl
-
-
-            border
-
-            border-white/20
-
-
-            p-3
-
-            rounded-2xl
-
-            "
-
-          >
-
-            <User size={28}/>
-
-          </div>
-
-
-        </div>
-
-
-      </div>
-
-      {/* BODY */}
-
-      <div
-        className="
-        p-6
-        space-y-6
-        "
-      >
-
-
-        {/* PROFILE */}
-
+      <div className="flex items-center gap-3">
         <div
           className="
+          w-9
+
+          h-9
+
+          rounded-xl
+
+
           flex
+
           items-center
-          gap-4
-          "
-        >
-
-         <div
-  className="
-  p-4
-
-  rounded-3xl
-
-
-  bg-white/20
-
-  backdrop-blur-xl
-
-
-  dark:bg-white/10
-
-
-  border
-
-  border-white/20
-
-
-  text-white
-
-
-  shadow-lg
-  "
->
-
-            <User size={34}/>
-
-          </div>
-
-
-
-          <div>
-
-            <h2
-              className="
-              text-xl
-              font-black
-
-              text-slate-800
-
-              dark:text-white
-              "
-            >
-
-              {candidate.name || "Unknown Candidate"}
-
-            </h2>
-
-
-
-            <p
-              className="
-              flex
-              items-center
-              gap-2
-
-              text-slate-600
-
-              dark:text-slate-300
-
-              text-sm
-              "
-            >
-
-              <Mail size={15}/>
-
-              {candidate.email || "No Email"}
-
-            </p>
-
-
-          </div>
-
-
-        </div>
-
-
-
-
-
-
-        {/* SCORE */}
-
-        <div>
-
-
-          <div
-            className="
-            flex
-            justify-between
-            mb-3
-            font-black
-
-            text-slate-700
-
-            dark:text-white
-            "
-          >
-
-            <span>
-              AI Match Score
-            </span>
-
-
-            <span className={scoreColor()}>
-              {score.toFixed(1)}%
-            </span>
-
-
-          </div>
-
-
-
-          <div
-            className="
-            h-3
-
-            rounded-full
-
-            overflow-hidden
-
-
-            bg-slate-200
-
-            dark:bg-white/10
-            "
-          >
-
-            <div
-              className={`
-              h-full
-
-              rounded-full
-
-              transition-all
-
-              duration-700
-
-              ${progressColor()}
-              `}
-
-              style={{
-                width:`${score}%`
-              }}
-
-            />
-
-          </div>
-
-
-        </div>
-
-
-
-
-
-
-
-        {/* SCORE DETAILS */}
-
-
-        <div
-          className="
-          space-y-3
-          "
-        >
-
-
-          <ScoreItem
-
-            icon={<Brain size={18}/>}
-
-            title="Semantic AI"
-
-            value={embeddingScore}
-
-          />
-
-
-
-          <ScoreItem
-
-            icon={<Code size={18}/>}
-
-            title="Skills Match"
-
-            value={skillScore}
-
-          />
-
-
-
-          <ScoreItem
-
-            icon={<Briefcase size={18}/>}
-
-            title="Experience"
-
-            value={experienceScore}
-
-          />
-
-
-        </div>
-
-
-
-
-
-
-
-        {/* SKILLS */}
-
-
-        {
-          skills.length > 0 &&
-
-          <div
-            className="
-            flex
-            flex-wrap
-            gap-2
-            "
-          >
-
-            {
-              skills.map((skill,index)=>(
-
-                <span
-
-                  key={index}
-
-                  className="
-                  px-4
-                  py-2
-
-                  rounded-full
-
-
-                  bg-cyan-100
-
-                  text-cyan-700
-
-
-                  dark:bg-cyan-500/20
-
-                  dark:text-cyan-300
-
-
-                  font-bold
-
-                  text-sm
-                  "
-
-                >
-
-                  {skill}
-
-                </span>
-
-
-              ))
-            }
-
-
-          </div>
-
-        }
-
-
-
-
-
-
-        {/* AI RECOMMENDATION */}
-
-
-        {
-          explanation &&
-
-          <div
-  className="
-  p-5
-
-  rounded-3xl
-
-
-  bg-gradient-to-br
-
-  from-cyan-50
-
-  to-white
-
-
-  dark:bg-gradient-to-br
-
-  dark:from-[#111827]
-
-  dark:via-[#0f172a]
-
-  dark:to-[#020617]
-
-
-  border
-
-  border-cyan-100
-
-
-  dark:border-slate-700
-
-
-  shadow-inner
-
-  "
->
-
-            <div
-              className="
-              flex
-              items-center
-              gap-2
-
-              font-black
-
-              text-[#0CA0C7]
-
-              dark:text-[#61D7E5]
-              "
-            >
-
-              <Sparkles size={18}/>
-
-              AI Recommendation
-
-            </div>
-
-
-
-
-            <p
-              className="
-              mt-3
-
-              text-slate-600
-
-              dark:text-slate-300
-
-              text-sm
-
-              leading-7
-              "
-            >
-
-              {explanation}
-
-            </p>
-
-
-          </div>
-
-        }
-
-        {/* PROFILE BUTTON */}
-
-
-        <button
-
-          onClick={() =>
-            navigate(
-              `/candidate/${candidate.candidate_id || candidate.id}`
-            )
-          }
-
-
-          className="
-
-          w-full
-
-          py-4
-
-
-          rounded-2xl
-
-
-          flex
 
           justify-center
 
-          items-center
 
-          gap-2
-
+          bg-cyan-100
 
 
-          bg-gradient-to-r
-
-          from-[#0CA0C7]
-
-          to-[#61D7E5]
+          text-[#0CA0C7]
 
 
-
-          dark:from-[#111827]
-
-          dark:via-[#0f172a]
-
-          dark:to-[#020617]
+          dark:bg-[#0CA0C7]/15
 
 
-
-          dark:border
-
-          dark:border-slate-700
-
-
-
-          text-white
-
-
-          font-black
-
-
-
-          shadow-lg
-
-
-
-          transition-all
-
-          duration-500
-
-
-
-          hover:scale-105
-
-
+          dark:text-[#61D7E5]
           "
-
         >
+          {icon}
+        </div>
 
-          <Eye size={18}/>
+        <div className="flex-1">
+          <p
+            className="
+            text-xs
+
+            font-medium
 
 
-          View Candidate Profile
+            text-slate-600
 
 
-        </button>
+            dark:text-slate-400
+            "
+          >
+            {title}
+          </p>
 
+          <h3
+            className={`
+            mt-1
 
+            text-lg
 
+            font-bold
+
+            ${valueColor()}
+            `}
+          >
+            {percentage.toFixed(0)}%
+          </h3>
+        </div>
       </div>
-
-
-      </div>
-
-
-    </div>
-
-  );
-
-}
-
-
-
-
-
-
-
-function ScoreItem({
-  icon,
-  title,
-  value
-}) {
-
-
-  return (
-
-
-    <div
-
-      className="
-
-      flex
-
-      justify-between
-
-      items-center
-
-
-
-      p-4
-
-
-
-      rounded-2xl
-
-
-
-
-      bg-slate-50
-
-
-
-      dark:bg-white/5
-
-
-
-      border
-
-      border-slate-200
-
-
-
-      dark:border-slate-700
-
-
-
-      "
-
-    >
-
-
 
       <div
-
         className="
+        mt-3
 
-        flex
+        h-1.5
 
-        items-center
+        rounded-full
 
-        gap-3
-
-
-
-        font-bold
+        overflow-hidden
 
 
-
-        text-slate-700
-
+        bg-slate-200
 
 
-        dark:text-white
-
-
-
+        dark:bg-slate-700
         "
-
       >
+        <div
+          className={`
+          h-full
 
-        {icon}
+          rounded-full
 
 
-        {title}
-
-
+          ${progressColor()}
+          `}
+          style={{
+            width: `${percentage}%`,
+          }}
+        />
       </div>
-
-
-
-
-
-      <span
-
-        className="
-
-        font-black
-
-
-
-        text-[#0CA0C7]
-
-
-
-        dark:text-[#61D7E5]
-
-        "
-
-      >
-
-        {Number(value || 0).toFixed(1)}%
-
-      </span>
-
-
-
     </div>
-
-
   );
-
 }

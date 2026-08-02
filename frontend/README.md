@@ -6,82 +6,82 @@ Features
 
 Authentication
 
-* User registration and login
-* Secure authentication using JWT
-* Protected routes
-* Logout functionality
+- User registration and login
+- Secure authentication using JWT
+- Protected routes
+- Logout functionality
 
 Dashboard
 
-* Overview of recruitment statistics
-* Candidate and job summaries
-* Notification panel
-* Real-time system insights
+- Overview of recruitment statistics
+- Candidate and job summaries
+- Notification panel
+- Real-time system insights
 
 Candidate Management
 
-* Upload candidate resumes in PDF and DOCX formats
-* Extract text from uploaded resumes
-* Generate AI embeddings
-* View candidate profiles
-* Delete candidates
+- Upload candidate resumes in PDF and DOCX formats
+- Extract text from uploaded resumes
+- Generate AI embeddings
+- View candidate profiles
+- Delete candidates
 
 Job Management
 
-* Create new job positions
-* Edit existing jobs
-* Delete jobs
-* View detailed job descriptions
+- Create new job positions
+- Edit existing jobs
+- Delete jobs
+- View detailed job descriptions
 
 AI Matching
 
-* Semantic matching between candidates and jobs
-* AI-generated compatibility scores
-* AI explanation for each recommendation
+- Semantic matching between candidates and jobs
+- AI-generated compatibility scores
+- AI explanation for each recommendation
 
 Search and Filtering
 
-* Search candidates
-* Search jobs
-* Filter recruitment data
+- Search candidates
+- Search jobs
+- Filter recruitment data
 
 User Interface
 
-* Responsive design
-* Dark and Light mode
-* Modern dashboard layout
-* Sidebar navigation
-* Notification system
+- Responsive design
+- Dark and Light mode
+- Modern dashboard layout
+- Sidebar navigation
+- Notification system
 
 Technologies Used
 
 Frontend
 
-* React
-* React Router
-* Tailwind CSS
-* Lucide React
-* Axios
+- React
+- React Router
+- Tailwind CSS
+- Lucide React
+- Axios
 
 Backend
 
-* Node.js
-* Express.js
-* JWT Authentication
-* Multer
-* PDF Parse
-* Mammoth
+- Node.js
+- Express.js
+- JWT Authentication
+- Multer
+- PDF Parse
+- Mammoth
 
 Database
 
-* Supabase
-* PostgreSQL
-* pgvector
+- Supabase
+- PostgreSQL
+- pgvector
 
 Artificial Intelligence
 
-* OpenRouter Embeddings
-* Semantic Similarity Matching
+- OpenRouter Embeddings
+- Semantic Similarity Matching
 
 Project Structure
 
@@ -134,16 +134,15 @@ CHAT_MODEL=openai/gpt-4o-mini
 
 JWT_SECRET=HR_PILOT_SECRET_KEY
 
-
 Future Improvements
 
-* Candidate ranking improvements
-* Email notifications
-* Interview scheduling
-* Advanced analytics
-* Multi-user support
-* Resume history
-* Company management
+- Candidate ranking improvements
+- Email notifications
+- Interview scheduling
+- Advanced analytics
+- Multi-user support
+- Resume history
+- Company management
 
 Author
 

@@ -20,12 +20,8 @@ import RecentCandidates from "../components/RecentCandidates";
 import RecentJobs from "../components/RecentJobs";
 import InsightCard from "../components/InsightCard";
 
-
 export default function Dashboard() {
-
-
   const [dashboardData, setDashboardData] = useState({
-
     totalCandidates: 0,
     totalJobs: 0,
     aiAccuracy: 0,
@@ -33,56 +29,26 @@ export default function Dashboard() {
     topCandidates: [],
     recentCandidates: [],
     recentJobs: [],
-
   });
 
-
-
   useEffect(() => {
-
-
     async function loadDashboard() {
-
-
       try {
-
         const res = await getDashboardStats();
 
-        console.log(
-          "Dashboard Data:",
-          res.data
-        );
+        console.log("Dashboard Data:", res.data);
 
-        setDashboardData(
-          res.data.data
-        );
-
-
-      } catch(error) {
-
-        console.log(
-          "Dashboard Error:",
-          error
-        );
-
+        setDashboardData(res.data.data);
+      } catch (error) {
+        console.log("Dashboard Error:", error);
       }
-
-
     }
 
-
     loadDashboard();
-
-
   }, []);
 
-
-
-
   return (
-
     <div
-
       className="
 
       min-h-screen
@@ -106,18 +72,10 @@ export default function Dashboard() {
       duration-500
 
       "
-
     >
-
-
-
-
       {/* AI BACKGROUND LIGHT */}
 
-
-
       <div
-
         className="
 
         absolute
@@ -146,15 +104,9 @@ export default function Dashboard() {
         animate-float
 
         "
-
       />
 
-
-
-
-
       <div
-
         className="
 
         absolute
@@ -184,24 +136,12 @@ export default function Dashboard() {
 
 
         "
-
       />
-
-
-
-
-
-
-
 
       {/* HERO */}
 
-
-{/* HERO */}
-
-<section
-
-  className="
+      <section
+        className="
   relative
 
   overflow-hidden
@@ -250,16 +190,11 @@ export default function Dashboard() {
   animate-fadeIn
 
   "
+      >
+        {/* MOVING LIGHT */}
 
->
-
-
-  {/* MOVING LIGHT */}
-
-
-  <div
-
-    className="
+        <div
+          className="
 
     absolute
 
@@ -289,15 +224,10 @@ export default function Dashboard() {
 
 
     "
+        />
 
-  />
-
-
-
-
-  <div
-
-    className="
+        <div
+          className="
 
     absolute
 
@@ -328,18 +258,10 @@ export default function Dashboard() {
 
 
     "
+        />
 
-  />
-
-
-
-
-
-
-
-  <div
-
-    className="
+        <div
+          className="
 
     relative
 
@@ -350,16 +272,9 @@ export default function Dashboard() {
     gap-6
 
     "
-
-  >
-
-
-
-
-
-    <div
-
-      className="
+        >
+          <div
+            className="
 
       p-6
 
@@ -385,25 +300,13 @@ export default function Dashboard() {
 
 
       "
+          >
+            <Brain size={50} />
+          </div>
 
-    >
-
-      <Brain size={50}/>
-
-    </div>
-
-
-
-
-
-
-
-    <div>
-
-
-      <h1
-
-        className="
+          <div>
+            <h1
+              className="
 
         text-5xl
 
@@ -415,21 +318,12 @@ export default function Dashboard() {
 
 
         "
+            >
+              HR Pilot AI 🚀
+            </h1>
 
-      >
-
-        HR Pilot AI 🚀
-
-
-      </h1>
-
-
-
-
-
-      <p
-
-        className="
+            <p
+              className="
 
         mt-4
 
@@ -445,34 +339,16 @@ export default function Dashboard() {
 
 
         "
-
-      >
-
-        Intelligent AI recruitment dashboard
-
-        powered by semantic matching
-
-
-      </p>
-
-
-
-    </div>
-
-
-
-  </div>
-
-
-
-</section>
+            >
+              Intelligent AI recruitment dashboard powered by semantic matching
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* STAT CARDS */}
 
-
-
       <div
-
         className="
 
         grid
@@ -486,82 +362,39 @@ export default function Dashboard() {
         z-10
 
         "
-
       >
-
-
-
         <DashboardStat
-
           title="Candidates"
-
           value={dashboardData.totalCandidates}
-
-          icon={<Users size={35}/>}
-
+          icon={<Users size={35} />}
           gradient="bg-[#0CA0C7]"
-
         />
 
-
-
         <DashboardStat
-
           title="Active Jobs"
-
           value={dashboardData.totalJobs}
-
-          icon={<BriefcaseBusiness size={35}/>}
-
+          icon={<BriefcaseBusiness size={35} />}
           gradient="bg-[#0AB2CF]"
-
         />
 
-
-
         <DashboardStat
-
           title="AI Accuracy"
-
           value={`${dashboardData.aiAccuracy}%`}
-
-          icon={<Sparkles size={35}/>}
-
+          icon={<Sparkles size={35} />}
           gradient="bg-[#61D7E5]"
-
         />
-
-
 
         <DashboardStat
-
           title="Hiring Rate"
-
           value={`${dashboardData.hiringRate}%`}
-
-          icon={<UserCheck size={35}/>}
-
+          icon={<UserCheck size={35} />}
           gradient="bg-[#0CA0C7]"
-
         />
-
-
       </div>
-
-
-
-
-
-
-
-
 
       {/* ANALYTICS */}
 
-
-
       <div
-
         className="
 
         grid
@@ -575,13 +408,8 @@ export default function Dashboard() {
         z-10
 
         "
-
       >
-
-
-
         <div
-
           className="
 
           xl:col-span-2
@@ -619,20 +447,11 @@ export default function Dashboard() {
           hover:-translate-y-1
 
           "
-
         >
-
-          <HiringChart/>
-
+          <HiringChart />
         </div>
 
-
-
-
-
-
         <div
-
           className="
 
           rounded-3xl
@@ -664,82 +483,37 @@ export default function Dashboard() {
           hover:-translate-y-1
 
           "
-
         >
-
-          <CalendarWidget/>
-
+          <CalendarWidget />
         </div>
-
-
-
       </div>
-
-
-
-
-
-
-
 
       {/* AI SECTION */}
 
-
-
       <div
-
         className="
+  flex
 
-        grid
+  flex-col
 
-        lg:grid-cols-4
+  gap-8
 
-        gap-8
+  relative
 
-        relative
-
-        z-10
-
-        "
-
+  z-10
+  "
       >
+        <TopCandidates candidates={dashboardData.topCandidates} />
 
+        <InsightCard data={dashboardData} />
 
-        <TopCandidates
+        <NotificationPanel />
 
-          candidates={dashboardData.topCandidates}
-
-        />
-
-
-        <InsightCard
-
-          data={dashboardData}
-
-        />
-
-
-        <NotificationPanel/>
-
-
-        <NotesWidget/>
-
-
+        <NotesWidget />
       </div>
-
-
-
-
-
-
-
-
       {/* RECENT */}
 
-
-
       <div
-
         className="
 
         grid
@@ -753,35 +527,11 @@ export default function Dashboard() {
         z-10
 
         "
-
       >
+        <RecentCandidates candidates={dashboardData.recentCandidates} />
 
-
-
-        <RecentCandidates
-
-          candidates={dashboardData.recentCandidates}
-
-        />
-
-
-
-        <RecentJobs
-
-          jobs={dashboardData.recentJobs}
-
-        />
-
-
+        <RecentJobs jobs={dashboardData.recentJobs} />
       </div>
-
-
-
-
-
     </div>
-
-
   );
-
 }

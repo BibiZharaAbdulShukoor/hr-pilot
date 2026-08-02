@@ -1,74 +1,36 @@
 import { useEffect, useState } from "react";
 
-import {
-  Bell,
-  CheckCircle,
-  AlertCircle,
-  Sparkles,
-} from "lucide-react";
+import { Bell, CheckCircle, AlertCircle, Sparkles } from "lucide-react";
 
 import { getNotifications } from "../api/dashboardApi";
 
-
 export default function NotificationPanel() {
+  const [notifications, setNotifications] = useState([]);
 
-
-  const [notifications,setNotifications] = useState([]);
-
-
-
-  useEffect(()=>{
-
+  useEffect(() => {
     loadNotifications();
+  }, []);
 
-  },[]);
-
-
-
-
-  async function loadNotifications(){
-
-    try{
-
+  async function loadNotifications() {
+    try {
       const res = await getNotifications();
 
-      setNotifications(
-        res.data.data || []
-      );
-
-
-    }catch(error){
-
+      setNotifications(res.data.data || []);
+    } catch (error) {
       console.log(error);
 
       setNotifications([]);
-
     }
-
   }
 
-
-
-
-
-  function getTime(date){
-
-    if(!date) return "";
+  function getTime(date) {
+    if (!date) return "";
 
     return new Date(date).toLocaleString();
-
   }
 
-
-
-
-
   return (
-
-
     <div
-
-
       className="
 
       relative
@@ -124,17 +86,10 @@ export default function NotificationPanel() {
       duration-700
 
       "
-
     >
-
-
-
-
       {/* GLOW */}
 
-
       <div
-
         className="
 
         absolute
@@ -168,27 +123,12 @@ export default function NotificationPanel() {
         animate-float
 
         "
-
       />
 
-
-
-
-
-
-
       <div className="relative z-10">
-
-
-
-
-
         {/* HEADER */}
 
-
-
         <div
-
           className="
 
           flex
@@ -200,13 +140,8 @@ export default function NotificationPanel() {
           mb-6
 
           "
-
         >
-
-
-
           <div
-
             className="
 
             bg-white/20
@@ -232,23 +167,12 @@ export default function NotificationPanel() {
             border-white/20
 
             "
-
           >
-
-            <Bell size={26}/>
-
-
+            <Bell size={26} />
           </div>
 
-
-
-
-
           <div>
-
-
             <h2
-
               className="
 
               text-xl
@@ -256,18 +180,11 @@ export default function NotificationPanel() {
               font-black
 
               "
-
             >
-
               Notifications
-
             </h2>
 
-
-
-
             <p
-
               className="
 
               text-sm
@@ -275,49 +192,33 @@ export default function NotificationPanel() {
               text-white/80
 
               "
-
             >
-
               Latest AI activities
-
             </p>
-
-
-
-
           </div>
-
-
-
         </div>
-
-
-
-
-
-
-
-
 
         {/* LIST */}
 
+        <div
+          className="
+  space-y-4
 
+  max-h-[420px]
 
+  overflow-y-auto
 
+  pr-2
 
-        <div className="space-y-4">
+  scrollbar-thin
 
+  scrollbar-thumb-white/40
 
-
-
-
-        {
-          notifications.length === 0 ? (
-
-
-
+  scrollbar-track-transparent
+  "
+        >
+          {notifications.length === 0 ? (
             <div
-
               className="
 
               bg-white/20
@@ -347,15 +248,9 @@ export default function NotificationPanel() {
               border-white/20
 
               "
-
             >
-
-
-
               <Bell
-
                 size={40}
-
                 className="
 
                 mx-auto
@@ -365,23 +260,11 @@ export default function NotificationPanel() {
                 text-white/70
 
                 "
-
               />
 
-
-
-
-              <p className="font-bold">
-
-                No notifications yet
-
-              </p>
-
-
-
+              <p className="font-bold">No notifications yet</p>
 
               <p
-
                 className="
 
                 text-sm
@@ -391,34 +274,14 @@ export default function NotificationPanel() {
                 mt-2
 
                 "
-
               >
-
                 System notifications will appear here.
-
               </p>
-
-
-
-
             </div>
-
-
-
           ) : (
-
-
-
-            notifications.map((item)=>(
-
-
-
+            notifications.map((item) => (
               <div
-
-
                 key={item.id}
-
-
                 className="
 
                 flex
@@ -464,16 +327,8 @@ export default function NotificationPanel() {
                 duration-300
 
                 "
-
               >
-
-
-
-
-
                 <div
-
-
                   className={`
 
                   w-11
@@ -492,98 +347,38 @@ export default function NotificationPanel() {
 
                   ${
                     item.type === "success"
-
-                    ?
-
-                    "bg-emerald-400 text-white"
-
-                    :
-
-                    item.type === "ai"
-
-                    ?
-
-                    "bg-[#61D7E5] text-white"
-
-                    :
-
-                    item.type === "warning"
-
-                    ?
-
-                    "bg-orange-400 text-white"
-
-                    :
-
-                    "bg-blue-400 text-white"
-
+                      ? "bg-emerald-400 text-white"
+                      : item.type === "ai"
+                        ? "bg-[#61D7E5] text-white"
+                        : item.type === "warning"
+                          ? "bg-orange-400 text-white"
+                          : "bg-blue-400 text-white"
                   }
 
 
                   `}
-
-
                 >
-
-
-
-                  {
-                    item.type === "success"
-
-                    ?
-
-                    <CheckCircle size={22}/>
-
-                    :
-
-                    item.type === "ai"
-
-                    ?
-
-                    <Sparkles size={22}/>
-
-                    :
-
-                    <AlertCircle size={22}/>
-
-                  }
-
-
-
+                  {item.type === "success" ? (
+                    <CheckCircle size={22} />
+                  ) : item.type === "ai" ? (
+                    <Sparkles size={22} />
+                  ) : (
+                    <AlertCircle size={22} />
+                  )}
                 </div>
 
-
-
-
-
-
-
-
                 <div className="flex-1">
-
-
-
                   <h3
-
                     className="
 
                     font-black
 
                     "
-
                   >
-
                     {item.title}
-
                   </h3>
 
-
-
-
-
-
                   <p
-
                     className="
 
                     text-sm
@@ -593,20 +388,11 @@ export default function NotificationPanel() {
                     mt-1
 
                     "
-
                   >
-
                     {item.message}
-
                   </p>
 
-
-
-
-
-
                   <span
-
                     className="
 
                     block
@@ -618,56 +404,15 @@ export default function NotificationPanel() {
                     mt-2
 
                     "
-
                   >
-
                     {getTime(item.created_at)}
-
-
                   </span>
-
-
-
-
                 </div>
-
-
-
-
-
-
-
               </div>
-
-
-
             ))
-
-
-
-          )
-
-        }
-
-
-
-
-
+          )}
         </div>
-
-
-
-
       </div>
-
-
-
-
-
     </div>
-
-
   );
-
-
 }

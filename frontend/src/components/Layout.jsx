@@ -3,14 +3,8 @@ import Sidebar from "./Sidebar";
 import Footer from "./Footer";
 import { Outlet } from "react-router-dom";
 
-
-
 function Layout() {
-
-
   return (
-
-
     <div
       className="
       min-h-screen
@@ -30,11 +24,7 @@ function Layout() {
       duration-700
       "
     >
-
-
-
       {/* AI BACKGROUND LIGHTS */}
-
 
       <div
         className="
@@ -59,8 +49,6 @@ function Layout() {
         "
       />
 
-
-
       <div
         className="
         absolute
@@ -84,12 +72,7 @@ function Layout() {
         "
       />
 
-
-
-
-
       {/* NAVBAR */}
-
 
       <div
         className="
@@ -97,17 +80,10 @@ function Layout() {
         z-20
         "
       >
-
         <Navbar />
-
       </div>
 
-
-
-
-
       {/* MAIN AREA */}
-
 
       <div
         className="
@@ -118,18 +94,14 @@ function Layout() {
         pt-20
         "
       >
-
-
-
         {/* SIDEBAR */}
 
         <Sidebar />
 
         {/* CONTENT */}
 
-
         <main
-  className="
+          className="
   flex-1
   min-h-screen
 
@@ -145,37 +117,18 @@ function Layout() {
 
   duration-500
   "
->
-
-
-
+        >
           <div
             className="
             animate-fadeIn
             "
           >
-
-
             <Outlet />
-
-
           </div>
-
-
-
         </main>
-
-
-
       </div>
 
-
-
-
-
-
       {/* FOOTER */}
-
 
       <div
         className="
@@ -183,21 +136,10 @@ function Layout() {
         ml-72
         "
       >
-
         <Footer />
-
       </div>
-
-
-
-
     </div>
-
-
   );
-
-
 }
-
 
 export default Layout;

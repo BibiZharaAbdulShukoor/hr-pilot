@@ -1,17 +1,13 @@
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-export default function ProtectedRoute({
-  children,
-}) {
+export default function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
 
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <h2 className="text-xl font-bold">
-          Loading...
-        </h2>
+        <h2 className="text-xl font-bold">Loading...</h2>
       </div>
     );
   }

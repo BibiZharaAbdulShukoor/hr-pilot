@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import {
   Sparkles,
-  Loader,
+  Loader2,
   Trophy,
   Briefcase,
   Users,
@@ -10,979 +10,722 @@ import {
   BrainCircuit,
 } from "lucide-react";
 
-import {
-  getJobs,
-  matchCandidates,
-} from "../api/dashboardApi";
+import { getJobs, matchCandidates } from "../api/dashboardApi";
 
 import MatchCard from "../components/MatchCard";
 
-
-
 export default function AIMatching() {
+  const [jobs, setJobs] = useState([]);
+  const [selectedJob, setSelectedJob] = useState("");
+  const [matches, setMatches] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [jobsLoading, setJobsLoading] = useState(true);
+  const [error, setError] = useState("");
 
+  useEffect(() => {
+    loadJobs();
+  }, []);
 
-const [jobs,setJobs] = useState([]);
+  async function loadJobs() {
+    try {
+      setJobsLoading(true);
 
-const [selectedJob,setSelectedJob] = useState("");
+      const res = await getJobs();
 
-const [matches,setMatches] = useState([]);
+      setJobs(res.data.data || []);
+    } catch {
+      setError("Failed to load jobs");
+    } finally {
+      setJobsLoading(false);
+    }
+  }
 
-const [loading,setLoading] = useState(false);
+  async function runMatching() {
+    if (!selectedJob) {
+      setError("Please select a job first");
 
-const [jobsLoading,setJobsLoading] = useState(true);
+      return;
+    }
 
-const [error,setError] = useState("");
+    try {
+      setLoading(true);
 
+      setError("");
 
+      setMatches([]);
 
+      const res = await matchCandidates(selectedJob);
 
+      setMatches(res.data.data || []);
+    } catch {
+      setError("AI Matching failed");
+    } finally {
+      setLoading(false);
+    }
+  }
 
-useEffect(()=>{
+  return (
+    <div className="space-y-10 max-w-7xl mx-auto">
+      {/* Hero */}
+      {/* HERO */}
 
-loadJobs();
+      <section
+        className="
+        relative
 
-},[]);
+        overflow-hidden
 
+        rounded-[32px]
 
+        p-10
 
+        border
 
+        border-slate-200
 
+        dark:border-slate-700
 
-async function loadJobs(){
+        bg-gradient-to-br
 
-try{
+        from-[#0CA0C7]
 
-setJobsLoading(true);
+        via-[#37C8E8]
 
+        to-[#61D7E5]
 
-const res = await getJobs();
+        dark:from-[#111827]
 
+        dark:via-[#0f172a]
 
-setJobs(
-res.data.data || []
-);
+        dark:to-[#020617]
 
+        shadow-2xl
+        "
+      >
+        <div
+          className="
+          absolute
 
-}
+          -top-28
 
-catch(err){
+          -right-28
 
-console.log(err);
+          w-96
 
-setError(
-"Failed to load jobs"
-);
+          h-96
 
-}
+          rounded-full
 
+          bg-white/20
 
-finally{
+          dark:bg-cyan-400/10
 
-setJobsLoading(false);
+          blur-3xl
+          "
+        />
 
-}
+        <div
+          className="
+          absolute
 
+          -bottom-20
 
-}
+          -left-20
 
+          w-80
 
+          h-80
 
+          rounded-full
 
+          bg-white/10
 
+          blur-3xl
+          "
+        />
 
+        <div
+          className="
+          relative
 
+          flex
 
-async function runMatching(){
+          flex-col
 
+          lg:flex-row
 
-if(!selectedJob){
+          lg:items-center
 
-setError(
-"Please select a job first"
-);
+          lg:justify-between
 
-return;
+          gap-8
+          "
+        >
+          <div
+            className="
+            flex
 
-}
+            items-center
 
+            gap-6
+            "
+          >
+            <div
+              className="
+              h-24
 
+              w-24
 
-try{
+              rounded-3xl
 
+              flex
 
-setLoading(true);
+              items-center
 
-setError("");
+              justify-center
 
-setMatches([]);
+              bg-white/20
 
+              backdrop-blur-xl
 
+              shadow-xl
+              "
+            >
+              <BrainCircuit size={48} className="text-white" />
+            </div>
 
-const res = await matchCandidates(
-selectedJob
-);
+            <div>
+              <h1
+                className="
+                text-5xl
 
+                font-black
 
+                text-white
+                "
+              >
+                AI Matching Center
+              </h1>
 
-console.log(
-"AI MATCH RESULT:",
-res.data
-);
+              <p
+                className="
+                mt-4
 
+                text-lg
 
+                text-white/90
 
-setMatches(
-res.data.data || []
-);
+                max-w-2xl
+                "
+              >
+                Discover the most suitable candidates using AI semantic
+                matching, skill analysis and experience comparison.
+              </p>
+            </div>
+          </div>
 
+          <div
+            className="
+            flex
 
+            gap-5
+            "
+          >
+            <div
+              className="
+              min-w-[150px]
 
-}
+              rounded-3xl
 
-catch(err){
+              bg-white/15
 
-console.log(err);
+              backdrop-blur-xl
 
-setError(
-"AI Matching failed"
-);
+              p-6
 
+              text-center
+              "
+            >
+              <div
+                className="
+                text-4xl
 
-}
+                font-black
 
-finally{
+                text-white
+                "
+              >
+                {jobs.length}
+              </div>
 
-setLoading(false);
+              <p className="mt-2 text-white/80">Jobs</p>
+            </div>
 
-}
+            <div
+              className="
+              min-w-[150px]
 
+              rounded-3xl
 
-}
+              bg-white/15
 
+              backdrop-blur-xl
 
+              p-6
 
+              text-center
+              "
+            >
+              <div
+                className="
+                text-4xl
 
+                font-black
 
+                text-white
+                "
+              >
+                {matches.length}
+              </div>
 
+              <p className="mt-2 text-white/80">Matches</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-return (
+      {/* ERROR */}
 
-<div className="space-y-10">
+      {error && (
+        <div
+          className="
+          rounded-2xl
 
+          border
 
-{/* HERO */}
+          border-red-200
 
+          dark:border-red-500/20
 
-<section
+          bg-red-50
 
-className="
+          dark:bg-red-500/10
 
-relative
+          p-5
 
-overflow-hidden
+          flex
 
-rounded-[2rem]
+          items-center
 
-p-10
+          gap-3
 
-text-white
+          text-red-600
 
-shadow-2xl
+          dark:text-red-400
 
+          font-bold
+          "
+        >
+          <AlertCircle size={22} />
 
+          {error}
+        </div>
+      )}
+      {/* JOB SELECT */}
 
-bg-gradient-to-br
+      <section
+        className="
+        rounded-[30px]
 
-from-[#0CA0C7]
+        border
 
-via-[#38BDF8]
+        border-slate-200
 
-to-[#61D7E5]
+        dark:border-slate-700
 
+        bg-white
 
+        dark:bg-[#0f172a]
 
-dark:from-[#111827]
+        shadow-xl
 
-dark:via-[#0f172a]
+        p-8
+        "
+      >
+        <div
+          className="
+          flex
 
-dark:to-[#020617]
+          items-center
 
+          gap-3
 
+          mb-8
+          "
+        >
+          <div
+            className="
+            w-14
 
-border
+            h-14
 
-border-white/20
+            rounded-2xl
 
-"
+            flex
 
->
+            items-center
 
+            justify-center
 
-<div
+            bg-cyan-100
 
-className="
+            dark:bg-[#123548]
 
-absolute
+            text-[#0CA0C7]
+            "
+          >
+            <Briefcase size={28} />
+          </div>
 
-w-96
+          <div>
+            <h2
+              className="
+              text-2xl
 
-h-96
+              font-black
 
-rounded-full
+              text-slate-800
 
-bg-white/30
+              dark:text-white
+              "
+            >
+              Select Job Position
+            </h2>
 
-dark:bg-[#0CA0C7]/20
+            <p
+              className="
+              mt-1
 
-blur-3xl
+              text-slate-500
 
-right-[-120px]
+              dark:text-slate-400
+              "
+            >
+              Choose a job and let AI rank the best candidates.
+            </p>
+          </div>
+        </div>
 
-top-[-120px]
+        <div
+          className="
+          flex
 
-"
+          flex-col
 
-/>
+          lg:flex-row
 
+          gap-5
+          "
+        >
+          <select
+            value={selectedJob}
+            onChange={(e) => {
+              setSelectedJob(e.target.value);
 
+              setMatches([]);
+            }}
+            className="
+            flex-1
 
-<div
+            h-16
 
-className="
+            rounded-2xl
 
-relative
+            border
 
-flex
+            border-slate-200
 
-items-center
+            dark:border-slate-700
 
-gap-5
+            bg-slate-50
 
-"
+            dark:bg-slate-800
 
->
+            px-6
 
+            text-slate-800
 
-<div
+            dark:text-white
 
-className="
+            outline-none
 
-p-5
+            focus:ring-2
 
-rounded-3xl
+            focus:ring-[#0CA0C7]
+            "
+          >
+            <option value="">
+              {jobsLoading ? "Loading jobs..." : "Choose Job"}
+            </option>
 
-bg-white/20
+            {jobs.map((job) => (
+              <option key={job.id} value={job.id}>
+                {job.title}
+              </option>
+            ))}
+          </select>
 
-backdrop-blur-xl
+          <button
+            onClick={runMatching}
+            disabled={loading}
+            className="
+            h-16
 
-"
+            px-10
 
->
+            rounded-2xl
 
-<BrainCircuit size={45}/>
+            flex
 
-</div>
+            items-center
 
+            justify-center
 
+            gap-3
 
+            font-black
 
-<div>
+            text-white
 
+            bg-gradient-to-r
 
-<h1
+            from-[#0CA0C7]
 
-className="
+            to-[#61D7E5]
 
-text-5xl
+            hover:scale-105
 
-font-black
+            transition-all
 
-"
+            duration-300
 
->
+            disabled:opacity-60
 
-AI Matching Center 🚀
+            shadow-lg
+            "
+          >
+            {loading ? (
+              <>
+                <Loader2 className="animate-spin" />
+                Matching...
+              </>
+            ) : (
+              <>
+                <Sparkles size={20} />
+                Run AI Match
+              </>
+            )}
+          </button>
+        </div>
+      </section>
 
-</h1>
+      {/* RESULTS */}
 
+      {matches.length > 0 && (
+        <section
+          className="
+          space-y-8
+          "
+        >
+          <div
+            className="
+            flex
 
+            items-center
 
-<p
+            justify-between
 
-className="
+            flex-wrap
 
-mt-3
+            gap-4
+            "
+          >
+            <div
+              className="
+              flex
 
-text-white/90
+              items-center
 
-"
+              gap-4
+              "
+            >
+              <div
+                className="
+                w-14
 
->
+                h-14
 
-Find the best candidates using AI semantic similarity.
+                rounded-2xl
 
-</p>
+                flex
 
+                items-center
 
-</div>
+                justify-center
 
+                bg-yellow-100
 
-</div>
+                dark:bg-yellow-500/20
 
+                text-yellow-600
 
-</section>
-{/* ERROR */}
+                dark:text-yellow-300
+                "
+              >
+                <Trophy size={28} />
+              </div>
 
-{
-error && (
+              <div>
+                <h2
+                  className="
+                  text-3xl
 
-<div
+                  font-black
 
-className="
+                  text-slate-800
 
-bg-red-100
+                  dark:text-white
+                  "
+                >
+                  Top AI Candidates
+                </h2>
 
-dark:bg-red-500/10
+                <p
+                  className="
+                  mt-1
 
-text-red-600
+                  text-slate-500
 
-dark:text-red-400
+                  dark:text-slate-400
+                  "
+                >
+                  Ranked from highest AI score to lowest.
+                </p>
+              </div>
+            </div>
 
-rounded-2xl
+            <div
+              className="
+              px-5
 
-p-5
+              py-3
 
-flex
+              rounded-2xl
 
-items-center
+              bg-cyan-50
 
-gap-3
+              dark:bg-[#123548]
 
-font-bold
+              text-[#0CA0C7]
 
-border
+              font-bold
+              "
+            >
+              {matches.length} Candidates
+            </div>
+          </div>
 
-border-red-200
+          {/* MATCH CARDS */}
 
-dark:border-red-500/20
+          <div
+            className="
+            flex
 
-"
+            flex-col
 
->
+            gap-8
+            "
+          >
+            {matches.map((candidate, index) => (
+              <MatchCard
+                key={candidate.id || candidate.candidate_id}
+                candidate={candidate}
+                rank={index + 1}
+              />
+            ))}
+          </div>
+        </section>
+      )}
 
-<AlertCircle/>
+      {/* EMPTY STATE */}
 
-{error}
+      {!loading && selectedJob && matches.length === 0 && (
+        <section
+          className="
+            rounded-[30px]
 
-</div>
+            border
 
-)
+            border-slate-200
 
-}
+            dark:border-slate-700
 
+            bg-white
 
+            dark:bg-[#0f172a]
 
+            shadow-xl
 
+            p-16
 
+            text-center
+            "
+        >
+          <Users
+            size={72}
+            className="
+              mx-auto
 
-{/* SELECT JOB */}
+              mb-6
 
+              text-slate-300
 
-<div
+              dark:text-slate-600
+              "
+          />
 
-className="
+          <h2
+            className="
+              text-3xl
 
-relative
+              font-black
 
-overflow-hidden
+              text-slate-700
 
+              dark:text-white
+              "
+          >
+            No Candidates Matched
+          </h2>
 
-bg-gradient-to-br
+          <p
+            className="
+              mt-4
 
-from-white
+              text-slate-500
 
-via-cyan-50
+              dark:text-slate-400
 
-to-white
+              max-w-xl
 
-
-dark:from-[#111827]
-
-dark:via-[#0f172a]
-
-dark:to-[#020617]
-
-
-
-rounded-[2rem]
-
-p-8
-
-shadow-xl
-
-border
-
-border-white/50
-
-dark:border-white/10
-
-"
-
->
-
-
-<div
-
-className="
-
-flex
-
-items-center
-
-gap-3
-
-mb-6
-
-"
-
->
-
-<Briefcase
-
-className="text-[#0CA0C7]"
-
-/>
-
-
-<h2
-
-className="
-
-text-2xl
-
-font-black
-
-text-slate-800
-
-dark:text-white
-
-"
-
->
-
-Select Job Position
-
-</h2>
-
-
-</div>
-
-
-
-
-
-<div
-
-className="
-
-flex
-
-flex-col
-
-md:flex-row
-
-gap-5
-
-"
-
->
-
-
-
-<select
-
-
-value={selectedJob}
-
-
-
-onChange={(e)=>{
-
-
-setSelectedJob(
-e.target.value
-);
-
-
-setMatches([]);
-
-
-}}
-
-
-
-
-className="
-
-flex-1
-
-p-4
-
-rounded-2xl
-
-
-border
-
-border-slate-200
-
-dark:border-white/10
-
-
-
-bg-white
-
-dark:bg-white/10
-
-
-
-text-slate-800
-
-dark:text-white
-
-
-
-outline-none
-
-
-
-focus:ring-2
-
-focus:ring-[#0CA0C7]
-
-"
-
->
-
-
-<option value="">
-
-
-{
-jobsLoading
-
-?
-
-"Loading jobs..."
-
-:
-
-"Choose Job"
-
-}
-
-
-</option>
-
-
-
-
-
-{
-jobs.map((job)=>(
-
-
-<option
-
-key={job.id}
-
-value={job.id}
-
->
-
-
-{job.title}
-
-
-</option>
-
-
-))
-
-}
-
-
-
-</select>
-
-
-
-
-
-
-
-<button
-  onClick={runMatching}
-  disabled={loading}
-  className="
-
-  px-8
-
-  py-4
-
-
-  rounded-2xl
-
-
-
-  bg-gradient-to-r
-
-  from-[#0CA0C7]
-
-  to-[#61D7E5]
-
-
-
-  dark:from-[#111827]
-
-  dark:via-[#0f172a]
-
-  dark:to-[#020617]
-
-
-
-  dark:border
-
-  dark:border-slate-700
-
-
-
-  text-white
-
-
-  font-black
-
-
-  flex
-
-  justify-center
-
-  items-center
-
-
-  gap-3
-
-
-
-  shadow-lg
-
-
-
-  transition-all
-
-  duration-500
-
-
-
-  hover:scale-105
-
-
-
-  disabled:opacity-50
-
-  "
->
-
-
-
-{
-
-loading
-
-?
-
-<>
-
-<Loader
-
-className="animate-spin"
-
-/>
-
-Matching...
-
-</>
-
-
-:
-
-<>
-
-<Sparkles/>
-
-Run AI Match
-
-</>
-
-}
-
-
-
-</button>
-
-
-
-
-</div>
-
-
-</div>
-
-{/* RESULTS */}
-
-{
-matches.length > 0 && (
-
-<div>
-
-
-<div
-
-className="
-
-flex
-
-items-center
-
-gap-3
-
-mb-6
-
-"
-
->
-
-<Trophy
-
-className="text-yellow-500"
-
-/>
-
-
-<h2
-
-className="
-
-text-3xl
-
-font-black
-
-text-slate-800
-
-dark:text-white
-
-"
-
->
-
-Top AI Candidates
-
-</h2>
-
-
-</div>
-
-
-
-
-
-<div
-
-className="
-
-grid
-
-md:grid-cols-2
-
-xl:grid-cols-3
-
-gap-6
-
-"
-
->
-
-
-{
-
-matches.map((candidate,index)=>(
-
-
-<MatchCard
-
-key={candidate.id}
-
-candidate={candidate}
-
-rank={index+1}
-
-/>
-
-
-))
-
-
-}
-
-
-</div>
-
-
-
-</div>
-
-)
-
-}
-
-
-
-
-
-
-
-
-
-{/* EMPTY STATE */}
-
-
-
-{
-
-!loading &&
-
-selectedJob &&
-
-matches.length === 0 &&
-
-(
-
-
-<div
-
-className="
-
-bg-gradient-to-br
-
-from-white
-
-to-cyan-50
-
-
-
-dark:from-[#111827]
-
-dark:to-[#020617]
-
-
-
-rounded-[2rem]
-
-shadow-xl
-
-border
-
-border-white/50
-
-dark:border-white/10
-
-
-
-p-12
-
-text-center
-
-"
-
->
-
-
-<Users
-
-size={70}
-
-className="
-
-mx-auto
-
-text-slate-300
-
-dark:text-slate-600
-
-mb-5
-
-"
-
-/>
-
-
-
-<h2
-
-className="
-
-text-3xl
-
-font-black
-
-text-slate-600
-
-dark:text-white
-
-"
-
->
-
-No Candidates Matched
-
-</h2>
-
-
-
-
-<p
-
-className="
-
-mt-3
-
-text-slate-400
-
-"
-
->
-
-Try another job position or upload more candidates.
-
-</p>
-
-
-
-</div>
-
-
-)
-
-
-}
-
-
-
-
-
-</div>
-
-
-);
-
+              mx-auto
+              "
+          >
+            No suitable candidates were found for this position. Try selecting
+            another job or upload more candidate resumes.
+          </p>
+        </section>
+      )}
+    </div>
+  );
 }

@@ -8,26 +8,17 @@ import {
   ShieldCheck,
 } from "lucide-react";
 
-
 import { NavLink } from "react-router-dom";
-
 
 import zahraImage from "../assets/zahra.jpeg";
 
-
-
 function Sidebar() {
-
-
-
   const links = [
-
     {
       name: "Dashboard",
       path: "/dashboard",
       icon: <LayoutDashboard size={20} />,
     },
-
 
     {
       name: "Jobs",
@@ -35,13 +26,11 @@ function Sidebar() {
       icon: <Briefcase size={20} />,
     },
 
-
     {
       name: "Candidates",
       path: "/candidates",
       icon: <Users size={20} />,
     },
-
 
     {
       name: "Upload CV",
@@ -49,26 +38,15 @@ function Sidebar() {
       icon: <UploadCloud size={20} />,
     },
 
-
     {
       name: "AI Matching",
       path: "/ai-matching",
       icon: <Sparkles size={20} />,
     },
-
   ];
 
-
-
-
-
-
   return (
-
-
     <aside
-
-
       className="
 
       fixed
@@ -128,19 +106,10 @@ function Sidebar() {
       duration-700
 
       "
-
     >
-
-
-
-
-
       {/* NAVIGATION */}
 
-
-
       <nav
-
         className="
 
         space-y-2
@@ -148,26 +117,12 @@ function Sidebar() {
         flex-1
 
         "
-
       >
-
-
-        {links.map((item)=>(
-
-
+        {links.map((item) => (
           <NavLink
-
-
             key={item.path}
-
-
             to={item.path}
-
-
-
-            className={({isActive}) =>
-
-
+            className={({ isActive }) =>
               `
 
               flex
@@ -205,17 +160,8 @@ function Sidebar() {
 
 
               ${
-
-
                 isActive
-
-
-
-                ?
-
-
-
-                `
+                  ? `
 
                 bg-gradient-to-r
 
@@ -246,14 +192,7 @@ function Sidebar() {
                 shadow-lg
 
                 `
-
-
-
-                :
-
-
-
-                `
+                  : `
 
                 text-slate-600
 
@@ -278,47 +217,21 @@ function Sidebar() {
                 dark:hover:text-[#61D7E5]
 
                 `
-
-
               }
 
 
               `
-
-
             }
-
-
           >
-
-
-
             {item.icon}
 
-
-
-            <span>
-
-              {item.name}
-
-            </span>
-
-
-
+            <span>{item.name}</span>
           </NavLink>
-
-
-
         ))}
-
-
       </nav>
       {/* AI STATUS */}
 
-
-
       <div
-
         className="
 
         mt-6
@@ -350,13 +263,8 @@ function Sidebar() {
         backdrop-blur-xl
 
         "
-
       >
-
-
-
         <div
-
           className="
 
           flex
@@ -368,21 +276,10 @@ function Sidebar() {
           mb-2
 
           "
-
         >
-
-
-          <Brain
-
-            size={20}
-
-            className="text-[#0CA0C7] dark:text-[#61D7E5]"
-
-          />
-
+          <Brain size={20} className="text-[#0CA0C7] dark:text-[#61D7E5]" />
 
           <span
-
             className="
 
             font-semibold
@@ -392,22 +289,12 @@ function Sidebar() {
             dark:text-white
 
             "
-
           >
-
             AI Matching
-
           </span>
-
-
         </div>
 
-
-
-
-
         <p
-
           className="
 
           text-sm
@@ -417,19 +304,11 @@ function Sidebar() {
           dark:text-white/60
 
           "
-
         >
-
           Semantic Matching Engine Active
-
         </p>
 
-
-
-
-
         <div
-
           className="
 
           flex
@@ -441,21 +320,13 @@ function Sidebar() {
           mt-3
 
           "
-
         >
-
-
           <ShieldCheck
-
             size={18}
-
             className="text-[#0CA0C7] dark:text-[#61D7E5]"
-
           />
 
-
           <span
-
             className="
 
             text-sm
@@ -467,35 +338,15 @@ function Sidebar() {
             dark:text-[#61D7E5]
 
             "
-
           >
-
             94% Accuracy
-
           </span>
-
-
         </div>
-
-
       </div>
-
-
-
-
-
-
-
-
-
-
 
       {/* PROFILE */}
 
-
-
       <div
-
         className="
 
         mt-5
@@ -523,13 +374,8 @@ function Sidebar() {
         transition
 
         "
-
       >
-
-
-
         <div
-
           className="
 
           w-11
@@ -549,18 +395,10 @@ function Sidebar() {
           justify-center
 
           "
-
         >
-
-
-
           <img
-
             src={zahraImage}
-
             alt="Zahra Kakkar"
-
-
             className="
 
             w-full
@@ -572,21 +410,11 @@ function Sidebar() {
             object-center
 
             "
-
           />
-
-
         </div>
 
-
-
-
-
         <div>
-
-
           <p
-
             className="
 
             text-sm
@@ -598,17 +426,11 @@ function Sidebar() {
             dark:text-white
 
             "
-
           >
-
             Zahra & Kakkar
-
           </p>
 
-
-
           <p
-
             className="
 
             text-xs
@@ -618,26 +440,13 @@ function Sidebar() {
             dark:text-white/60
 
             "
-
           >
-
             Admin Account
-
           </p>
-
-
         </div>
-
-
       </div>
-
-      </aside>
-
-
+    </aside>
   );
-
-
 }
-
 
 export default Sidebar;

@@ -8,10 +8,7 @@ import JobCard from "../components/JobCard";
 import JobStats from "../components/JobStats";
 import JobSearch from "../components/JobSearch";
 
-
 export default function Jobs() {
-
-
   const [jobs, setJobs] = useState([]);
 
   const [loading, setLoading] = useState(true);
@@ -22,25 +19,14 @@ export default function Jobs() {
 
   const [filter, setFilter] = useState("All");
 
-
   const navigate = useNavigate();
 
-
-
-
   useEffect(() => {
-
     loadJobs();
-
   }, []);
 
-
-
-
   async function loadJobs() {
-
     try {
-
       setLoading(true);
 
       setError("");
@@ -48,86 +34,37 @@ export default function Jobs() {
       const res = await getJobs();
 
       setJobs(res.data.data || []);
-
-
     } catch (err) {
-
       console.log(err);
 
       setError("Failed to load jobs.");
-
     } finally {
-
       setLoading(false);
-
     }
-
   }
 
-
-
-
-
   async function handleDelete(job) {
-
-
-    const ok = window.confirm(
-      `Delete "${job.title}" ?`
-    );
-
+    const ok = window.confirm(`Delete "${job.title}" ?`);
 
     if (!ok) return;
 
-
-
     try {
-
-
       await deleteJob(job.id);
 
-
-
-      setJobs((prev)=>
-
-        prev.filter(
-          (item)=>item.id !== job.id
-        )
-
-      );
-
-
-
-    } catch(err){
-
+      setJobs((prev) => prev.filter((item) => item.id !== job.id));
+    } catch (err) {
       console.log(err);
 
       alert("Delete failed");
-
     }
-
   }
 
-
-
-
-
-  function handleEdit(job){
-
+  function handleEdit(job) {
     navigate(`/jobs/edit/${job.id}`);
-
   }
 
-
-
-
-
-
-  const filteredJobs = useMemo(()=>{
-
-
-    return jobs.filter((job)=>{
-
-
+  const filteredJobs = useMemo(() => {
+    return jobs.filter((job) => {
       const text = `
 
       ${job.title || ""}
@@ -137,60 +74,25 @@ export default function Jobs() {
       ${job.location || ""}
 
       `
-      .toLowerCase()
-      .trim();
+        .toLowerCase()
+        .trim();
 
-
-
-      const matchSearch =
-        text.includes(
-          search.toLowerCase()
-        );
-
-
+      const matchSearch = text.includes(search.toLowerCase());
 
       const matchFilter =
         filter === "All"
-
-        ?
-
-        true
-
-        :
-
-        (job.status || "")
-        .toLowerCase()
-        === filter.toLowerCase();
-
-
+          ? true
+          : (job.status || "").toLowerCase() === filter.toLowerCase();
 
       return matchSearch && matchFilter;
-
-
     });
-
-
-
-  },[jobs,search,filter]);
-
-
-
-
-
+  }, [jobs, search, filter]);
 
   return (
-
     <div className="space-y-8">
-
-
-
-
-
       {/* HERO */}
 
-
       <section
-
         className="
 
         relative
@@ -246,13 +148,8 @@ export default function Jobs() {
         duration-700
 
         "
-
       >
-
-
-
         <div
-
           className="
 
           absolute
@@ -278,14 +175,9 @@ export default function Jobs() {
           top-[-100px]
 
           "
-
         />
 
-
-
-
         <div
-
           className="
 
           relative
@@ -297,12 +189,8 @@ export default function Jobs() {
           gap-5
 
           "
-
         >
-
-
           <div
-
             className="
 
             bg-white/20
@@ -324,30 +212,14 @@ export default function Jobs() {
             border-white/20
 
             "
-
           >
-
-            <BriefcaseBusiness size={42}/>
-
+            <BriefcaseBusiness size={42} />
           </div>
 
-
-
-
-
           <div>
-
-
-            <h1 className="text-5xl font-black">
-
-              Job Management
-
-            </h1>
-
-
+            <h1 className="text-5xl font-black">Job Management</h1>
 
             <p
-
               className="
 
               mt-3
@@ -357,35 +229,17 @@ export default function Jobs() {
               text-white/90
 
               "
-
             >
-
               Manage all company jobs from one intelligent dashboard.
-
             </p>
-
-
           </div>
-
-
         </div>
-
-
       </section>
-
-
-
-
-
-
 
       {/* ERROR */}
 
-
       {error && (
-
         <div
-
           className="
 
           bg-red-100
@@ -412,42 +266,20 @@ export default function Jobs() {
           dark:border-red-500/30
 
           "
-
         >
-
           {error}
-
         </div>
-
       )}
-
-
-
-
-
-
 
       {/* STATS */}
 
-      <JobStats jobs={jobs}/>
-
-
-
-
-
-
+      <JobStats jobs={jobs} />
 
       {/* CREATE JOB */}
 
-
       <div className="flex justify-end">
-
-
         <button
-
           onClick={() => navigate("/create-job")}
-
-
           className="
 
           px-6
@@ -505,77 +337,34 @@ export default function Jobs() {
           hover:shadow-2xl
 
           "
-
         >
-
           + Create Job
-
-
         </button>
-
-
       </div>
-
-
-
-
-
-
 
       {/* SEARCH */}
 
-
       <JobSearch
-
         search={search}
-
         setSearch={setSearch}
-
         filter={filter}
-
         setFilter={setFilter}
-
       />
-
-
-
-
-
-
 
       {/* JOB LIST */}
 
-
-
       <div
-
         className="
-
-        grid
-
-        lg:grid-cols-2
-
-        xl:grid-cols-3
-
-        gap-7
-
-        "
-
+    flex
+    flex-col
+    gap-7
+    w-full
+  "
       >
-
-
-
-
         {loading ? (
-
-          [...Array(6)].map((_,index)=>(
-
-
+          [...Array(6)].map((_, index) => (
             <div
-
               key={index}
-
-
               className="
 
               h-[320px]
@@ -594,20 +383,10 @@ export default function Jobs() {
               animate-pulse
 
               "
-
             />
-
-
           ))
-
-
-
         ) : filteredJobs.length === 0 ? (
-
-
-
           <div
-
             className="
 
             col-span-full
@@ -617,15 +396,9 @@ export default function Jobs() {
             py-20
 
             "
-
           >
-
-
-
             <BriefcaseBusiness
-
               size={70}
-
               className="
 
               mx-auto
@@ -638,13 +411,9 @@ export default function Jobs() {
               dark:text-slate-700
 
               "
-
             />
 
-
-
             <h2
-
               className="
 
               text-2xl
@@ -657,55 +426,21 @@ export default function Jobs() {
               dark:text-slate-400
 
               "
-
             >
-
               No Jobs Found
-
-
             </h2>
-
-
-
           </div>
-
-
-
         ) : (
-
-
-          filteredJobs.map((job)=>(
-
-
+          filteredJobs.map((job) => (
             <JobCard
-
               key={job.id}
-
               job={job}
-
-
               onDelete={handleDelete}
-
-
               onEdit={handleEdit}
-
             />
-
-
           ))
-
-
         )}
-
-
-
       </div>
-
-
-
-
     </div>
-
   );
-
 }

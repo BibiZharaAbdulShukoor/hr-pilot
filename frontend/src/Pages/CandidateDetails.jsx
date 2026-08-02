@@ -1,12 +1,6 @@
-import { 
-  useEffect,
-  useState
-} from "react";
+import { useEffect, useState } from "react";
 
-import {
-  useParams
-} from "react-router-dom";
-
+import { useParams } from "react-router-dom";
 
 import {
   Loader,
@@ -25,247 +19,92 @@ import {
   Sparkles,
 } from "lucide-react";
 
+import { getCandidateById } from "../api/dashboardApi";
 
-import {
-  getCandidateById,
-  updateCandidate
-} from "../api/dashboardApi";
-
-
-
-
-
-
-export default function CandidateDetails(){
-
-
+export default function CandidateDetails() {
   const { id } = useParams();
 
+  const [candidate, setCandidate] = useState(null);
 
+  const [loading, setLoading] = useState(true);
 
-  const [candidate,setCandidate] = useState(null);
-
-  const [loading,setLoading] = useState(true);
-
-  const [status,setStatus] = useState("New");
-
-
-
-
-
-
-  useEffect(()=>{
-
+  useEffect(() => {
     loadCandidate();
+  }, []);
 
-  },[]);
-
-
-
-
-
-
-
-  async function loadCandidate(){
-
-    try{
-
-
+  async function loadCandidate() {
+    try {
       const res = await getCandidateById(id);
 
-
       setCandidate(res.data.data);
-
-
-      setStatus(
-        res.data.data.status || "New"
-      );
-
-
-    }catch(error){
-
+    } catch (error) {
       console.log(error);
-
-    }
-    finally{
-
+    } finally {
       setLoading(false);
-
     }
-
   }
-
-
-
-
-
-
-
-  async function changeStatus(e){
-
-
-    const value = e.target.value;
-
-
-    setStatus(value);
-
-
-
-    await updateCandidate(id,{
-      status:value
-    });
-
-
-  }
-
-
-
-
-
-
-
-
-  function openCV(){
-
-
-    if(candidate?.cv_file){
-
-
+  const API_URL = import.meta.env.VITE_API_URL;
+  function openCV() {
+    if (candidate?.cv_file) {
       window.open(
-
-        `http://localhost:5000/uploads/${candidate.cv_file}`,
-
-        "_blank"
-
+        `https://hr-pilot-backend.onrender.com/uploads/${candidate.cv_file}`,
+        "_blank",
       );
-
     }
-
   }
 
-
-
-
-
-
-
-  if(loading){
-
-
+  if (loading) {
     return (
-
       <div
-
         className="
         h-96
         flex
         items-center
         justify-center
         "
-
       >
-
         <Loader
-
           size={50}
-
           className="
           animate-spin
           text-[#0CA0C7]
           "
-
         />
-
       </div>
-
     );
-
   }
 
-
-
-
-
-
-
-  if(!candidate){
-
-
+  if (!candidate) {
     return (
-
       <h1
-
         className="
         text-center
         text-red-500
         text-2xl
         font-black
         "
-
       >
-
         Candidate Not Found
-
       </h1>
-
     );
-
-
   }
 
-
-
-
-
-
-
-
-
   const skills = Array.isArray(candidate.skills)
+    ? candidate.skills
+    : typeof candidate.skills === "string"
+      ? candidate.skills.split(",").map((skill) => skill.trim())
+      : [];
 
-  ? candidate.skills
-
-  : typeof candidate.skills === "string"
-
-  ? candidate.skills
-      .split(",")
-      .map(skill=>skill.trim())
-
-  : [];
-
-
-
-
-
-
-
-
-return (
-
-
-<div
-
-className="
+  return (
+    <div
+      className="
 space-y-8
 "
+    >
+      {/* HERO */}
 
-
-
->
-
-
-
-
-
-
-
-{/* HERO */}
-
-
-
-<div
-
-className="
+      <div
+        className="
 
 relative
 
@@ -308,17 +147,9 @@ border-white/30
 dark:border-slate-700
 
 "
-
->
-
-
-
-
-
-
-<div
-
-className="
+      >
+        <div
+          className="
 
 absolute
 
@@ -339,31 +170,18 @@ dark:bg-[#0CA0C7]/20
 blur-3xl
 
 "
+        />
 
-/>
-
-
-
-
-
-
-
-<div
-
-className="
+        <div
+          className="
 relative
 flex
 items-center
 gap-5
 "
-
->
-
-
-
-<div
-
-className="
+        >
+          <div
+            className="
 
 bg-white/20
 
@@ -388,76 +206,36 @@ p-5
 rounded-3xl
 
 "
+          >
+            <User size={50} />
+          </div>
 
->
-
-<User size={50}/>
-
-</div>
-
-
-
-
-
-
-<div>
-
-
-<h1
-
-className="
+          <div>
+            <h1
+              className="
 text-4xl
 font-black
 "
+            >
+              {candidate.name}
+            </h1>
 
->
-
-{candidate.name}
-
-</h1>
-
-
-
-<p
-
-className="
+            <p
+              className="
 mt-2
 opacity-90
 "
+            >
+              AI Candidate Profile
+            </p>
+          </div>
+        </div>
+      </div>
 
->
+      {/* INFORMATION CARDS */}
 
-AI Candidate Profile
-
-</p>
-
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-{/* INFORMATION CARDS */}
-
-
-<div
-
-className="
+      <div
+        className="
 
 grid
 
@@ -466,88 +244,48 @@ md:grid-cols-3
 gap-6
 
 "
+      >
+        <Card
+          icon={<Award />}
+          title="AI Score"
+          value={`${candidate.score || 0}%`}
+        />
 
->
+        <Card
+          icon={<Mail />}
+          title="Email"
+          value={candidate.email || "No email"}
+        />
 
+        <Card
+          icon={<Phone />}
+          title="Phone"
+          value={candidate.phone || "No phone"}
+        />
 
-<Card
+        <Card
+          icon={<MapPin />}
+          title="Location"
+          value={candidate.location || "No location"}
+        />
 
-icon={<Award/>}
+        <Card
+          icon={<GraduationCap />}
+          title="Education"
+          value={candidate.education || "No education"}
+        />
 
-title="AI Score"
+        <Card
+          icon={<Briefcase />}
+          title="Experience"
+          value={`${candidate.experience_level || "N/A"} -
 
-value={`${candidate.score || 0}%`}
-
-/>
-
-
-<Card
-
-icon={<Mail/>}
-
-title="Email"
-
-value={candidate.email || "No email"}
-
-/>
-
-
-<Card
-
-icon={<Phone/>}
-
-title="Phone"
-
-value={candidate.phone || "No phone"}
-
-/>
-
-
-<Card
-
-icon={<MapPin/>}
-
-title="Location"
-
-value={candidate.location || "No location"}
-
-/>
-
-
-<Card
-
-icon={<GraduationCap/>}
-
-title="Education"
-
-value={candidate.education || "No education"}
-
-/>
-
-
-<Card
-
-icon={<Briefcase/>}
-
-title="Experience"
-
-value={
-
-`${candidate.experience_level || "N/A"} -
-
-${candidate.years_of_experience || 0} Years`
-
-}
-
-/>
-
-
-</div>
-{/* SKILLS */}
-
+${candidate.years_of_experience || 0} Years`}
+        />
+      </div>
+      {/* SKILLS */}
 
       <div
-
         className="
 
         relative
@@ -593,13 +331,8 @@ ${candidate.years_of_experience || 0} Years`
         p-8
 
         "
-
       >
-
-
-
         <div
-
           className="
 
           flex
@@ -611,12 +344,8 @@ ${candidate.years_of_experience || 0} Years`
           mb-6
 
           "
-
         >
-
-
           <Sparkles
-
             className="
 
             text-[#0CA0C7]
@@ -624,12 +353,9 @@ ${candidate.years_of_experience || 0} Years`
             dark:text-[#61D7E5]
 
             "
-
           />
 
-
           <h2
-
             className="
 
             text-2xl
@@ -641,22 +367,12 @@ ${candidate.years_of_experience || 0} Years`
             dark:text-white
 
             "
-
           >
-
             Skills
-
           </h2>
-
-
         </div>
 
-
-
-
-
         <div
-
           className="
 
           flex
@@ -666,23 +382,12 @@ ${candidate.years_of_experience || 0} Years`
           gap-3
 
           "
-
         >
-
-
-          {
-
-          skills.length > 0 ?
-
-
-          skills.map((skill,index)=>(
-
-
-            <span
-
-              key={index}
-
-              className="
+          {skills.length > 0 ? (
+            skills.map((skill, index) => (
+              <span
+                key={index}
+                className="
 
               px-4
 
@@ -715,60 +420,29 @@ ${candidate.years_of_experience || 0} Years`
               text-sm
 
               "
-
-            >
-
-              {skill}
-
-            </span>
-
-
-          ))
-
-
-          :
-
-
-          <p
-
-            className="
+              >
+                {skill}
+              </span>
+            ))
+          ) : (
+            <p
+              className="
 
             text-slate-500
 
             dark:text-slate-400
 
             "
-
-          >
-
-            No skills available
-
-          </p>
-
-
-          }
-
-
-
+            >
+              No skills available
+            </p>
+          )}
         </div>
-
-
       </div>
-
-
-
-
-
-
-
-
 
       {/* SOCIAL LINKS */}
 
-
-
       <div
-
         className="
 
         bg-gradient-to-br
@@ -808,13 +482,8 @@ ${candidate.years_of_experience || 0} Years`
         p-8
 
         "
-
       >
-
-
-
         <h2
-
           className="
 
           text-2xl
@@ -828,42 +497,22 @@ ${candidate.years_of_experience || 0} Years`
           mb-6
 
           "
-
         >
-
           Social Links
-
         </h2>
 
-
-
-
-
-
         <div
-
           className="
 
           space-y-4
 
           "
-
         >
-
-
-
-        {
-          candidate.linkedin && (
-
-
+          {candidate.linkedin && (
             <a
-
               href={candidate.linkedin}
-
               target="_blank"
-
               rel="noreferrer"
-
               className="
 
               flex
@@ -889,37 +538,17 @@ ${candidate.years_of_experience || 0} Years`
               transition
 
               "
-
             >
-
-              <Linkedin/>
-
+              <Linkedin />
               LinkedIn
-
             </a>
+          )}
 
-
-          )
-        }
-
-
-
-
-
-
-
-        {
-          candidate.github && (
-
-
+          {candidate.github && (
             <a
-
               href={candidate.github}
-
               target="_blank"
-
               rel="noreferrer"
-
               className="
 
               flex
@@ -949,38 +578,17 @@ ${candidate.years_of_experience || 0} Years`
               transition
 
               "
-
             >
-
-              <Github/>
-
+              <Github />
               Github
-
             </a>
+          )}
 
-
-          )
-        }
-
-
-
-
-
-
-
-
-        {
-          candidate.portfolio && (
-
-
+          {candidate.portfolio && (
             <a
-
               href={candidate.portfolio}
-
               target="_blank"
-
               rel="noreferrer"
-
               className="
 
               flex
@@ -1006,41 +614,17 @@ ${candidate.years_of_experience || 0} Years`
               transition
 
               "
-
             >
-
-              <Globe/>
-
+              <Globe />
               Portfolio
-
             </a>
-
-
-          )
-        }
-
-
-
+          )}
         </div>
-
-
-
       </div>
-
-
-
-
-
-
-
-
 
       {/* CV */}
 
-
-
       <div
-
         className="
 
         bg-gradient-to-br
@@ -1080,13 +664,8 @@ ${candidate.years_of_experience || 0} Years`
         p-8
 
         "
-
       >
-
-
-
         <h2
-
           className="
 
           text-2xl
@@ -1100,29 +679,14 @@ ${candidate.years_of_experience || 0} Years`
           mb-6
 
           "
-
         >
-
           Candidate CV
-
         </h2>
 
-
-
-
-
-
-
-        {
-
-          candidate.cv_file ? (
-
-
-            <button
-
-              onClick={openCV}
-
-              className="
+        {candidate.cv_file ? (
+          <button
+            onClick={openCV}
+            className="
 
               flex
 
@@ -1169,516 +733,144 @@ ${candidate.years_of_experience || 0} Years`
               transition
 
               "
-
-            >
-
-
-              <FileText/>
-
-
-              Open CV
-
-
-            </button>
-
-
-
-          )
-
-          :
-
-
-          (
-
-            <p
-
-              className="
+          >
+            <FileText />
+            Open CV
+          </button>
+        ) : (
+          <p
+            className="
 
               text-slate-500
 
               dark:text-slate-400
 
               "
-
-            >
-
-              CV not uploaded
-
-            </p>
-
-          )
-
-
-        }
-
-
-
-      </div>
-
-
-
-
-
-
-
-
-      {/* STATUS */}
-
-
-
-      <div
-
-        className="
-
-        bg-gradient-to-br
-
-        from-white
-
-        to-cyan-50
-
-
-
-        dark:bg-gradient-to-br
-
-        dark:from-[#111827]
-
-        dark:via-[#0f172a]
-
-        dark:to-[#020617]
-
-
-
-        rounded-[2rem]
-
-
-
-        shadow-xl
-
-
-
-        border
-
-        border-white/60
-
-        dark:border-slate-700
-
-
-
-        p-8
-
-        "
-
-      >
-
-
-
-        <div
-
-          className="
-
-          flex
-
-          items-center
-
-          gap-3
-
-          "
-
-        >
-
-          <CheckCircle
-
-            className="
-
-            text-orange-500
-
-            "
-
-          />
-
-
-
-          <h2
-
-            className="
-
-            text-2xl
-
-            font-black
-
-            text-slate-800
-
-            dark:text-white
-
-            "
-
           >
-
-            Status
-
-          </h2>
-
-
-        </div>
-
-
-
-
-
-
-        <select
-
-          value={status}
-
-          onChange={changeStatus}
-
-          className="
-
-          mt-5
-
-          w-full
-
-          md:w-72
-
-
-
-          rounded-2xl
-
-
-
-          p-3
-
-
-
-          border
-
-
-
-          bg-white
-
-
-
-          dark:bg-[#020617]
-
-
-
-          dark:text-white
-
-
-
-          dark:border-slate-700
-
-          "
-
-        >
-
-          <option>New</option>
-
-          <option>Reviewing</option>
-
-          <option>Interview</option>
-
-          <option>Hired</option>
-
-          <option>Rejected</option>
-
-
-        </select>
-
-
-
+            CV not uploaded
+          </p>
+        )}
       </div>
-
-
-
-
-
     </div>
-
-
   );
-
 }
-
-
-
-
-
-
-
-function Card({
-  icon,
-  title,
-  value
-}) {
-
+function Card({ icon, title, value }) {
   return (
-
     <div
-
       className="
-
       relative
-
       overflow-hidden
 
-
-
       bg-gradient-to-br
-
       from-white
-
       via-cyan-50
-
       to-white
 
-
-
       dark:bg-gradient-to-br
-
       dark:from-[#111827]
-
       dark:via-[#0f172a]
-
       dark:to-[#020617]
 
-
-
       rounded-[2rem]
-
-
-
       shadow-xl
 
-
-
       border
-
       border-white/60
-
       dark:border-slate-700
-
-
 
       p-6
 
-
-
       transition-all
-
       duration-700
 
-
-
       hover:-translate-y-2
-
       "
-
     >
-
-
-
-
-
       {/* GLOW */}
-
       <div
-
         className="
-
         absolute
-
         w-32
-
         h-32
-
         right-[-40px]
-
         top-[-40px]
-
-
-
         rounded-full
-
-
-
         bg-[#61D7E5]/30
-
-
-
         dark:bg-[#0CA0C7]/20
-
-
-
         blur-3xl
-
         "
-
       />
 
-
-
-
-
-
-
       <div
-
         className="
-
         relative
-
         z-10
 
+        flex
+        items-center
+        justify-between
         "
-
       >
+        {/* Left */}
+        <div className="flex items-center gap-4">
+          <div
+            className="
+            w-12
+            h-12
 
+            flex
+            items-center
+            justify-center
 
+            rounded-2xl
 
+            bg-[#0CA0C7]/10
+            dark:bg-white/10
 
+            backdrop-blur-xl
 
-        <div
+            border
+            border-white/20
 
-          className="
+            text-[#0CA0C7]
+            dark:text-[#61D7E5]
+            "
+          >
+            {icon}
+          </div>
 
-          w-12
-
-          h-12
-
-
-
-          flex
-
-          items-center
-
-          justify-center
-
-
-
-          rounded-2xl
-
-
-
-          bg-[#0CA0C7]/10
-
-
-
-          dark:bg-white/10
-
-
-
-          backdrop-blur-xl
-
-
-
-          border
-
-          border-white/20
-
-
-
-          text-[#0CA0C7]
-
-
-
-          dark:text-[#61D7E5]
-
-          "
-
-        >
-
-          {icon}
-
+          <p
+            className="
+            font-bold
+            text-slate-700
+            dark:text-white
+            "
+          >
+            {title}
+          </p>
         </div>
 
-
-
-
-
-
-
-
-        <p
-
-          className="
-
-          mt-5
-
-
-
-          text-slate-500
-
-
-
-          dark:text-white/70
-
-
-
-          font-medium
-
-          "
-
-        >
-
-          {title}
-
-        </p>
-
-
-
-
-
-
-
-
+        {/* Right */}
         <h2
-
           className="
+    text-xs
+    md:text-lg
 
-          mt-2
+    font-bold
 
+    text-slate-800
+    dark:text-white
 
+    text-right
 
-          font-black
+    break-all
 
-
-
-          text-xl
-
-
-
-          text-slate-800
-
-
-
-          dark:text-white
-
-
-
-          break-words
-
-          "
-
+    max-w-[65%]
+  "
         >
-
           {value}
-
         </h2>
-
-
-
-
-
       </div>
-
-
-
-
-
     </div>
-
-
   );
-
 }

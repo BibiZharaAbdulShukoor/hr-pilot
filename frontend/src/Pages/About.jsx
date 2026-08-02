@@ -1,14 +1,9 @@
-import { Brain, Users, Sparkles, Target } from "lucide-react";
-
+import { Brain, Users, Sparkles, Target, ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function About() {
-
-
   return (
-
-
     <div
-
       className="
 
       min-h-screen
@@ -32,19 +27,46 @@ export default function About() {
 
 
       "
-
     >
+      <div className="mb-6">
+        <Link
+          to="/"
+          className="
+      inline-flex
+      items-center
+      gap-2
 
+      px-5
+      py-3
 
+      rounded-xl
 
+       bg-white/70
+    dark:bg-white/10
 
+    border
+    border-[#61D7E5]/30
+
+    text-[#0CA0C7]
+
+    font-semibold
+
+    backdrop-blur-xl
+
+    hover:scale-105
+
+    transition-all
+    duration-300
+  "
+        >
+          <ArrowLeft size={18} />
+          Back Home
+        </Link>
+      </div>
 
       {/* HERO */}
 
-
       <section
-
-
         className="
 
         relative
@@ -98,18 +120,10 @@ export default function About() {
 
 
         "
-
       >
-
-
-
-
-
         {/* GLOW */}
 
-
         <div
-
           className="
 
           absolute
@@ -141,16 +155,9 @@ export default function About() {
           blur-3xl
 
           "
-
         />
 
-
-
-
-
-
         <div
-
           className="
 
           relative
@@ -162,13 +169,8 @@ export default function About() {
           gap-5
 
           "
-
         >
-
-
-
           <div
-
             className="
 
             p-5
@@ -190,23 +192,12 @@ export default function About() {
             border-white/20
 
             "
-
           >
-
-            <Brain size={45}/>
-
-
+            <Brain size={45} />
           </div>
 
-
-
-
-
           <div>
-
-
             <h1
-
               className="
 
               text-5xl
@@ -214,18 +205,11 @@ export default function About() {
               font-black
 
               "
-
             >
-
               About HR Pilot AI 🚀
-
             </h1>
 
-
-
-
             <p
-
               className="
 
               mt-3
@@ -235,36 +219,16 @@ export default function About() {
               text-white/90
 
               "
-
             >
-
               AI-powered recruitment platform
-
             </p>
-
-
           </div>
-
-
-
         </div>
-
-
       </section>
-
-
-
-
-
-
-
-
 
       {/* FEATURES */}
 
-
       <div
-
         className="
 
         grid
@@ -276,93 +240,38 @@ export default function About() {
         mt-10
 
         "
-
       >
-
-
-
-
-
-
         <FeatureCard
-
-          icon={<Users size={35}/>}
-
+          icon={<Users size={35} />}
           title="Smart Hiring"
-
           text="HR Pilot helps companies find the best candidates faster using AI matching technology."
-
         />
 
-
-
-
-
         <FeatureCard
-
-          icon={<Sparkles size={35}/>}
-
+          icon={<Sparkles size={35} />}
           title="AI Matching"
-
           text="The system analyzes skills and experience to recommend suitable candidates."
-
         />
-
-
-
-
 
         <FeatureCard
-
-          icon={<Target size={35}/>}
-
+          icon={<Target size={35} />}
           title="Better Decisions"
-
           text="HR teams can make faster and smarter recruitment decisions."
-
         />
-
-
-
-
-
       </div>
-
-
-
-
-
     </div>
-
-
   );
-
 }
 
-
-
-
-
-
-
 function FeatureCard({
-
   icon,
 
   title,
 
-  text
-
+  text,
 }) {
-
-
   return (
-
-
-
     <div
-
-
       className="
 
       relative
@@ -420,17 +329,10 @@ function FeatureCard({
       hover:-translate-y-2
 
       "
-
     >
-
-
-
-
       {/* GLOW */}
 
-
       <div
-
         className="
 
         absolute
@@ -460,16 +362,9 @@ function FeatureCard({
         blur-3xl
 
         "
-
       />
 
-
-
-
-
-
       <div
-
         className="
 
         relative
@@ -477,13 +372,8 @@ function FeatureCard({
         z-10
 
         "
-
       >
-
-
-
         <div
-
           className="
 
           w-14
@@ -525,22 +415,11 @@ function FeatureCard({
           border-white/20
 
           "
-
         >
-
           {icon}
-
-
         </div>
 
-
-
-
-
-
-
         <h2
-
           className="
 
           text-2xl
@@ -558,21 +437,11 @@ function FeatureCard({
           dark:text-white
 
           "
-
         >
-
           {title}
-
         </h2>
 
-
-
-
-
-
-
         <p
-
           className="
 
           mt-3
@@ -586,25 +455,10 @@ function FeatureCard({
           dark:text-white/70
 
           "
-
         >
-
           {text}
-
         </p>
-
-
-
-
-
       </div>
-
-
-
-
     </div>
-
-
   );
-
 }

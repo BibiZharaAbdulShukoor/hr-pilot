@@ -1,303 +1,111 @@
 import { useEffect, useState } from "react";
 
-import {
-  Save,
-  ArrowLeft,
-  Loader,
-  Briefcase,
-} from "lucide-react";
+import { Save, ArrowLeft, Loader, Briefcase } from "lucide-react";
 
+import { useNavigate, useParams } from "react-router-dom";
 
-import {
-  useNavigate,
-  useParams,
-} from "react-router-dom";
-
-
-import {
-  getJobById,
-  updateJob,
-} from "../api/dashboardApi";
-
-
-
-
+import { getJobById, updateJob } from "../api/dashboardApi";
 
 export default function EditJob() {
-
-
-
   const { id } = useParams();
-
 
   const navigate = useNavigate();
 
+  const [loading, setLoading] = useState(true);
 
+  const [saving, setSaving] = useState(false);
 
+  const [form, setForm] = useState({
+    title: "",
 
-  const [loading,setLoading] = useState(true);
+    company: "",
 
-  const [saving,setSaving] = useState(false);
+    location: "",
 
+    employment_type: "",
 
+    experience: "",
 
+    salary: "",
 
+    description: "",
 
-  const [form,setForm] = useState({
-
-
-    title:"",
-
-    company:"",
-
-    location:"",
-
-    employment_type:"",
-
-    experience:"",
-
-    salary:"",
-
-    description:"",
-
-    status:"Active",
-
-
+    status: "Active",
   });
 
-
-
-
-
-
-
-
-
-  useEffect(()=>{
-
-
+  useEffect(() => {
     loadJob();
+  }, []);
 
-
-  },[]);
-
-
-
-
-
-
-
-
-  async function loadJob(){
-
-
-    try{
-
-
+  async function loadJob() {
+    try {
       const res = await getJobById(id);
-
-
 
       const data = res.data.data;
 
-
-
       setForm({
+        title: data.title || "",
 
+        company: data.company || "",
 
-        title:data.title || "",
+        location: data.location || "",
 
+        employment_type: data.employment_type || "",
 
-        company:data.company || "",
+        experience: data.experience || "",
 
+        salary: data.salary || "",
 
-        location:data.location || "",
+        description: data.description || "",
 
-
-        employment_type:data.employment_type || "",
-
-
-        experience:data.experience || "",
-
-
-        salary:data.salary || "",
-
-
-        description:data.description || "",
-
-
-        status:data.status || "Active",
-
-
+        status: data.status || "Active",
       });
-
-
-
-    }
-
-    catch(error){
-
-
+    } catch (error) {
       console.log(error);
-
-
-    }
-
-    finally{
-
-
+    } finally {
       setLoading(false);
-
-
     }
-
-
   }
 
-
-
-
-
-
-
-
-
-  function change(e){
-
-
+  function change(e) {
     setForm({
-
-
       ...form,
 
-
-      [e.target.name]:e.target.value,
-
-
+      [e.target.name]: e.target.value,
     });
-
-
   }
 
-
-
-
-
-
-
-
-
-  async function saveJob(e){
-
-
+  async function saveJob(e) {
     e.preventDefault();
 
-
-
-    try{
-
-
+    try {
       setSaving(true);
 
-
-
-      await updateJob(id,form);
-
-
+      await updateJob(id, form);
 
       navigate("/jobs");
-
-
-
-    }
-
-
-    catch(error){
-
-
+    } catch (error) {
       console.log(error);
 
-
       alert("Update Failed");
-
-
-    }
-
-
-    finally{
-
-
+    } finally {
       setSaving(false);
-
-
     }
-
-
   }
 
-
-
-
-
-
-
-
-
-  if(loading){
-
-
+  if (loading) {
     return (
-
-
       <div className="h-96 flex items-center justify-center">
-
-
-        <Loader
-
-
-          className="animate-spin text-[#0CA0C7]"
-
-          size={40}
-
-        />
-
-
+        <Loader className="animate-spin text-[#0CA0C7]" size={40} />
       </div>
-
-
     );
-
-
   }
-
-
-
-
-
-
-
-
 
   return (
-
-
-
     <div className="space-y-10">
-
-
-
-
-
-
-
-
       {/* HERO */}
 
-
-
       <section
-
-
         className="
 
         relative
@@ -347,18 +155,8 @@ export default function EditJob() {
 
 
         "
-
-
       >
-
-
-
-
-
-
         <div
-
-
           className="
 
           absolute
@@ -380,22 +178,9 @@ export default function EditJob() {
           blur-3xl
 
           "
-
-
         />
 
-
-
-
-
-
-
-
-
-
         <div
-
-
           className="
 
           relative
@@ -407,17 +192,8 @@ export default function EditJob() {
           gap-5
 
           "
-
-
         >
-
-
-
-
-
           <div
-
-
             className="
 
             p-5
@@ -441,31 +217,12 @@ export default function EditJob() {
             border-white/20
 
             "
-
-
           >
-
-
-            <Briefcase size={45}/>
-
-
+            <Briefcase size={45} />
           </div>
 
-
-
-
-
-
-
-
-
           <div>
-
-
-
             <h1
-
-
               className="
 
               text-5xl
@@ -473,28 +230,11 @@ export default function EditJob() {
               font-black
 
               "
-
-
             >
-
-
-
               Edit Job 🚀
-
-
-
             </h1>
 
-
-
-
-
-
-
-
             <p
-
-
               className="
 
               mt-3
@@ -502,46 +242,17 @@ export default function EditJob() {
               text-white/90
 
               "
-
-
             >
-
-
-
               Update job information and recruitment details
-
-
-
             </p>
-
-
-
           </div>
-
-
-
-
-
-
         </div>
-
-
-
-
-
       </section>
 
       {/* FORM */}
 
-
-
       <form
-
-
         onSubmit={saveJob}
-
-
-
         className="
 
         relative
@@ -594,24 +305,11 @@ export default function EditJob() {
         duration-700
 
         "
-
-
-
       >
+        {/* GLOW */}
 
-
-
-
-
-
-      {/* GLOW */}
-
-
-
-      <div
-
-
-        className="
+        <div
+          className="
 
         absolute
 
@@ -632,38 +330,14 @@ export default function EditJob() {
         blur-3xl
 
         "
+        />
 
+        <div className="relative z-10 space-y-6">
+          {/* TITLE */}
 
-      />
-
-
-
-
-
-
-
-
-
-      <div className="relative z-10 space-y-6">
-
-
-
-
-
-
-
-
-
-      {/* TITLE */}
-
-
-
-      <div>
-
-
-      <label
-
-      className="
+          <div>
+            <label
+              className="
 
       font-bold
 
@@ -672,33 +346,16 @@ export default function EditJob() {
       dark:text-white
 
       "
+            >
+              Job Title
+            </label>
 
-      >
-
-      Job Title
-
-      </label>
-
-
-
-      <input
-
-
-      name="title"
-
-
-      value={form.title}
-
-
-      onChange={change}
-
-
-
-      placeholder="Job Title"
-
-
-
-      className="
+            <input
+              name="title"
+              value={form.title}
+              onChange={change}
+              placeholder="Job Title"
+              className="
 
       w-full
 
@@ -739,33 +396,14 @@ export default function EditJob() {
       focus:ring-[#0CA0C7]
 
       "
+            />
+          </div>
 
-      />
+          {/* COMPANY */}
 
-
-
-      </div>
-
-
-
-
-
-
-
-
-
-
-      {/* COMPANY */}
-
-
-
-
-      <div>
-
-
-      <label
-
-      className="
+          <div>
+            <label
+              className="
 
       font-bold
 
@@ -774,35 +412,16 @@ export default function EditJob() {
       dark:text-white
 
       "
+            >
+              Company
+            </label>
 
-      >
-
-      Company
-
-      </label>
-
-
-
-
-
-      <input
-
-
-      name="company"
-
-
-      value={form.company}
-
-
-      onChange={change}
-
-
-
-      placeholder="Company"
-
-
-
-      className="
+            <input
+              name="company"
+              value={form.company}
+              onChange={change}
+              placeholder="Company"
+              className="
 
       w-full
 
@@ -843,33 +462,14 @@ export default function EditJob() {
       focus:ring-[#0CA0C7]
 
       "
+            />
+          </div>
 
+          {/* LOCATION */}
 
-      />
-
-
-
-      </div>
-
-
-
-
-
-
-
-
-
-      {/* LOCATION */}
-
-
-
-
-      <div>
-
-
-      <label
-
-      className="
+          <div>
+            <label
+              className="
 
       font-bold
 
@@ -878,36 +478,16 @@ export default function EditJob() {
       dark:text-white
 
       "
+            >
+              Location
+            </label>
 
-      >
-
-      Location
-
-      </label>
-
-
-
-
-
-
-      <input
-
-
-      name="location"
-
-
-      value={form.location}
-
-
-      onChange={change}
-
-
-
-      placeholder="Location"
-
-
-
-      className="
+            <input
+              name="location"
+              value={form.location}
+              onChange={change}
+              placeholder="Location"
+              className="
 
       w-full
 
@@ -948,54 +528,18 @@ export default function EditJob() {
       focus:ring-[#0CA0C7]
 
       "
+            />
+          </div>
 
-      />
+          {/* EMPLOYMENT + EXPERIENCE */}
 
-
-
-      </div>
-
-
-
-
-
-
-
-
-
-
-
-
-      {/* EMPLOYMENT + EXPERIENCE */}
-
-
-
-
-
-      <div className="grid md:grid-cols-2 gap-6">
-
-
-
-
-
-      <input
-
-
-      name="employment_type"
-
-
-      value={form.employment_type}
-
-
-      onChange={change}
-
-
-
-      placeholder="Employment Type"
-
-
-
-      className="
+          <div className="grid md:grid-cols-2 gap-6">
+            <input
+              name="employment_type"
+              value={form.employment_type}
+              onChange={change}
+              placeholder="Employment Type"
+              className="
 
       w-full
 
@@ -1028,34 +572,14 @@ export default function EditJob() {
       outline-none
 
       "
+            />
 
-
-      />
-
-
-
-
-
-
-
-      <input
-
-
-      name="experience"
-
-
-      value={form.experience}
-
-
-      onChange={change}
-
-
-
-      placeholder="Experience"
-
-
-
-      className="
+            <input
+              name="experience"
+              value={form.experience}
+              onChange={change}
+              placeholder="Experience"
+              className="
 
       w-full
 
@@ -1088,47 +612,17 @@ export default function EditJob() {
       outline-none
 
       "
+            />
+          </div>
 
+          {/* SALARY */}
 
-      />
-
-
-
-
-      </div>
-
-
-
-
-
-
-
-
-
-
-      {/* SALARY */}
-
-
-
-
-      <input
-
-
-      name="salary"
-
-
-      value={form.salary}
-
-
-      onChange={change}
-
-
-
-      placeholder="Salary"
-
-
-
-      className="
+          <input
+            name="salary"
+            value={form.salary}
+            onChange={change}
+            placeholder="Salary"
+            className="
 
       w-full
 
@@ -1167,33 +661,17 @@ export default function EditJob() {
       focus:ring-[#0CA0C7]
 
       "
+          />
 
-      />
+          {/* DESCRIPTION */}
 
-      {/* DESCRIPTION */}
-
-
-      <textarea
-
-
-      rows={7}
-
-
-      name="description"
-
-
-      value={form.description}
-
-
-      onChange={change}
-
-
-
-      placeholder="Description"
-
-
-
-      className="
+          <textarea
+            rows={7}
+            name="description"
+            value={form.description}
+            onChange={change}
+            placeholder="Description"
+            className="
 
       w-full
 
@@ -1236,35 +714,15 @@ export default function EditJob() {
       focus:ring-[#0CA0C7]
 
       "
+          />
 
-      />
+          {/* STATUS */}
 
-
-
-
-
-
-
-
-
-      {/* STATUS */}
-
-
-
-      <select
-
-
-      name="status"
-
-
-      value={form.status}
-
-
-      onChange={change}
-
-
-
-      className="
+          <select
+            name="status"
+            value={form.status}
+            onChange={change}
+            className="
 
       w-full
 
@@ -1303,42 +761,16 @@ export default function EditJob() {
       focus:ring-[#0CA0C7]
 
       "
+          >
+            <option className="text-black">Active</option>
 
-      >
+            <option className="text-black">Closed</option>
+          </select>
 
+          {/* BUTTONS */}
 
-        <option className="text-black">
-
-          Active
-
-        </option>
-
-
-        <option className="text-black">
-
-          Closed
-
-        </option>
-
-
-
-      </select>
-
-
-
-
-
-
-
-
-
-      {/* BUTTONS */}
-
-
-
-      <div
-
-      className="
+          <div
+            className="
 
       flex
 
@@ -1347,25 +779,11 @@ export default function EditJob() {
       pt-4
 
       "
-
-
-      >
-
-
-
-
-
-      <button
-
-
-      type="button"
-
-
-      onClick={()=>navigate("/jobs")}
-
-
-
-      className="
+          >
+            <button
+              type="button"
+              onClick={() => navigate("/jobs")}
+              className="
 
       flex-1
 
@@ -1412,39 +830,15 @@ export default function EditJob() {
       transition
 
       "
+            >
+              <ArrowLeft size={20} />
+              Cancel
+            </button>
 
-
-      >
-
-
-        <ArrowLeft size={20}/>
-
-
-        Cancel
-
-
-
-      </button>
-
-
-
-
-
-
-
-
-
-      <button
-
-
-      type="submit"
-
-
-      disabled={saving}
-
-
-
-      className="
+            <button
+              type="submit"
+              disabled={saving}
+              className="
 
       flex-1
 
@@ -1497,66 +891,14 @@ export default function EditJob() {
       transition
 
       "
+            >
+              <Save size={20} />
 
-
-      >
-
-
-        <Save size={20}/>
-
-
-
-        {
-
-
-        saving
-
-        ?
-
-        "Saving..."
-
-        :
-
-        "Save Changes"
-
-        }
-
-
-
-      </button>
-
-
-
-
-
-
-      </div>
-
-
-
-
-
-
-
-
-      </div>
-
-
-
-
-
-
+              {saving ? "Saving..." : "Save Changes"}
+            </button>
+          </div>
+        </div>
       </form>
-
-
-
-
-
-
     </div>
-
-
   );
-
-
 }

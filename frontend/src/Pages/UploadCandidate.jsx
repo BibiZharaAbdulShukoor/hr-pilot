@@ -17,312 +17,143 @@ import {
   Sparkles,
 } from "lucide-react";
 
-
 import { useNavigate } from "react-router-dom";
-
 
 import { uploadCandidateCV } from "../api/dashboardApi";
 
-
 import ProgressBar from "../components/ProgressBar";
 
+export default function UploadCandidate() {
+  const navigate = useNavigate();
 
+  const [formData, setFormData] = useState({
+    name: "",
 
+    email: "",
 
+    phone: "",
 
-export default function UploadCandidate(){
+    location: "",
 
+    education: "",
 
+    experience_level: "Junior",
 
-const navigate = useNavigate();
+    years_of_experience: "",
 
+    skills: "",
 
+    linkedin: "",
 
+    github: "",
 
+    portfolio: "",
+  });
 
-const [formData,setFormData] = useState({
+  const [file, setFile] = useState(null);
 
-name:"",
+  const [loading, setLoading] = useState(false);
 
-email:"",
+  const [progress, setProgress] = useState(0);
 
-phone:"",
+  const [message, setMessage] = useState("");
 
-location:"",
+  const [error, setError] = useState("");
 
-education:"",
+  function handleChange(e) {
+    setFormData({
+      ...formData,
 
-experience_level:"Junior",
+      [e.target.name]: e.target.value,
+    });
+  }
 
-years_of_experience:"",
+  function handleFile(e) {
+    const selected = e.target.files[0];
 
-skills:"",
+    if (!selected) return;
 
-linkedin:"",
+    const allowed = [
+      "application/pdf",
 
-github:"",
+      "application/msword",
 
-portfolio:"",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    ];
 
-});
+    if (!allowed.includes(selected.type)) {
+      setError("Only PDF, DOC and DOCX files are allowed");
 
+      return;
+    }
 
+    setFile(selected);
 
+    setError("");
+  }
 
+  async function handleSubmit(e) {
+    e.preventDefault();
 
-const [file,setFile] = useState(null);
+    setError("");
 
-const [loading,setLoading] = useState(false);
+    setMessage("");
 
-const [progress,setProgress] = useState(0);
+    if (!file) {
+      setError("Please select CV file");
 
-const [message,setMessage] = useState("");
+      return;
+    }
 
-const [error,setError] = useState("");
+    const data = new FormData();
 
+    Object.keys(formData).forEach((key) => {
+      data.append(key, formData[key]);
+    });
 
+    data.append("cv", file);
 
+    try {
+      setLoading(true);
 
+      setProgress(10);
 
+      const response = await uploadCandidateCV(
+        data,
 
+        {
+          onUploadProgress: (event) => {
+            const percent = Math.round((event.loaded * 100) / event.total);
 
+            setProgress(percent);
+          },
+        },
+      );
 
-function handleChange(e){
+      console.log(response.data);
 
-setFormData({
+      setProgress(100);
 
-...formData,
+      setMessage("Candidate uploaded successfully 🎉");
 
-[e.target.name]:e.target.value
+      setTimeout(() => {
+        navigate("/candidates");
+      }, 1500);
+    } catch (err) {
+      console.log(err);
 
-});
+      setError(err.response?.data?.message || "Upload failed");
+    } finally {
+      setLoading(false);
+    }
+  }
 
+  return (
+    <div className="space-y-10">
+      {/* HERO */}
 
-}
-
-
-
-
-
-
-
-
-function handleFile(e){
-
-
-const selected = e.target.files[0];
-
-
-if(!selected) return;
-
-
-
-const allowed=[
-
-"application/pdf",
-
-"application/msword",
-
-"application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-
-];
-
-
-
-if(!allowed.includes(selected.type)){
-
-
-setError(
-"Only PDF, DOC and DOCX files are allowed"
-);
-
-
-return;
-
-
-}
-
-
-
-setFile(selected);
-
-setError("");
-
-
-
-}
-
-
-
-
-
-
-
-
-
-async function handleSubmit(e){
-
-
-e.preventDefault();
-
-
-setError("");
-
-setMessage("");
-
-
-
-if(!file){
-
-
-setError("Please select CV file");
-
-return;
-
-
-}
-
-
-
-const data = new FormData();
-
-
-
-Object.keys(formData).forEach((key)=>{
-
-
-data.append(
-key,
-formData[key]
-);
-
-
-});
-
-
-
-data.append(
-"cv",
-file
-);
-
-
-
-
-
-try{
-
-
-setLoading(true);
-
-setProgress(10);
-
-
-
-const response = await uploadCandidateCV(
-
-data,
-
-{
-
-onUploadProgress:(event)=>{
-
-
-const percent = Math.round(
-
-(event.loaded * 100) / event.total
-
-);
-
-
-setProgress(percent);
-
-
-}
-
-}
-
-
-);
-
-
-
-console.log(response.data);
-
-
-
-setProgress(100);
-
-
-
-setMessage(
-"Candidate uploaded successfully 🎉"
-);
-
-
-
-setTimeout(()=>{
-
-navigate("/candidates");
-
-},1500);
-
-
-
-}
-
-catch(err){
-
-
-console.log(err);
-
-
-setError(
-
-err.response?.data?.message ||
-
-"Upload failed"
-
-);
-
-
-}
-
-finally{
-
-
-setLoading(false);
-
-
-}
-
-
-
-}
-
-
-
-
-
-
-
-
-
-return (
-
-<div className="space-y-10">
-
-
-
-
-
-
-{/* HERO */}
-
-
-<section
-
-className="
+      <section
+        className="
 
 relative
 
@@ -360,14 +191,9 @@ border-white/30
 dark:border-white/10
 
 "
-
-
->
-
-
-<div
-
-className="
+      >
+        <div
+          className="
 
 absolute
 
@@ -388,14 +214,10 @@ right-[-120px]
 top-[-120px]
 
 "
+        />
 
-/>
-
-
-
-<div
-
-className="
+        <div
+          className="
 
 relative
 
@@ -406,13 +228,9 @@ items-center
 gap-5
 
 "
-
->
-
-
-<div
-
-className="
+        >
+          <div
+            className="
 
 p-5
 
@@ -429,80 +247,43 @@ border
 border-white/20
 
 "
+          >
+            <UploadCloud size={45} />
+          </div>
 
->
-
-<UploadCloud size={45}/>
-
-</div>
-
-
-
-<div>
-
-
-<h1
-
-className="
+          <div>
+            <h1
+              className="
 
 text-5xl
 
 font-black
 
 "
+            >
+              Upload Candidate CV 🚀
+            </h1>
 
->
-
-Upload Candidate CV 🚀
-
-</h1>
-
-
-
-<p
-
-className="
+            <p
+              className="
 
 mt-3
 
 text-white/90
 
 "
+            >
+              AI extracts skills and creates candidate embeddings automatically.
+            </p>
+          </div>
+        </div>
+      </section>
 
->
+      {/* FORM START */}
 
-AI extracts skills and creates candidate embeddings automatically.
-
-</p>
-
-
-
-</div>
-
-
-
-</div>
-
-
-
-</section>
-
-
-
-
-
-
-
-{/* FORM START */}
-
-
-<form
-
-
-onSubmit={handleSubmit}
-
-
-className="
+      <form
+        onSubmit={handleSubmit}
+        className="
 
 relative
 
@@ -539,14 +320,9 @@ border-white/60
 dark:border-white/10
 
 "
-
-
->
-
-
-<div
-
-className="
+      >
+        <div
+          className="
 
 absolute
 
@@ -567,56 +343,39 @@ dark:bg-[#0CA0C7]/20
 blur-3xl
 
 "
+        />
 
-/>
+        <div className="relative z-10">
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* NAME */}
 
-
-<div className="relative z-10">
-
-
-<div className="grid md:grid-cols-2 gap-6">
-
-{/* NAME */}
-
-<div>
-
-<label
-className="
+            <div>
+              <label
+                className="
 font-bold
 text-slate-700
 dark:text-white
 "
->
-Full Name
-</label>
+              >
+                Full Name
+              </label>
 
-
-<div className="relative mt-2">
-
-
-<User
-
-className="
+              <div className="relative mt-2">
+                <User
+                  className="
 absolute
 left-4
 top-4
 text-slate-400
 "
+                />
 
-/>
-
-
-<input
-
-name="name"
-
-value={formData.name}
-
-onChange={handleChange}
-
-placeholder="John Smith"
-
-className="
+                <input
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="John Smith"
+                  className="
 w-full
 pl-12
 p-4
@@ -637,62 +396,40 @@ outline-none
 focus:ring-2
 focus:ring-[#0CA0C7]
 "
+                />
+              </div>
+            </div>
 
-/>
+            {/* EMAIL */}
 
-
-</div>
-
-</div>
-
-
-
-
-
-
-{/* EMAIL */}
-
-<div>
-
-<label
-className="
+            <div>
+              <label
+                className="
 font-bold
 text-slate-700
 dark:text-white
 "
->
-Email
-</label>
+              >
+                Email
+              </label>
 
-
-<div className="relative mt-2">
-
-
-<Mail
-
-className="
+              <div className="relative mt-2">
+                <Mail
+                  className="
 absolute
 left-4
 top-4
 text-slate-400
 "
+                />
 
-/>
-
-
-<input
-
-type="email"
-
-name="email"
-
-value={formData.email}
-
-onChange={handleChange}
-
-placeholder="example@gmail.com"
-
-className="
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="example@gmail.com"
+                  className="
 w-full
 pl-12
 p-4
@@ -713,61 +450,39 @@ outline-none
 focus:ring-2
 focus:ring-[#0CA0C7]
 "
+                />
+              </div>
+            </div>
 
-/>
+            {/* PHONE */}
 
-
-</div>
-
-</div>
-
-
-
-
-
-
-
-{/* PHONE */}
-
-<div>
-
-<label
-className="
+            <div>
+              <label
+                className="
 font-bold
 text-slate-700
 dark:text-white
 "
->
-Phone
-</label>
+              >
+                Phone
+              </label>
 
-
-<div className="relative mt-2">
-
-
-<Phone
-
-className="
+              <div className="relative mt-2">
+                <Phone
+                  className="
 absolute
 left-4
 top-4
 text-slate-400
 "
+                />
 
-/>
-
-
-<input
-
-name="phone"
-
-value={formData.phone}
-
-onChange={handleChange}
-
-placeholder="+93xxxxxxxxx"
-
-className="
+                <input
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  placeholder="+93xxxxxxxxx"
+                  className="
 w-full
 pl-12
 p-4
@@ -788,61 +503,39 @@ outline-none
 focus:ring-2
 focus:ring-[#0CA0C7]
 "
+                />
+              </div>
+            </div>
 
-/>
+            {/* LOCATION */}
 
-
-</div>
-
-</div>
-
-
-
-
-
-
-
-{/* LOCATION */}
-
-<div>
-
-<label
-className="
+            <div>
+              <label
+                className="
 font-bold
 text-slate-700
 dark:text-white
 "
->
-Location
-</label>
+              >
+                Location
+              </label>
 
-
-<div className="relative mt-2">
-
-
-<MapPin
-
-className="
+              <div className="relative mt-2">
+                <MapPin
+                  className="
 absolute
 left-4
 top-4
 text-slate-400
 "
+                />
 
-/>
-
-
-<input
-
-name="location"
-
-value={formData.location}
-
-onChange={handleChange}
-
-placeholder="Kabul"
-
-className="
+                <input
+                  name="location"
+                  value={formData.location}
+                  onChange={handleChange}
+                  placeholder="Kabul"
+                  className="
 w-full
 pl-12
 p-4
@@ -863,61 +556,39 @@ outline-none
 focus:ring-2
 focus:ring-[#0CA0C7]
 "
+                />
+              </div>
+            </div>
 
-/>
+            {/* EDUCATION */}
 
-
-</div>
-
-</div>
-
-
-
-
-
-
-
-{/* EDUCATION */}
-
-<div>
-
-<label
-className="
+            <div>
+              <label
+                className="
 font-bold
 text-slate-700
 dark:text-white
 "
->
-Education
-</label>
+              >
+                Education
+              </label>
 
-
-<div className="relative mt-2">
-
-
-<GraduationCap
-
-className="
+              <div className="relative mt-2">
+                <GraduationCap
+                  className="
 absolute
 left-4
 top-4
 text-slate-400
 "
+                />
 
-/>
-
-
-<input
-
-name="education"
-
-value={formData.education}
-
-onChange={handleChange}
-
-placeholder="Bachelor Computer Science"
-
-className="
+                <input
+                  name="education"
+                  value={formData.education}
+                  onChange={handleChange}
+                  placeholder="Bachelor Computer Science"
+                  className="
 w-full
 pl-12
 p-4
@@ -938,47 +609,28 @@ outline-none
 focus:ring-2
 focus:ring-[#0CA0C7]
 "
+                />
+              </div>
+            </div>
 
-/>
+            {/* EXPERIENCE LEVEL */}
 
-
-</div>
-
-</div>
-
-
-
-
-
-
-
-{/* EXPERIENCE LEVEL */}
-
-<div>
-
-<label
-
-className="
+            <div>
+              <label
+                className="
 font-bold
 text-slate-700
 dark:text-white
 "
+              >
+                Experience Level
+              </label>
 
->
-Experience Level
-</label>
-
-
-
-<select
-
-name="experience_level"
-
-value={formData.experience_level}
-
-onChange={handleChange}
-
-className="
+              <select
+                name="experience_level"
+                value={formData.experience_level}
+                onChange={handleChange}
+                className="
 w-full
 mt-2
 p-4
@@ -999,73 +651,85 @@ outline-none
 focus:ring-2
 focus:ring-[#0CA0C7]
 "
+              >
+                <option>Junior</option>
 
->
+                <option>Mid</option>
 
+                <option>Senior</option>
+              </select>
+            </div>
 
-<option>Junior</option>
+            {/* YEARS OF EXPERIENCE */}
+            <div>
+              <label className="font-bold text-slate-700 dark:text-white">
+                Years Of Experience
+              </label>
 
-<option>Mid</option>
+              <div className="relative mt-2">
+                <Briefcase className="absolute left-4 top-4 text-slate-400" />
 
-<option>Senior</option>
+                <input
+                  type="number"
+                  name="years_of_experience"
+                  value={formData.years_of_experience}
+                  onChange={handleChange}
+                  placeholder="2"
+                  className="w-full pl-12 p-4 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/10 text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-[#0CA0C7]"
+                />
+              </div>
+            </div>
 
+            {/* SKILLS */}
+            <div>
+              <label className="font-bold text-slate-700 dark:text-white">
+                Skills
+              </label>
 
-</select>
+              <div className="relative mt-2">
+                <Sparkles className="absolute left-4 top-4 text-slate-400" />
 
+                <input
+                  name="skills"
+                  value={formData.skills}
+                  onChange={handleChange}
+                  placeholder="React, Node.js, AI, SQL"
+                  className="w-full pl-12 p-4 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/10 text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-[#0CA0C7]"
+                />
+              </div>
+            </div>
 
-</div>
+            {/* LINKS */}
+            <div className="md:col-span-2 grid md:grid-cols-3 gap-6 mt-4">
+              {/* PORTFOLIO */}
 
-
-
-
-
-
-
-{/* YEARS OF EXPERIENCE */}
-
-<div>
-
-<label
-
-className="
+              <div>
+                <label
+                  className="
 font-bold
 text-slate-700
 dark:text-white
 "
+                >
+                  Portfolio
+                </label>
 
->
-Years Of Experience
-</label>
-
-
-<div className="relative mt-2">
-
-
-<Briefcase
-
-className="
+                <div className="relative mt-2">
+                  <Globe
+                    className="
 absolute
 left-4
 top-4
 text-slate-400
 "
+                  />
 
-/>
-
-
-<input
-
-type="number"
-
-name="years_of_experience"
-
-value={formData.years_of_experience}
-
-onChange={handleChange}
-
-placeholder="2"
-
-className="
+                  <input
+                    name="portfolio"
+                    value={formData.portfolio}
+                    onChange={handleChange}
+                    placeholder="https://"
+                    className="
 w-full
 pl-12
 p-4
@@ -1086,64 +750,39 @@ outline-none
 focus:ring-2
 focus:ring-[#0CA0C7]
 "
+                  />
+                </div>
+              </div>
 
-/>
+              {/* GITHUB */}
 
-
-</div>
-
-</div>
-
-
-
-
-
-
-
-{/* SKILLS */}
-
-<div className="md:col-span-2">
-
-
-<label
-
-className="
+              <div>
+                <label
+                  className="
 font-bold
 text-slate-700
 dark:text-white
 "
+                >
+                  Github
+                </label>
 
->
-Skills
-</label>
-
-
-<div className="relative mt-2">
-
-
-<Sparkles
-
-className="
+                <div className="relative mt-2">
+                  <Github
+                    className="
 absolute
 left-4
 top-4
 text-slate-400
 "
+                  />
 
-/>
-
-
-<input
-
-name="skills"
-
-value={formData.skills}
-
-onChange={handleChange}
-
-placeholder="React, Node.js, AI, SQL"
-
-className="
+                  <input
+                    name="github"
+                    value={formData.github}
+                    onChange={handleChange}
+                    placeholder="Github URL"
+                    className="
 w-full
 pl-12
 p-4
@@ -1164,60 +803,39 @@ outline-none
 focus:ring-2
 focus:ring-[#0CA0C7]
 "
+                  />
+                </div>
+              </div>
 
-/>
+              {/* LINKEDIN */}
 
-
-</div>
-
-</div>
-
-{/* LINKS */}
-
-<div className="md:col-span-2 grid md:grid-cols-3 gap-6 mt-4">
-
-
-{/* PORTFOLIO */}
-
-<div>
-
-<label
-className="
+              <div>
+                <label
+                  className="
 font-bold
 text-slate-700
 dark:text-white
 "
->
-Portfolio
-</label>
+                >
+                  Linkedin
+                </label>
 
-
-<div className="relative mt-2">
-
-
-<Globe
-
-className="
+                <div className="relative mt-2">
+                  <Linkedin
+                    className="
 absolute
 left-4
 top-4
 text-slate-400
 "
+                  />
 
-/>
-
-
-<input
-
-name="portfolio"
-
-value={formData.portfolio}
-
-onChange={handleChange}
-
-placeholder="https://"
-
-className="
+                  <input
+                    name="linkedin"
+                    value={formData.linkedin}
+                    onChange={handleChange}
+                    placeholder="Linkedin URL"
+                    className="
 w-full
 pl-12
 p-4
@@ -1238,178 +856,15 @@ outline-none
 focus:ring-2
 focus:ring-[#0CA0C7]
 "
-
-/>
-
-
-</div>
-
-</div>
-
-
-
-
-
-
-{/* GITHUB */}
-
-<div>
-
-<label
-className="
-font-bold
-text-slate-700
-dark:text-white
-"
->
-Github
-</label>
-
-
-<div className="relative mt-2">
-
-
-<Github
-
-className="
-absolute
-left-4
-top-4
-text-slate-400
-"
-
-/>
-
-
-<input
-
-name="github"
-
-value={formData.github}
-
-onChange={handleChange}
-
-placeholder="Github URL"
-
-className="
-w-full
-pl-12
-p-4
-rounded-2xl
-
-border
-border-slate-200
-dark:border-white/10
-
-bg-white
-dark:bg-white/10
-
-text-slate-800
-dark:text-white
-
-outline-none
-
-focus:ring-2
-focus:ring-[#0CA0C7]
-"
-
-/>
-
-
-</div>
-
-</div>
-
-
-
-
-
-
-
-{/* LINKEDIN */}
-
-<div>
-
-<label
-className="
-font-bold
-text-slate-700
-dark:text-white
-"
->
-Linkedin
-</label>
-
-
-<div className="relative mt-2">
-
-
-<Linkedin
-
-className="
-absolute
-left-4
-top-4
-text-slate-400
-"
-
-/>
-
-
-<input
-
-name="linkedin"
-
-value={formData.linkedin}
-
-onChange={handleChange}
-
-placeholder="Linkedin URL"
-
-className="
-w-full
-pl-12
-p-4
-rounded-2xl
-
-border
-border-slate-200
-dark:border-white/10
-
-bg-white
-dark:bg-white/10
-
-text-slate-800
-dark:text-white
-
-outline-none
-
-focus:ring-2
-focus:ring-[#0CA0C7]
-"
-
-/>
-
-
-</div>
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-{/* CV UPLOAD */}
-
-
-<div
-
-className="
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* CV UPLOAD */}
+
+            <div
+              className="
 mt-8
 
 border-2
@@ -1432,64 +887,38 @@ hover:bg-cyan-50
 dark:hover:bg-white/5
 
 "
-
->
-
-
-<UploadCloud
-
-size={55}
-
-className="
+            >
+              <UploadCloud
+                size={55}
+                className="
 mx-auto
 text-[#0CA0C7]
 dark:text-[#61D7E5]
 "
+              />
 
-/>
-
-
-
-<label className="cursor-pointer block mt-4">
-
-
-<p
-
-className="
+              <label className="cursor-pointer block mt-4">
+                <p
+                  className="
 font-bold
 text-slate-700
 dark:text-white
 "
+                >
+                  Select Candidate CV
+                </p>
 
->
-Select Candidate CV
-</p>
+                <input
+                  type="file"
+                  accept=".pdf,.doc,.docx"
+                  className="hidden"
+                  onChange={handleFile}
+                />
+              </label>
 
-
-<input
-
-type="file"
-
-accept=".pdf,.doc,.docx"
-
-className="hidden"
-
-onChange={handleFile}
-
-/>
-
-
-</label>
-
-
-
-
-
-{file && (
-
-<div
-
-className="
+              {file && (
+                <div
+                  className="
 mt-5
 flex
 justify-center
@@ -1500,54 +929,26 @@ text-green-600
 
 font-bold
 "
+                >
+                  <FileText size={22} />
 
->
+                  {file.name}
+                </div>
+              )}
+            </div>
 
-<FileText size={22}/>
+            {/* PROGRESS */}
 
-{file.name}
+            {loading && <ProgressBar progress={progress} />}
 
-</div>
+            {/* BUTTON */}
 
-)}
-
-
-</div>
-
-
-
-
-
-
-
-
-{/* PROGRESS */}
-
-
-{loading && (
-
-<ProgressBar progress={progress}/>
-
-)}
-
-
-
-
-
-
-
-
-{/* BUTTON */}
-
-
-<button
-
-disabled={loading}
-
-className="
+            <button
+              disabled={loading}
+              className="
 w-full
 
-mt-8
+mt-10
 
 py-4
 
@@ -1584,41 +985,15 @@ hover:scale-105
 disabled:opacity-50
 
 "
+            >
+              {loading ? "Uploading..." : "Upload Candidate"}
+            </button>
 
->
+            {/* MESSAGE */}
 
-
-{
-
-loading
-
-?
-
-"Uploading..."
-
-:
-
-"Upload Candidate"
-
-}
-
-
-</button>
-
-
-
-
-
-
-
-{/* MESSAGE */}
-
-
-{message && (
-
-<div
-
-className="
+            {message && (
+              <div
+                className="
 mt-5
 
 flex
@@ -1634,30 +1009,18 @@ text-green-600
 font-bold
 
 "
+              >
+                <CheckCircle />
 
->
+                {message}
+              </div>
+            )}
 
-<CheckCircle/>
+            {/* ERROR */}
 
-{message}
-
-</div>
-
-)}
-
-
-
-
-
-
-
-{/* ERROR */}
-
-{error && (
-
-<div
-
-className="
+            {error && (
+              <div
+                className="
 mt-5
 
 flex
@@ -1673,30 +1036,15 @@ text-red-600
 font-bold
 
 "
+              >
+                <XCircle />
 
->
-
-<XCircle/>
-
-{error}
-
-</div>
-
-)}
-
-
-
-</div>
-
-</div>
-
-
-</form>
-
-
-</div>
-
-
-);
-
+                {error}
+              </div>
+            )}
+          </div>
+        </div>
+      </form>
+    </div>
+  );
 }

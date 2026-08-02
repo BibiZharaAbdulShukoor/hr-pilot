@@ -1,14 +1,6 @@
-export default function DashboardStat({
-  title,
-  value,
-  icon,
-  gradient,
-}) {
-
+export default function DashboardStat({ title, value, icon, gradient }) {
   return (
-
     <div
-
       className={`
       
       relative
@@ -58,18 +50,10 @@ export default function DashboardStat({
       hover:shadow-2xl
 
       `}
-
     >
-
-
-
-
-
       {/* Animated Glow */}
 
-
       <div
-
         className="
 
         absolute
@@ -102,20 +86,11 @@ export default function DashboardStat({
 
 
         "
-
       />
-
-
-
-
-
-
 
       {/* Moving Light */}
 
-
       <div
-
         className="
 
         absolute
@@ -144,17 +119,9 @@ export default function DashboardStat({
 
 
         "
-
       />
 
-
-
-
-
-
-
       <div
-
         className="
 
         relative
@@ -162,19 +129,10 @@ export default function DashboardStat({
         z-10
 
         "
-
       >
-
-
-
-
-
         {/* ICON AREA */}
 
-
-
         <div
-
           className="
 
           flex
@@ -184,14 +142,8 @@ export default function DashboardStat({
           items-center
 
           "
-
         >
-
-
-
-
           <div
-
             className="
 
             p-4
@@ -212,22 +164,11 @@ export default function DashboardStat({
             shadow-lg
 
             "
-
           >
-
             {icon}
-
-
           </div>
 
-
-
-
-
-
-
           <span
-
             className="
 
             px-3
@@ -251,29 +192,14 @@ export default function DashboardStat({
 
 
             "
-
           >
-
             AI
-
           </span>
-
-
-
         </div>
-
-
-
-
-
-
 
         {/* TITLE */}
 
-
-
         <h3
-
           className="
 
           mt-6
@@ -294,26 +220,13 @@ export default function DashboardStat({
           italic
 
           "
-
         >
-
           {title}
-
-
         </h3>
-
-
-
-
-
-
 
         {/* VALUE */}
 
-
-
         <p
-
           className="
 
           mt-2
@@ -329,26 +242,13 @@ export default function DashboardStat({
 
 
           "
-
         >
-
           {value}
-
-
         </p>
-
-
-
-
-
-
 
         {/* BOTTOM LIGHT */}
 
-
-
         <div
-
           className="
 
           mt-5
@@ -368,21 +268,8 @@ export default function DashboardStat({
 
 
           "
-
         />
-
-
-
-
       </div>
-
-
-
-
-
     </div>
-
-
   );
-
 }

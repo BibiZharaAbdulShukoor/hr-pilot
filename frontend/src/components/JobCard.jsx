@@ -11,20 +11,13 @@ import {
 
 import { useNavigate } from "react-router-dom";
 
-
-export default function JobCard({
-  job,
-  onDelete,
-  onEdit,
-}) {
-
+export default function JobCard({ job, onDelete, onEdit }) {
   const navigate = useNavigate();
 
-
   return (
-
     <div
       className="
+    w-full
       relative
       overflow-hidden
 
@@ -51,8 +44,6 @@ export default function JobCard({
       hover:-translate-y-2
       "
     >
-
-
       {/* HEADER */}
 
       <div
@@ -70,7 +61,6 @@ export default function JobCard({
         dark:to-[#020617]
         "
       >
-
         <div
           className="
           absolute
@@ -89,7 +79,6 @@ export default function JobCard({
           "
         />
 
-
         <div
           className="
           relative
@@ -98,22 +87,11 @@ export default function JobCard({
           items-start
           "
         >
-
           <div>
+            <h2 className="text-2xl font-black">{job.title}</h2>
 
-            <h2 className="text-2xl font-black">
-              {job.title}
-            </h2>
-
-
-            <p className="opacity-90 mt-2">
-              {job.department || "Department"}
-            </p>
-
-
+            <p className="opacity-90 mt-2">{job.department || "Department"}</p>
           </div>
-
-
 
           <div
             className="
@@ -131,17 +109,10 @@ export default function JobCard({
             rounded-2xl
             "
           >
-            <Briefcase size={28}/>
+            <Briefcase size={28} />
           </div>
-
-
         </div>
-
       </div>
-
-
-
-
 
       {/* BODY */}
 
@@ -151,10 +122,7 @@ export default function JobCard({
         space-y-4
         "
       >
-
-
         <div className="flex items-center gap-3">
-
           <MapPin
             size={18}
             className="
@@ -171,15 +139,9 @@ export default function JobCard({
           >
             {job.location || "Remote"}
           </span>
-
         </div>
 
-
-
-
-
         <div className="flex items-center gap-3">
-
           <Clock
             size={18}
             className="
@@ -196,15 +158,9 @@ export default function JobCard({
           >
             {job.job_type || "Full Time"}
           </span>
-
         </div>
 
-
-
-
-
         <div className="flex items-center gap-3">
-
           <DollarSign
             size={18}
             className="
@@ -221,15 +177,9 @@ export default function JobCard({
           >
             {job.salary || "Negotiable"}
           </span>
-
         </div>
 
-
-
-
-
         <div className="flex items-center gap-3">
-
           <CalendarDays
             size={18}
             className="
@@ -244,24 +194,13 @@ export default function JobCard({
             dark:text-slate-300
             "
           >
-
-            {
-              job.created_at
-                ? new Date(job.created_at).toLocaleDateString()
-                : "Recently"
-            }
-
+            {job.created_at
+              ? new Date(job.created_at).toLocaleDateString()
+              : "Recently"}
           </span>
-
         </div>
 
-
-
-
-
         <div className="pt-2">
-
-
           <span
             className={`
             px-4
@@ -276,7 +215,6 @@ export default function JobCard({
 
             ${
               job.status === "Closed"
-
                 ? `
                   bg-red-100
                   text-red-600
@@ -284,7 +222,6 @@ export default function JobCard({
                   dark:bg-red-500/20
                   dark:text-red-400
                 `
-
                 : `
                   bg-emerald-100
                   text-emerald-700
@@ -296,27 +233,16 @@ export default function JobCard({
 
             `}
           >
-
             {job.status || "Active"}
-
           </span>
-
-
         </div>
-
-
       </div>
 
-
-
-
-
-
       {/* FOOTER */}
-{/* FOOTER BUTTONS */}
+      {/* FOOTER BUTTONS */}
 
-<div
-  className="
+      <div
+        className="
   border-t
 
   border-slate-200
@@ -330,18 +256,12 @@ export default function JobCard({
 
   items-center
   "
->
+      >
+        {/* VIEW */}
 
-
-  {/* VIEW */}
-
-  <button
-
-    onClick={() =>
-      navigate(`/jobs/${job.id}`)
-    }
-
-    className="
+        <button
+          onClick={() => navigate(`/jobs/${job.id}`)}
+          className="
     flex-1
 
     h-12
@@ -391,25 +311,16 @@ export default function JobCard({
     hover:scale-105
 
     "
-  >
+        >
+          <Eye size={18} />
+          View
+        </button>
 
-    <Eye size={18}/>
+        {/* EDIT */}
 
-    View
-
-  </button>
-
-
-
-
-
-  {/* EDIT */}
-
-  <button
-
-    onClick={() => onEdit(job)}
-
-    className="
+        <button
+          onClick={() => onEdit(job)}
+          className="
     w-12
 
     h-12
@@ -461,25 +372,15 @@ export default function JobCard({
     dark:hover:bg-yellow-500/20
 
     "
-  >
+        >
+          <Pencil size={20} />
+        </button>
 
-    <Pencil size={20}/>
+        {/* DELETE */}
 
-  </button>
-
-
-
-
-
-
-
-  {/* DELETE */}
-
-  <button
-
-    onClick={() => onDelete(job)}
-
-    className="
+        <button
+          onClick={() => onDelete(job)}
+          className="
     w-12
 
     h-12
@@ -531,20 +432,10 @@ export default function JobCard({
     dark:hover:bg-red-500/20
 
     "
-  >
-
-    <Trash2 size={20}/>
-
-  </button>
-
-
-
-</div>
-
-
-
-
+        >
+          <Trash2 size={20} />
+        </button>
+      </div>
     </div>
-
   );
 }

@@ -5,94 +5,57 @@ import {
   Building2,
 } from "lucide-react";
 
-
 export default function JobStats({ jobs = [] }) {
-
-
   const totalJobs = jobs.length;
 
-
   const activeJobs = jobs.filter(
-    (job) =>
-      (job.status || "").toLowerCase() === "active"
+    (job) => (job.status || "").toLowerCase() === "active",
   ).length;
-
-
 
   const closedJobs = jobs.filter(
-    (job) =>
-      (job.status || "").toLowerCase() === "closed"
+    (job) => (job.status || "").toLowerCase() === "closed",
   ).length;
 
-
-
-  const departments = new Set(
-    jobs
-      .map((job) => job.department)
-      .filter(Boolean)
-  ).size;
-
-
-
-
+  const departments = new Set(jobs.map((job) => job.department).filter(Boolean))
+    .size;
 
   const cards = [
-
     {
       title: "Total Jobs",
       value: totalJobs,
-      icon: <BriefcaseBusiness size={30}/>,
+      icon: <BriefcaseBusiness size={30} />,
     },
-
 
     {
       title: "Active Jobs",
       value: activeJobs,
-      icon: <CheckCircle2 size={30}/>,
+      icon: <CheckCircle2 size={30} />,
     },
-
 
     {
       title: "Closed Jobs",
       value: closedJobs,
-      icon: <XCircle size={30}/>,
+      icon: <XCircle size={30} />,
     },
-
 
     {
       title: "Departments",
       value: departments,
-      icon: <Building2 size={30}/>,
+      icon: <Building2 size={30} />,
     },
-
   ];
 
-
-
-
-
   return (
-
     <div
-
       className="
       grid
       md:grid-cols-4
       gap-6
       "
-
     >
-
-
-
-      {cards.map((card,index)=>(
-
-
-
+      {cards.map((card, index) => (
         <div
-
           key={index}
-
           className="
 
           relative
@@ -158,16 +121,10 @@ export default function JobStats({ jobs = [] }) {
           hover:-translate-y-2
 
           "
-
         >
-
-
-
-
           {/* GLOW */}
 
           <div
-
             className="
 
             absolute
@@ -201,174 +158,61 @@ export default function JobStats({ jobs = [] }) {
             animate-float
 
             "
-
           />
 
-
-
-
-
-
-
-
           <div
-
             className="
-
-            relative
-
-            z-10
-
-            "
-
+    relative
+    z-10
+    flex
+    items-center
+    justify-between
+  "
           >
+            {/* Left */}
+            <div className="flex items-center gap-4">
+              <div
+                className="
+        w-14
+        h-14
+        rounded-2xl
+        flex
+        items-center
+        justify-center
+        bg-white/20
+        dark:bg-white/10
+        backdrop-blur-xl
+        border
+        border-white/20
+      "
+              >
+                {card.icon}
+              </div>
 
-
-
-
-
-            {/* ICON */}
-
-            <div
-
-              className="
-
-              w-14
-
-              h-14
-
-
-
-              rounded-2xl
-
-
-
-              flex
-
-              items-center
-
-              justify-center
-
-
-
-              bg-white/20
-
-
-
-              dark:bg-white/10
-
-
-
-              backdrop-blur-xl
-
-
-
-              border
-
-              border-white/20
-
-
-
-              "
-
-            >
-
-              {card.icon}
-
-
+              <p
+                className="
+        text-white
+        font-bold
+        text-lg
+      "
+              >
+                {card.title}
+              </p>
             </div>
 
-
-
-
-
-
-
-
-            {/* TITLE */}
-
-            <p
-
-              className="
-
-              mt-6
-
-
-
-              text-white/80
-
-
-
-              font-semibold
-
-
-
-              "
-
-            >
-
-              {card.title}
-
-
-            </p>
-
-
-
-
-
-
-
-
-            {/* VALUE */}
-
+            {/* Right */}
             <h2
-
               className="
-
-              text-4xl
-
-              font-black
-
-              mt-2
-
-
-
-              text-white
-
-
-
-              "
-
+      text-4xl
+      font-black
+      text-white
+    "
             >
-
               {card.value}
-
-
             </h2>
-
-
-
-
-
           </div>
-
-
-
-
-
-
         </div>
-
-
-
       ))}
-
-
-
-
     </div>
-
-
   );
-
 }

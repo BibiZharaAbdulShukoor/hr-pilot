@@ -27,7 +27,6 @@ export default function RecentCandidates({ candidates = [] }) {
       duration-700
       "
     >
-
       {/* HEADER */}
 
       <div
@@ -38,7 +37,6 @@ export default function RecentCandidates({ candidates = [] }) {
         mb-6
         "
       >
-
         <div
           className="
           bg-gradient-to-br
@@ -74,9 +72,7 @@ export default function RecentCandidates({ candidates = [] }) {
           />
         </div>
 
-
         <div>
-
           <h2
             className="
             text-xl
@@ -89,7 +85,6 @@ export default function RecentCandidates({ candidates = [] }) {
             Recent Candidates
           </h2>
 
-
           <p
             className="
             text-sm
@@ -100,22 +95,33 @@ export default function RecentCandidates({ candidates = [] }) {
           >
             Latest uploaded candidates
           </p>
-
         </div>
-
-
       </div>
-
-
-
-
 
       {/* LIST */}
 
-      <div className="space-y-4">
+      {/* JOB LIST */}
 
+      <div
+        className="
+  space-y-4
+
+  max-h-[420px]
+
+  overflow-y-auto
+
+  pr-2
+
+  scrollbar-thin
+
+  scrollbar-thumb-[#0CA0C7]
+
+  dark:scrollbar-thumb-[#61D7E5]
+
+  scrollbar-track-transparent
+  "
+      >
         {candidates.length === 0 ? (
-
           <div
             className="
             bg-slate-100
@@ -137,7 +143,6 @@ export default function RecentCandidates({ candidates = [] }) {
             dark:border-white/10
             "
           >
-
             <p
               className="
               text-slate-400
@@ -146,19 +151,11 @@ export default function RecentCandidates({ candidates = [] }) {
             >
               No candidates found
             </p>
-
           </div>
-
-
         ) : (
-
-
-          candidates.map((candidate,index)=>(
-
-
+          candidates.map((candidate, index) => (
             <div
               key={candidate.id || index}
-
               className="
               flex
 
@@ -202,11 +199,7 @@ export default function RecentCandidates({ candidates = [] }) {
               duration-300
               "
             >
-
-
-
               {/* INFO */}
-
 
               <div
                 className="
@@ -217,8 +210,6 @@ export default function RecentCandidates({ candidates = [] }) {
                 gap-4
                 "
               >
-
-
                 <div
                   className="
                   w-12
@@ -242,7 +233,6 @@ export default function RecentCandidates({ candidates = [] }) {
                   justify-center
                   "
                 >
-
                   <span
                     className="
                     text-[#0CA0C7]
@@ -254,19 +244,11 @@ export default function RecentCandidates({ candidates = [] }) {
                     text-lg
                     "
                   >
-
                     {candidate.name?.charAt(0)}
-
                   </span>
-
                 </div>
 
-
-
-
-
                 <div>
-
                   <h3
                     className="
                     font-black
@@ -276,12 +258,8 @@ export default function RecentCandidates({ candidates = [] }) {
                     dark:text-white
                     "
                   >
-
                     {candidate.name}
-
                   </h3>
-
-
 
                   <div
                     className="
@@ -304,29 +282,16 @@ export default function RecentCandidates({ candidates = [] }) {
                     mt-2
                     "
                   >
-
-                    <Mail size={14}/>
+                    <Mail size={14} />
 
                     {candidate.email}
-
                   </div>
-
-
                 </div>
-
-
               </div>
-
-
-
-
-
 
               {/* SCORE */}
 
-
               {candidate.score && (
-
                 <div
                   className="
                   bg-[#61D7E5]/20
@@ -356,26 +321,13 @@ export default function RecentCandidates({ candidates = [] }) {
                   text-sm
                   "
                 >
-
                   {candidate.score}%
-
                 </div>
-
               )}
-
-
             </div>
-
-
           ))
-
-
         )}
-
-
       </div>
-
-
     </div>
   );
 }

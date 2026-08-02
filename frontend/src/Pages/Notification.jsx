@@ -1,529 +1,436 @@
-import {
-  Bell,
-  CheckCircle,
-  Clock,
-  Sparkles,
-} from "lucide-react";
+import { useEffect, useState } from "react";
 
+import { Bell, CheckCircle, Clock, Sparkles, AlertCircle } from "lucide-react";
 
-export default function Notifications(){
+import { getNotifications } from "../api/dashboardApi";
 
+export default function Notifications() {
+  const [notifications, setNotifications] = useState([]);
 
+  useEffect(() => {
+    loadNotifications();
+  }, []);
 
-const notifications = [
+  async function loadNotifications() {
+    try {
+      const res = await getNotifications();
 
-{
-id:1,
-title:"New Candidate Uploaded",
-message:
-"A new candidate CV has been added to the recruitment system.",
-time:"2 minutes ago",
-type:"success"
-},
+      setNotifications(res.data.data || []);
+    } catch (error) {
+      console.log(error);
 
+      setNotifications([]);
+    }
+  }
 
-{
-id:2,
-title:"AI Matching Completed",
-message:
-"AI has finished finding the best candidates for your job.",
-time:"10 minutes ago",
-type:"ai"
-},
+  function getTime(date) {
+    if (!date) return "";
 
+    return new Date(date).toLocaleString();
+  }
 
-{
-id:3,
-title:"Job Application Received",
-message:
-"A candidate applied for Frontend Developer position.",
-time:"1 hour ago",
-type:"info"
-},
+  return (
+    <div
+      className="
+      space-y-10
 
+      min-h-screen
 
-];
+      p-4
 
+      bg-[#f1f5f9]
 
+      dark:bg-[#0f172a]
 
+      transition-colors
 
+      duration-500
+      "
+    >
+      {/* HERO */}
 
-return (
+      <section
+        className="
+        relative
 
-<div className="space-y-10">
+        overflow-hidden
 
+        rounded-[2rem]
 
+        p-10
 
+        shadow-2xl
 
 
-{/* HERO */}
+        bg-gradient-to-br
 
+        from-white
 
-<section
+        via-cyan-50
 
-className="
+        to-white
 
-relative
 
-overflow-hidden
+        dark:from-[#111827]
 
-rounded-[2rem]
+        dark:via-[#0f172a]
 
-p-10
+        dark:to-[#020617]
 
-text-white
 
-shadow-2xl
+        border
 
+        border-white/50
 
+        dark:border-slate-700
+        "
+      >
+        <div
+          className="
+          absolute
 
-bg-gradient-to-br
+          w-80
 
-from-[#0CA0C7]
+          h-80
 
-via-[#38BDF8]
+          rounded-full
 
-to-[#61D7E5]
 
+          bg-[#61D7E5]/30
 
 
-dark:from-[#111827]
+          dark:bg-[#0CA0C7]/20
 
-dark:via-[#0f172a]
 
-dark:to-[#020617]
+          blur-3xl
 
-"
 
->
+          right-[-100px]
 
+          top-[-100px]
+          "
+        />
 
-<div
+        <div
+          className="
+          relative
 
-className="
+          flex
 
-absolute
+          items-center
 
-w-80
+          gap-5
+          "
+        >
+          <div
+            className="
+            p-5
 
-h-80
+            rounded-3xl
 
-rounded-full
 
-bg-white/20
+            bg-[#0CA0C7]/10
 
-dark:bg-[#0CA0C7]/20
 
-blur-3xl
+            dark:bg-white/10
 
-right-[-100px]
 
-top-[-100px]
+            backdrop-blur-xl
 
-"
 
-/>
+            border
 
+            border-[#0CA0C7]/20
 
 
+            dark:border-white/20
+            "
+          >
+            <Bell
+              size={45}
+              className="
+              text-[#0CA0C7]
 
-<div
+              dark:text-[#61D7E5]
+              "
+            />
+          </div>
 
-className="
+          <div>
+            <h1
+              className="
+              text-5xl
 
-relative
+              font-black
 
-flex
+              text-slate-800
 
-items-center
+              dark:text-white
+              "
+            >
+              Notifications
+            </h1>
 
-gap-5
+            <p
+              className="
+              mt-3
 
-"
+              text-slate-500
 
->
+              dark:text-white/70
+              "
+            >
+              Stay updated with your AI recruitment activities.
+            </p>
+          </div>
+        </div>
+      </section>
 
+      {/* NOTIFICATION LIST */}
 
-<div
+      <div
+        className="
+        max-h-[650px]
 
-className="
+        overflow-y-auto
 
-p-5
+        pr-2
 
-rounded-3xl
+        space-y-6
 
-bg-white/20
+        scrollbar-thin
 
-backdrop-blur-xl
+        scrollbar-thumb-[#0CA0C7]
 
-border
+        dark:scrollbar-thumb-[#61D7E5]
 
-border-white/20
+        scrollbar-track-transparent
+        "
+      >
+        {notifications.length === 0 ? (
+          <div
+            className="
+            rounded-[2rem]
 
-"
+            p-10
 
->
+            text-center
 
-<Bell size={45}/>
 
-</div>
+            bg-white
 
+            dark:bg-[#111827]
 
 
+            border
 
+            border-slate-200
 
-<div>
+            dark:border-slate-700
 
-<h1
 
-className="
+            shadow-xl
+            "
+          >
+            <Bell
+              size={45}
+              className="
+              mx-auto
 
-text-5xl
+              mb-4
 
-font-black
+              text-[#0CA0C7]
 
-"
+              dark:text-[#61D7E5]
+              "
+            />
 
->
+            <p
+              className="
+              font-black
 
-Notifications
+              text-slate-700
 
-</h1>
+              dark:text-white
+              "
+            >
+              No notifications yet
+            </p>
+          </div>
+        ) : (
+          notifications.map((item) => (
+            <div
+              key={item.id}
+              className="
+              relative
 
+              overflow-hidden
 
-<p
 
-className="
+              rounded-[2rem]
 
-mt-3
 
-text-white/90
+              p-6
 
-"
 
->
+              bg-gradient-to-br
 
-Stay updated with your AI recruitment activities.
+              from-white
 
-</p>
+              via-cyan-50
 
+              to-white
 
-</div>
 
+              dark:from-[#111827]
 
-</div>
+              dark:via-[#0f172a]
 
+              dark:to-[#020617]
 
-</section>
 
+              border
 
+              border-white/50
 
+              dark:border-slate-700
 
 
+              shadow-xl
 
 
+              transition-all
 
+              duration-500
 
-{/* NOTIFICATION LIST */}
 
+              hover:-translate-y-1
+              "
+            >
+              <div
+                className="
+                absolute
 
+                w-40
 
-<div
+                h-40
 
-className="
+                rounded-full
 
-grid
 
-gap-6
+                bg-[#61D7E5]/20
 
-"
 
->
+                dark:bg-[#0CA0C7]/10
 
 
-{
+                blur-3xl
 
-notifications.map((item)=>(
 
+                right-[-50px]
 
+                top-[-50px]
+                "
+              />
 
-<div
+              <div
+                className="
+                relative
 
-key={item.id}
+                flex
 
-className="
+                items-start
 
-relative
+                gap-5
+                "
+              >
+                <div
+                  className="
+                  p-4
 
-overflow-hidden
+                  rounded-2xl
 
 
+                  bg-[#0CA0C7]/10
 
-rounded-[2rem]
 
-p-6
+                  dark:bg-[#0CA0C7]/20
 
 
+                  text-[#0CA0C7]
 
-bg-gradient-to-br
 
-from-white
+                  dark:text-[#61D7E5]
 
-via-cyan-50
 
-to-white
+                  shadow-lg
+                  "
+                >
+                  {item.type === "success" ? (
+                    <CheckCircle size={28} />
+                  ) : item.type === "ai" ? (
+                    <Sparkles size={28} />
+                  ) : (
+                    <AlertCircle size={28} />
+                  )}
+                </div>
 
+                <div className="flex-1">
+                  <h2
+                    className="
+                    text-xl
 
+                    font-black
 
-dark:from-[#111827]
+                    text-slate-800
 
-dark:via-[#0f172a]
+                    dark:text-white
+                    "
+                  >
+                    {item.title}
+                  </h2>
 
-dark:to-[#020617]
+                  <p
+                    className="
+                    mt-2
 
+                    leading-7
 
+                    text-slate-600
 
-border
+                    dark:text-slate-300
+                    "
+                  >
+                    {item.message}
+                  </p>
 
-border-white/50
+                  <div
+                    className="
+                    mt-4
 
-dark:border-slate-700
+                    flex
 
+                    items-center
 
+                    gap-2
 
-shadow-xl
+                    text-sm
 
+                    text-slate-400
 
+                    dark:text-white/60
+                    "
+                  >
+                    <Clock size={15} />
 
-transition-all
-
-duration-500
-
-
-
-hover:-translate-y-1
-
-"
-
->
-
-
-
-<div
-
-className="
-
-absolute
-
-w-40
-
-h-40
-
-rounded-full
-
-bg-cyan-300/20
-
-dark:bg-cyan-500/10
-
-blur-3xl
-
-right-[-50px]
-
-top-[-50px]
-
-"
-
-/>
-
-
-
-
-
-<div
-
-className="
-
-relative
-
-flex
-
-items-start
-
-gap-5
-
-"
-
->
-
-
-<div
-
-className="
-
-p-4
-
-rounded-2xl
-
-
-
-bg-gradient-to-br
-
-from-[#0CA0C7]
-
-to-[#61D7E5]
-
-
-
-text-white
-
-shadow-lg
-
-"
-
->
-
-{
-
-
-item.type==="success"
-
-?
-
-<CheckCircle size={28}/>
-
-
-:
-
-item.type==="ai"
-
-?
-
-<Sparkles size={28}/>
-
-
-:
-
-<Bell size={28}/>
-
-
-}
-
-
-
-</div>
-
-
-
-
-
-
-
-<div className="flex-1">
-
-
-<h2
-
-className="
-
-text-xl
-
-font-black
-
-text-slate-800
-
-dark:text-white
-
-"
-
->
-
-{item.title}
-
-</h2>
-
-
-
-<p
-
-className="
-
-mt-2
-
-leading-7
-
-text-slate-600
-
-dark:text-slate-300
-
-"
-
->
-
-{item.message}
-
-</p>
-
-
-
-
-<div
-
-className="
-
-mt-4
-
-flex
-
-items-center
-
-gap-2
-
-text-sm
-
-text-slate-400
-
-"
-
->
-
-<Clock size={15}/>
-
-{item.time}
-
-</div>
-
-
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-</div>
-
-
-
-))
-
-}
-
-
-
-</div>
-
-
-
-
-
-</div>
-
-
-);
-
-
+                    {getTime(item.created_at)}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+    </div>
+  );
 }

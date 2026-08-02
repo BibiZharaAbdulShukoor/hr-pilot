@@ -1,15 +1,7 @@
-import {
-  Brain,
-  Mail,
-  ShieldCheck,
-} from "lucide-react";
-
+import { Brain, Mail, ShieldCheck } from "lucide-react";
 
 export default function Footer() {
-
-
   return (
-
     <footer
       className="
 
@@ -50,8 +42,6 @@ export default function Footer() {
 
       "
     >
-
-
       <div
         className="
         max-w-7xl
@@ -62,12 +52,7 @@ export default function Footer() {
         items-center
         "
       >
-
-
-
-
         {/* BRAND */}
-
 
         <div
           className="
@@ -76,8 +61,6 @@ export default function Footer() {
           gap-3
           "
         >
-
-
           <div
             className="
 
@@ -124,17 +107,10 @@ export default function Footer() {
 
             "
           >
-
-            <Brain size={26}/>
-
+            <Brain size={26} />
           </div>
 
-
-
-
           <div>
-
-
             <h2
               className="
               text-xl
@@ -148,7 +124,6 @@ export default function Footer() {
               HR Pilot AI
             </h2>
 
-
             <p
               className="
               text-sm
@@ -160,26 +135,12 @@ export default function Footer() {
             >
               Smart AI Recruitment Platform
             </p>
-
-
           </div>
-
-
-
         </div>
-
-
-
-
-
-
 
         {/* LINKS */}
 
-
         <div>
-
-
           <h3
             className="
             font-bold
@@ -194,8 +155,6 @@ export default function Footer() {
             Platform
           </h3>
 
-
-
           <div
             className="
             space-y-2
@@ -207,37 +166,17 @@ export default function Footer() {
             dark:text-white/60
             "
           >
+            <p>AI Candidate Matching</p>
 
-            <p>
-              AI Candidate Matching
-            </p>
+            <p>Resume Analysis</p>
 
-            <p>
-              Resume Analysis
-            </p>
-
-            <p>
-              Smart Hiring
-            </p>
-
-
+            <p>Smart Hiring</p>
           </div>
-
-
         </div>
-
-
-
-
-
-
 
         {/* CONTACT */}
 
-
         <div>
-
-
           <h3
             className="
             font-bold
@@ -252,8 +191,6 @@ export default function Footer() {
             Contact
           </h3>
 
-
-
           <div
             className="
             space-y-3
@@ -265,8 +202,6 @@ export default function Footer() {
             dark:text-white/60
             "
           >
-
-
             <div
               className="
               flex
@@ -274,23 +209,16 @@ export default function Footer() {
               gap-2
               "
             >
-
               <Mail
                 size={18}
-
                 className="
                 text-[#0CA0C7]
 
                 dark:text-[#61D7E5]
                 "
               />
-
               support@hrpilot.ai
-
             </div>
-
-
-
 
             <div
               className="
@@ -299,37 +227,19 @@ export default function Footer() {
               gap-2
               "
             >
-
               <ShieldCheck
                 size={18}
-
                 className="
                 text-[#0CA0C7]
 
                 dark:text-[#61D7E5]
                 "
               />
-
               Secure AI Recruitment
-
             </div>
-
-
-
           </div>
-
-
-
         </div>
-
-
-
       </div>
-
-
-
-
-
 
       <div
         className="
@@ -352,15 +262,8 @@ export default function Footer() {
         dark:text-white/60
         "
       >
-
         ©️ {new Date().getFullYear()} HR Pilot AI. All rights reserved.
-
       </div>
-
-
-
     </footer>
-
   );
-
 }

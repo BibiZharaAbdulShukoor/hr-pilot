@@ -1,18 +1,8 @@
 import { Search, X } from "lucide-react";
 
-
-export default function JobSearch({
-  search,
-  setSearch,
-  filter,
-  setFilter,
-}) {
-
-
+export default function JobSearch({ search, setSearch, filter, setFilter }) {
   return (
-
     <div
-
       className="
 
       bg-gradient-to-br
@@ -56,28 +46,13 @@ export default function JobSearch({
       duration-700
 
       "
-
     >
-
-
-
       <div className="grid lg:grid-cols-2 gap-6">
-
-
-
-
-
         {/* SEARCH */}
 
-
         <div className="relative">
-
-
-
           <Search
-
             size={20}
-
             className="
 
             absolute
@@ -95,34 +70,13 @@ export default function JobSearch({
             dark:text-[#61D7E5]
 
             "
-
           />
 
-
-
-
-
           <input
-
-
             type="text"
-
-
             value={search}
-
-
-            onChange={(e)=>
-
-              setSearch(e.target.value)
-
-            }
-
-
-
+            onChange={(e) => setSearch(e.target.value)}
             placeholder="Search jobs..."
-
-
-
             className="
 
             w-full
@@ -184,24 +138,11 @@ export default function JobSearch({
             duration-500
 
             "
-
           />
 
-
-
-
-
-
           {search && (
-
-
             <button
-
-
               onClick={() => setSearch("")}
-
-
-
               className="
 
               absolute
@@ -227,47 +168,17 @@ export default function JobSearch({
               transition
 
               "
-
             >
-
-
-              <X size={18}/>
-
-
+              <X size={18} />
             </button>
-
-
           )}
-
-
-
         </div>
-
-
-
-
-
-
 
         {/* FILTER */}
 
-
-
         <select
-
-
           value={filter}
-
-
-
-          onChange={(e)=>
-
-            setFilter(e.target.value)
-
-          }
-
-
-
+          onChange={(e) => setFilter(e.target.value)}
           className="
 
           rounded-2xl
@@ -317,68 +228,20 @@ export default function JobSearch({
           duration-500
 
           "
-
         >
-
-
-
-          <option
-
-            value="All"
-
-            className="bg-white dark:bg-[#111827]"
-
-          >
-
+          <option value="All" className="bg-white dark:bg-[#111827]">
             All Jobs
-
           </option>
 
-
-
-
-
-          <option
-
-            value="Active"
-
-            className="bg-white dark:bg-[#111827]"
-
-          >
-
+          <option value="Active" className="bg-white dark:bg-[#111827]">
             Active
-
           </option>
 
-
-
-
-
-          <option
-
-            value="Closed"
-
-            className="bg-white dark:bg-[#111827]"
-
-          >
-
+          <option value="Closed" className="bg-white dark:bg-[#111827]">
             Closed
-
           </option>
-
-
-
         </select>
-
-
-
       </div>
-
-
-
     </div>
-
-
   );
-
 }

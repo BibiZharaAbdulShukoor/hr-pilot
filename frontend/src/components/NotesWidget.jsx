@@ -1,60 +1,30 @@
 import { useState } from "react";
 import { NotebookPen, Save, Trash2 } from "lucide-react";
 
-
 export default function NotesWidget() {
+  const [note, setNote] = useState("");
 
-
-  const [note,setNote] = useState("");
-
-  const [savedNotes,setSavedNotes] = useState([
+  const [savedNotes, setSavedNotes] = useState([
     "Review AI matched candidates",
     "Prepare interview schedule",
   ]);
 
+  function saveNote() {
+    if (!note.trim()) return;
 
-
-
-  function saveNote(){
-
-    if(!note.trim()) return;
-
-
-    setSavedNotes([
-      ...savedNotes,
-      note
-    ]);
-
+    setSavedNotes([...savedNotes, note]);
 
     setNote("");
-
   }
 
-
-
-
-  function deleteNote(index){
-
-    const updated = savedNotes.filter(
-      (_,i)=>i !== index
-    );
-
+  function deleteNote(index) {
+    const updated = savedNotes.filter((_, i) => i !== index);
 
     setSavedNotes(updated);
-
   }
 
-
-
-
-
-
   return (
-
-
-
     <div
-
       className="
 
       relative
@@ -110,19 +80,10 @@ export default function NotesWidget() {
       duration-700
 
       "
-
     >
-
-
-
-
-
       {/* GLOW */}
 
-
-
       <div
-
         className="
 
         absolute
@@ -158,27 +119,12 @@ export default function NotesWidget() {
         animate-float
 
         "
-
       />
 
-
-
-
-
-
       <div className="relative z-10">
-
-
-
-
-
         {/* HEADER */}
 
-
-
-
         <div
-
           className="
 
           flex
@@ -190,13 +136,8 @@ export default function NotesWidget() {
           mb-6
 
           "
-
         >
-
-
-
           <div
-
             className="
 
             bg-white/20
@@ -222,22 +163,12 @@ export default function NotesWidget() {
             border-white/20
 
             "
-
           >
-
-            <NotebookPen size={26}/>
-
+            <NotebookPen size={26} />
           </div>
 
-
-
-
-
           <div>
-
-
             <h2
-
               className="
 
               text-xl
@@ -245,18 +176,11 @@ export default function NotesWidget() {
               font-black
 
               "
-
             >
-
               HR Notes
-
             </h2>
 
-
-
-
             <p
-
               className="
 
               text-sm
@@ -264,38 +188,15 @@ export default function NotesWidget() {
               text-white/80
 
               "
-
             >
-
               Save your recruitment notes
-
             </p>
-
-
-
           </div>
-
-
-
-
         </div>
-
-
-
-
-
-
-
-
 
         {/* INPUT */}
 
-
-
-
-
         <div
-
           className="
 
           bg-white/20
@@ -321,19 +222,11 @@ export default function NotesWidget() {
           border-white/20
 
           "
-
         >
-
-
-
           <textarea
-
             value={note}
-
-            onChange={(e)=>setNote(e.target.value)}
-
+            onChange={(e) => setNote(e.target.value)}
             placeholder="Write a new note..."
-
             className="
 
             w-full
@@ -359,17 +252,10 @@ export default function NotesWidget() {
             h-24
 
             "
-
           />
 
-
-
-
-
           <button
-
             onClick={saveNote}
-
             className="
 
             mt-3
@@ -423,35 +309,15 @@ export default function NotesWidget() {
             duration-300
 
             "
-
           >
-
-            <Save size={18}/>
-
+            <Save size={18} />
             Save Note
-
-
           </button>
-
-
-
         </div>
-
-
-
-
-
-
-
-
 
         {/* SAVED NOTES */}
 
-
-
-
         <div
-
           className="
 
           mt-6
@@ -459,21 +325,10 @@ export default function NotesWidget() {
           space-y-3
 
           "
-
         >
-
-
-
-
-          {savedNotes.map((item,index)=>(
-
-
-
-
+          {savedNotes.map((item, index) => (
             <div
-
               key={index}
-
               className="
 
               flex
@@ -517,16 +372,8 @@ export default function NotesWidget() {
               hover:bg-white/30
 
               "
-
             >
-
-
-
-
-
-
               <p
-
                 className="
 
                 text-sm
@@ -534,22 +381,12 @@ export default function NotesWidget() {
                 font-semibold
 
                 "
-
               >
-
                 {item}
-
               </p>
 
-
-
-
-
-
               <button
-
-                onClick={()=>deleteNote(index)}
-
+                onClick={() => deleteNote(index)}
                 className="
 
                 bg-white/20
@@ -575,45 +412,13 @@ export default function NotesWidget() {
                 transition
 
                 "
-
               >
-
-                <Trash2 size={17}/>
-
-
+                <Trash2 size={17} />
               </button>
-
-
-
-
-
             </div>
-
-
-
-
           ))}
-
-
-
-
-
         </div>
-
-
-
-
-
       </div>
-
-
-
-
-
     </div>
-
-
   );
-
-
 }

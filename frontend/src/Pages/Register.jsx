@@ -1,126 +1,52 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import {
-  User,
-  Mail,
-  Lock,
-  ArrowLeft,
-  UserPlus,
-  Brain,
-} from "lucide-react";
+import { User, Mail, Lock, ArrowLeft, UserPlus, Brain } from "lucide-react";
 
 import { registerUser } from "../api/auth";
 
-
 export default function Register() {
-
-
   const navigate = useNavigate();
 
-
-
-  const [formData,setFormData] = useState({
-
-    name:"",
-    email:"",
-    password:"",
-
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
   });
 
+  const [error, setError] = useState("");
 
+  const [loading, setLoading] = useState(false);
 
-  const [error,setError] = useState("");
-
-  const [loading,setLoading] = useState(false);
-
-
-
-
-
-
-  const handleChange = (e)=>{
-
-
+  const handleChange = (e) => {
     setFormData({
-
       ...formData,
 
       [e.target.name]: e.target.value,
-
     });
-
-
   };
 
-
-
-
-
-
-
-  const handleSubmit = async(e)=>{
-
-
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
 
     setLoading(true);
 
     setError("");
 
-
-
-    try{
-
-
+    try {
       await registerUser(formData);
 
-
-
       navigate("/login");
-
-
-
-    }catch(err){
-
-
-
-      setError(
-
-        err.response?.data?.message ||
-
-        "Registration failed"
-
-      );
-
-
-
-    }finally{
-
-
+    } catch (err) {
+      setError(err.response?.data?.message || "Registration failed");
+    } finally {
       setLoading(false);
-
-
     }
-
-
   };
 
-
-
-
-
-
-
-
-return (
-
-
-<div
-
-
-className="
+  return (
+    <div
+      className="
 
 
 min-h-screen
@@ -169,21 +95,11 @@ px-4
 
 
 "
+    >
+      {/* BACKGROUND */}
 
->
-
-
-
-
-
-
-{/* BACKGROUND */}
-
-
-
-<div
-
-className="
+      <div
+        className="
 
 absolute
 
@@ -206,15 +122,10 @@ bg-[#61D7E5]/30
 blur-[120px]
 
 "
+      />
 
-/>
-
-
-
-
-<div
-
-className="
+      <div
+        className="
 
 absolute
 
@@ -237,27 +148,13 @@ bg-[#0CA0C7]/30
 blur-[120px]
 
 "
+      />
 
-/>
+      {/* BACK BUTTON */}
 
-
-
-
-
-
-
-
-{/* BACK BUTTON */}
-
-
-
-<button
-
-
-onClick={()=>navigate("/")}
-
-
-className="
+      <button
+        onClick={() => navigate("/")}
+        className="
 
 
 absolute
@@ -319,36 +216,13 @@ transition
 
 
 "
+      >
+        <ArrowLeft size={18} />
+        Back Home
+      </button>
 
-
->
-
-
-<ArrowLeft size={18}/>
-
-
-Back Home
-
-
-</button>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div
-
-
-
-className="
+      <div
+        className="
 
 
 
@@ -388,23 +262,11 @@ p-10
 
 
 "
+      >
+        {/* LOGO */}
 
-
->
-
-
-
-
-
-
-
-{/* LOGO */}
-
-
-
-<div
-
-className="
+        <div
+          className="
 
 flex
 
@@ -413,14 +275,9 @@ justify-center
 mb-5
 
 "
-
->
-
-
-<div
-
-
-className="
+        >
+          <div
+            className="
 
 
 w-16
@@ -453,35 +310,13 @@ shadow-lg
 
 
 "
+          >
+            <Brain size={35} className="text-white" />
+          </div>
+        </div>
 
->
-
-
-<Brain
-
-size={35}
-
-className="text-white"
-
-/>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-
-<h1
-
-
-className="
+        <h1
+          className="
 
 
 text-3xl
@@ -502,24 +337,12 @@ dark:text-white
 
 
 "
+        >
+          Create Account
+        </h1>
 
-
->
-
-Create Account
-
-</h1>
-
-
-
-
-
-
-
-<p
-
-
-className="
+        <p
+          className="
 
 text-center
 
@@ -537,28 +360,13 @@ dark:text-white/60
 
 
 "
+        >
+          Join HR Pilot AI Recruitment Platform
+        </p>
 
->
-
-Join HR Pilot AI Recruitment Platform
-
-</p>
-
-
-
-
-
-
-
-
-
-{error && (
-
-
-<div
-
-
-className="
+        {error && (
+          <div
+            className="
 
 
 bg-red-100
@@ -580,55 +388,17 @@ text-sm
 
 
 "
+          >
+            {error}
+          </div>
+        )}
 
+        <form onSubmit={handleSubmit} className="space-y-5">
+          {/* NAME */}
 
->
-
-
-{error}
-
-
-</div>
-
-
-)}
-
-
-
-
-
-
-
-
-
-<form
-
-
-onSubmit={handleSubmit}
-
-
-className="space-y-5"
-
-
->
-
-
-
-
-
-
-
-
-{/* NAME */}
-
-
-
-<div className="relative">
-
-
-<User
-
-className="
+          <div className="relative">
+            <User
+              className="
 
 absolute
 
@@ -639,35 +409,16 @@ top-4
 text-gray-400
 
 "
+              size={20}
+            />
 
-size={20}
-
-/>
-
-
-
-<input
-
-
-type="text"
-
-
-name="name"
-
-
-placeholder="Full Name"
-
-
-
-value={formData.name}
-
-
-
-onChange={handleChange}
-
-
-
-className="
+            <input
+              type="text"
+              name="name"
+              placeholder="Full Name"
+              value={formData.name}
+              onChange={handleChange}
+              className="
 
 
 w-full
@@ -712,34 +463,15 @@ focus:ring-[#0CA0C7]
 
 
 "
+              required
+            />
+          </div>
 
+          {/* EMAIL */}
 
-required
-
-
-/>
-
-
-</div>
-
-
-
-
-
-
-
-
-
-{/* EMAIL */}
-
-
-
-<div className="relative">
-
-
-<Mail
-
-className="
+          <div className="relative">
+            <Mail
+              className="
 
 absolute
 
@@ -750,36 +482,16 @@ top-4
 text-gray-400
 
 "
+              size={20}
+            />
 
-size={20}
-
-/>
-
-
-
-<input
-
-
-type="email"
-
-
-name="email"
-
-
-
-placeholder="Email Address"
-
-
-
-value={formData.email}
-
-
-
-onChange={handleChange}
-
-
-
-className="
+            <input
+              type="email"
+              name="email"
+              placeholder="Email Address"
+              value={formData.email}
+              onChange={handleChange}
+              className="
 
 
 w-full
@@ -824,37 +536,15 @@ focus:ring-[#0CA0C7]
 
 
 "
+              required
+            />
+          </div>
 
+          {/* PASSWORD */}
 
-required
-
-
-/>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-{/* PASSWORD */}
-
-
-
-<div className="relative">
-
-
-
-<Lock
-
-
-className="
+          <div className="relative">
+            <Lock
+              className="
 
 absolute
 
@@ -865,40 +555,16 @@ top-4
 text-gray-400
 
 "
+              size={20}
+            />
 
-
-size={20}
-
-
-/>
-
-
-
-<input
-
-
-
-type="password"
-
-
-
-name="password"
-
-
-
-placeholder="Password"
-
-
-
-value={formData.password}
-
-
-
-onChange={handleChange}
-
-
-
-className="
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleChange}
+              className="
 
 
 w-full
@@ -943,35 +609,13 @@ focus:ring-[#0CA0C7]
 
 
 "
+              required
+            />
+          </div>
 
-
-required
-
-
-
-/>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<button
-
-
-
-disabled={loading}
-
-
-
-className="
+          <button
+            disabled={loading}
+            className="
 
 
 w-full
@@ -1037,53 +681,15 @@ disabled:opacity-50
 
 
 "
+          >
+            <UserPlus size={20} />
 
+            {loading ? "Creating Account..." : "Register"}
+          </button>
+        </form>
 
->
-
-
-<UserPlus size={20}/>
-
-
-
-{
-
-loading
-
-?
-
-"Creating Account..."
-
-:
-
-"Register"
-
-}
-
-
-
-</button>
-
-
-
-
-
-
-
-
-</form>
-
-
-
-
-
-
-
-
-<p
-
-
-className="
+        <p
+          className="
 
 
 text-center
@@ -1101,22 +707,11 @@ dark:text-white/70
 
 
 "
-
->
-
-
-Already have an account?
-
-
-
-<Link
-
-
-to="/login"
-
-
-
-className="
+        >
+          Already have an account?
+          <Link
+            to="/login"
+            className="
 
 
 ml-2
@@ -1129,36 +724,11 @@ text-[#0CA0C7]
 
 
 "
-
-
->
-
-
-Login
-
-
-</Link>
-
-
-
-</p>
-
-
-
-
-
-
-
-</div>
-
-
-
-
-
-</div>
-
-
-);
-
-
+          >
+            Login
+          </Link>
+        </p>
+      </div>
+    </div>
+  );
 }

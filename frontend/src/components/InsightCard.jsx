@@ -1,28 +1,12 @@
 import { Sparkles, Brain, Trophy, Target } from "lucide-react";
 
-
 export default function InsightCard({ data = {} }) {
+  const { topCandidates = [], aiAccuracy = 0, hiringRate = 0 } = data;
 
-
-  const {
-    topCandidates = [],
-    aiAccuracy = 0,
-    hiringRate = 0,
-  } = data;
-
-
-
-  const bestCandidate =
-    topCandidates.length > 0
-      ? topCandidates[0]
-      : null;
-
-
+  const bestCandidate = topCandidates.length > 0 ? topCandidates[0] : null;
 
   return (
-
     <div
-
       className="
 
       relative
@@ -78,17 +62,10 @@ export default function InsightCard({ data = {} }) {
       duration-700
 
       "
-
     >
-
-
-
-
       {/* MOVING LIGHT */}
 
-
       <div
-
         className="
 
         absolute
@@ -122,14 +99,9 @@ export default function InsightCard({ data = {} }) {
         animate-float
 
         "
-
       />
 
-
-
-
       <div
-
         className="
 
         absolute
@@ -163,17 +135,9 @@ export default function InsightCard({ data = {} }) {
         animate-float
 
         "
-
       />
 
-
-
-
-
-
-
       <div
-
         className="
 
         relative
@@ -181,13 +145,8 @@ export default function InsightCard({ data = {} }) {
         z-10
 
         "
-
       >
-
-
-
         <div
-
           className="
 
           flex
@@ -199,12 +158,8 @@ export default function InsightCard({ data = {} }) {
           mb-6
 
           "
-
         >
-
-
           <div
-
             className="
 
             bg-white/20
@@ -222,19 +177,11 @@ export default function InsightCard({ data = {} }) {
             border-white/20
 
             "
-
           >
-
-            <Sparkles size={30}/>
-
+            <Sparkles size={30} />
           </div>
 
-
-
-
-
           <h2
-
             className="
 
             text-2xl
@@ -242,25 +189,12 @@ export default function InsightCard({ data = {} }) {
             font-black
 
             "
-
           >
-
             AI Insight
-
           </h2>
-
-
-
         </div>
 
-
-
-
-
-
-
         <p
-
           className="
 
           text-white/90
@@ -268,24 +202,12 @@ export default function InsightCard({ data = {} }) {
           leading-7
 
           "
-
         >
-
           AI engine analyzed your recruitment data and generated intelligent
           hiring insights.
-
-
         </p>
 
-
-
-
-
-
-
-
         <div
-
           className="
 
           mt-6
@@ -293,14 +215,8 @@ export default function InsightCard({ data = {} }) {
           space-y-4
 
           "
-
         >
-
-
-
-
           <div
-
             className="
 
             bg-white/20
@@ -326,18 +242,11 @@ export default function InsightCard({ data = {} }) {
             border-white/20
 
             "
-
           >
-
-
             <Brain />
 
-
-
             <div>
-
               <p
-
                 className="
 
                 text-sm
@@ -345,17 +254,11 @@ export default function InsightCard({ data = {} }) {
                 text-white/80
 
                 "
-
               >
-
                 AI Accuracy
-
               </p>
 
-
-
               <h3
-
                 className="
 
                 text-2xl
@@ -363,31 +266,13 @@ export default function InsightCard({ data = {} }) {
                 font-black
 
                 "
-
               >
-
                 {aiAccuracy}%
-
-
               </h3>
-
-
             </div>
-
-
-
           </div>
 
-
-
-
-
-
-
-
-
           <div
-
             className="
 
             bg-white/20
@@ -413,19 +298,11 @@ export default function InsightCard({ data = {} }) {
             border-white/20
 
             "
-
           >
-
-
             <Target />
 
-
-
             <div>
-
-
               <p
-
                 className="
 
                 text-sm
@@ -433,17 +310,11 @@ export default function InsightCard({ data = {} }) {
                 text-white/80
 
                 "
-
               >
-
                 Hiring Rate
-
               </p>
 
-
-
               <h3
-
                 className="
 
                 text-2xl
@@ -451,34 +322,14 @@ export default function InsightCard({ data = {} }) {
                 font-black
 
                 "
-
               >
-
                 {hiringRate}%
-
-
               </h3>
-
-
             </div>
-
-
-
           </div>
 
-
-
-
-
-
-
-
-
           {bestCandidate && (
-
-
             <div
-
               className="
 
               bg-white
@@ -514,14 +365,8 @@ export default function InsightCard({ data = {} }) {
               duration-500
 
               "
-
             >
-
-
-
-
               <div
-
                 className="
 
                 flex
@@ -539,24 +384,12 @@ export default function InsightCard({ data = {} }) {
                 dark:text-[#61D7E5]
 
                 "
-
               >
-
-
-                <Trophy size={20}/>
-
+                <Trophy size={20} />
                 Best Candidate
-
-
               </div>
 
-
-
-
-
-
               <h2
-
                 className="
 
                 text-xl
@@ -566,21 +399,11 @@ export default function InsightCard({ data = {} }) {
                 mt-3
 
                 "
-
               >
-
                 {bestCandidate.name}
-
-
               </h2>
 
-
-
-
-
-
               <p
-
                 className="
 
                 text-slate-500
@@ -588,14 +411,9 @@ export default function InsightCard({ data = {} }) {
                 dark:text-slate-400
 
                 "
-
               >
-
                 AI Match Score:
-
-
                 <span
-
                   className="
 
                   ml-1
@@ -609,39 +427,14 @@ export default function InsightCard({ data = {} }) {
                   dark:text-green-400
 
                   "
-
                 >
-
                   {bestCandidate.score}%
-
-
                 </span>
-
-
               </p>
-
-
-
-
             </div>
-
-
           )}
-
-
-
-
         </div>
-
-
-
-
       </div>
-
-
-
     </div>
-
   );
-
 }

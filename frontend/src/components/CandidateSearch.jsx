@@ -1,26 +1,15 @@
 import { Search } from "lucide-react";
 
-
 function CandidateSearch({ value, onChange }) {
-
-
   return (
-
-
     <div
-
       className="
       relative
       "
-
     >
-
-
-
       {/* ICON */}
 
       <Search
-
         className="
 
         absolute
@@ -40,30 +29,13 @@ function CandidateSearch({ value, onChange }) {
         dark:text-white/50
 
         "
-
         size={22}
-
       />
 
-
-
-
-
-
-
       <input
-
-
         value={value}
-
-
-        onChange={(e)=>onChange(e.target.value)}
-
-
+        onChange={(e) => onChange(e.target.value)}
         placeholder="Search candidates..."
-
-
-
         className="
 
 
@@ -170,19 +142,9 @@ function CandidateSearch({ value, onChange }) {
 
 
         "
-
       />
-
-
-
-
-
     </div>
-
-
   );
-
 }
-
 
 export default CandidateSearch;
