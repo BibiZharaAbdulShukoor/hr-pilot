@@ -48,8 +48,7 @@ app.get("/", (req, res) => {
     status: "Backend Running",
   });
 });
-
-//test upload
+// test upload
 const fs = require("fs");
 const path = require("path");
 
@@ -60,17 +59,18 @@ app.get("/check-uploads", (req, res) => {
     const files = fs.readdirSync(uploadPath);
 
     return res.json({
+      message: "Checking uploads directory...",
       exists: true,
       files,
     });
   }
 
   res.json({
+    message: "Checking uploads directory...",
     exists: false,
     files: [],
   });
 });
-
 // ===============================
 // API ROUTES
 // ===============================
