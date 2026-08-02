@@ -33,7 +33,9 @@ app.use(
 // STATIC FILES
 // ===============================
 
-app.use("/uploads", express.static("uploads"));
+const path = require("path");
+
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // ===============================
 // HEALTH CHECK
