@@ -4,146 +4,60 @@ const pdf = require("pdf-parse");
 
 const mammoth = require("mammoth");
 
-
-
-
-
-
-exports.extractTextFromFile = async (file)=>{
-
-
+exports.extractTextFromFile = async (file) => {
   try {
-
-
-
-    if(!file){
-
-      throw new Error(
-        "No file uploaded"
-      );
-
+    if (!file) {
+      throw new Error("No file uploaded");
     }
-
-
-
-
 
     const filePath = file.path;
 
-
-
     const buffer = fs.readFileSync(filePath);
-
-
-
-
-
-
 
     // ======================
     // PDF
     // ======================
 
-
-    if(file.mimetype === "application/pdf"){
-
-
-
+    if (file.mimetype === "application/pdf") {
       const data = await pdf(buffer);
 
+      if (data.text && data.text.trim().length > 20) {
+        return data.text;
+      }
 
-
-      return data.text || "";
-
-
-
+      console.log("Scanned PDF detected - no readable text found.");
+      return "";
     }
-
-
-
-
-
-
 
     // ======================
     // DOCX
     // ======================
 
-
-    if(
+    if (
       file.mimetype ===
       "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-    ){
-
-
-
-      const result =
-        await mammoth.extractRawText({
-
-          buffer
-
-        });
-
-
+    ) {
+      const result = await mammoth.extractRawText({
+        buffer,
+      });
 
       return result.value || "";
-
-
-
     }
-
-
-
-
-
-
 
     // ======================
     // DOC
     // ======================
 
-
-    if(
-      file.mimetype === "application/msword"
-    ){
-
-
+    if (file.mimetype === "application/msword") {
       throw new Error(
-        "DOC format extraction not supported yet. Please upload DOCX or PDF."
+        "DOC format extraction not supported yet. Please upload DOCX or PDF.",
       );
-
-
     }
 
-
-
-
-
-
-
-    throw new Error(
-      "Unsupported file type"
-    );
-
-
-
-
-
-  } catch(error){
-
-
-
-    console.error(
-      "File Extraction Error:",
-      error.message
-    );
-
-
+    throw new Error("Unsupported file type");
+  } catch (error) {
+    console.error("File Extraction Error:", error.message);
 
     throw error;
-
-
   }
-
-
 };

@@ -49,6 +49,28 @@ app.get("/", (req, res) => {
   });
 });
 
+//test upload
+const fs = require("fs");
+const path = require("path");
+
+app.get("/check-uploads", (req, res) => {
+  const uploadPath = path.join(__dirname, "uploads");
+
+  if (fs.existsSync(uploadPath)) {
+    const files = fs.readdirSync(uploadPath);
+
+    return res.json({
+      exists: true,
+      files,
+    });
+  }
+
+  res.json({
+    exists: false,
+    files: [],
+  });
+});
+
 // ===============================
 // API ROUTES
 // ===============================
@@ -76,7 +98,6 @@ app.use(errorHandler);
 // ===============================
 
 app.use("/api/notifications", notificationRoutes);
-
 
 // ===============================
 // SERVER START

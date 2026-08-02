@@ -97,9 +97,7 @@ exports.updateCandidate = async (req, res, next) => {
 
 exports.deleteCandidate = async (req, res, next) => {
   try {
-    const oldCandidate = await candidateService.getCandidateById(
-      req.params.id,
-    );
+    const oldCandidate = await candidateService.getCandidateById(req.params.id);
 
     await candidateService.deleteCandidate(req.params.id);
 
@@ -147,15 +145,13 @@ exports.uploadCandidateCV = async (req, res, next) => {
 
     let cvText = await fileService.extractTextFromFile(req.file);
 
-console.log("RAW TEXT:", cvText);
-console.log("RAW LENGTH:", cvText?.length);
+    console.log("RAW TEXT:", cvText);
+    console.log("RAW LENGTH:", cvText?.length);
 
+    cvText = textService.cleanText(cvText);
 
-cvText = textService.cleanText(cvText);
-
-
-console.log("CLEAN TEXT:", cvText);
-console.log("CLEAN LENGTH:", cvText.length);
+    console.log("CLEAN TEXT:", cvText);
+    console.log("CLEAN LENGTH:", cvText.length);
 
     let skills = [];
 
@@ -170,9 +166,13 @@ console.log("CLEAN LENGTH:", cvText.length);
       skills = textService.extractSkills(cvText);
     }
 
-    const embedding =
-      await embeddingService.generateEmbedding(cvText);
+    let embedding = null;
 
+    if (cvText && cvText.trim().length > 0) {
+      embedding = await embeddingService.generateEmbedding(cvText);
+    } else {
+      console.log("No readable text found in CV. Skipping embedding.");
+    }
     const candidate = await candidateService.createCandidate({
       name,
       email,
