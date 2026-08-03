@@ -44,14 +44,11 @@ export default function CandidateDetails() {
     }
   }
   const API_URL = import.meta.env.VITE_API_URL;
+
   function openCV() {
-    console.log("acaav file:", candidate.cv_file);
-    if (candidate?.cv_file) {
-      window.open(
-        `https://hr-pilot-backend.onrender.com/uploads/${candidate.cv_file}`,
-        "_blank",
-      );
-    }
+    if (!candidate?.cv_file) return;
+
+    window.open(`${API_URL}/uploads/${candidate.cv_file}`, "_blank");
   }
 
   if (loading) {

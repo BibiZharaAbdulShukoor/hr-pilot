@@ -52,7 +52,6 @@ export const deleteJob = (id) => {
   return API.delete(`/jobs/${id}`);
 };
 
-
 // =====================
 // Matching
 // =====================
@@ -62,7 +61,7 @@ export const matchCandidates = (jobId) => {
 };
 
 export const getCVUrl = (file) => {
-  return `http://localhost:5000/${file}`;
+  return `${import.meta.env.VITE_API_URL}/uploads/${file}`;
 };
 API.interceptors.response.use(
   (response) => response,

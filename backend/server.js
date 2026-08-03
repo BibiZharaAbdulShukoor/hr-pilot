@@ -33,9 +33,7 @@ app.use(
 // STATIC FILES
 // ===============================
 
-const path = require("path");
-
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/uploads", express.static("uploads"));
 
 // ===============================
 // HEALTH CHECK
@@ -50,28 +48,7 @@ app.get("/", (req, res) => {
     status: "Backend Running",
   });
 });
-// test upload
-const fs = require("fs");
 
-app.get("/check-uploads", (req, res) => {
-  const uploadPath = path.join(__dirname, "uploads");
-
-  if (fs.existsSync(uploadPath)) {
-    const files = fs.readdirSync(uploadPath);
-
-    return res.json({
-      message: "Checking uploads directory...",
-      exists: true,
-      files,
-    });
-  }
-
-  res.json({
-    message: "Checking uploads directory...",
-    exists: false,
-    files: [],
-  });
-});
 // ===============================
 // API ROUTES
 // ===============================
