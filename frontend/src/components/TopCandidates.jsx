@@ -4,21 +4,15 @@ export default function TopCandidates({ candidates = [] }) {
   return (
     <div
       className="
-
       relative
 
       overflow-hidden
 
-
-
       bg-gradient-to-br
 
-      from-[#0CA0C7]
+      from-white
 
-      via-[#38BDF8]
-
-      to-[#61D7E5]
-
+      to-[#e6fbff]
 
 
       dark:from-[#111827]
@@ -28,42 +22,36 @@ export default function TopCandidates({ candidates = [] }) {
       dark:to-[#020617]
 
 
-
       rounded-[2rem]
-
 
 
       shadow-2xl
 
 
-
       p-6
 
 
+      text-slate-800
 
-      text-white
-
+      dark:text-white
 
 
       border
 
-      border-white/30
+      border-slate-200
 
       dark:border-slate-700
-
 
 
       transition-all
 
       duration-700
-
       "
     >
-      {/* GLOW LIGHT */}
+      {/* GLOW */}
 
       <div
         className="
-
         absolute
 
         w-40
@@ -71,21 +59,16 @@ export default function TopCandidates({ candidates = [] }) {
         h-40
 
 
-
-        bg-white/30
-
+        bg-[#61D7E5]/30
 
 
         dark:bg-[#0CA0C7]/20
 
 
-
         rounded-full
 
 
-
         blur-3xl
-
 
 
         right-[-50px]
@@ -93,9 +76,7 @@ export default function TopCandidates({ candidates = [] }) {
         top-[-50px]
 
 
-
         animate-float
-
         "
       />
 
@@ -104,7 +85,6 @@ export default function TopCandidates({ candidates = [] }) {
 
         <div
           className="
-
           flex
 
           items-center
@@ -112,47 +92,51 @@ export default function TopCandidates({ candidates = [] }) {
           gap-3
 
           mb-6
-
           "
         >
           <div
             className="
-
-            bg-white/20
+            bg-[#0CA0C7]/10
 
             dark:bg-white/10
-
 
 
             backdrop-blur-xl
 
 
-
             p-3
-
 
 
             rounded-2xl
 
 
-
             border
 
-            border-white/20
+            border-[#0CA0C7]/20
 
+            dark:border-white/20
             "
           >
-            <Trophy size={24} />
+            <Trophy
+              size={24}
+              className="
+              text-[#0CA0C7]
+
+              dark:text-[#61D7E5]
+              "
+            />
           </div>
 
           <div>
             <h2
               className="
-
               text-xl
 
               font-black
 
+              text-slate-800
+
+              dark:text-white
               "
             >
               Top AI Candidates
@@ -160,11 +144,11 @@ export default function TopCandidates({ candidates = [] }) {
 
             <p
               className="
-
               text-sm
 
-              text-white/80
+              text-slate-500
 
+              dark:text-white/60
               "
             >
               Best matched candidates
@@ -178,145 +162,142 @@ export default function TopCandidates({ candidates = [] }) {
           {candidates.length === 0 ? (
             <div
               className="
+              bg-slate-100
 
-              bg-white/10
-
-              dark:bg-white/5
-
+              dark:bg-white/10
 
 
               backdrop-blur-xl
 
 
-
               rounded-2xl
-
 
 
               p-6
 
 
-
               text-center
-
 
 
               border
 
-              border-white/20
+              border-slate-200
 
+              dark:border-white/20
               "
             >
               <Sparkles
                 className="
-
                 mx-auto
 
                 mb-2
 
-                text-white/60
+                text-[#0CA0C7]
 
+                dark:text-white/60
                 "
               />
 
-              <p className="text-white/70">No AI matches yet</p>
+              <p
+                className="
+                text-slate-500
+
+                dark:text-white/70
+                "
+              >
+                No AI matches yet
+              </p>
             </div>
           ) : (
             candidates.map((candidate, index) => (
               <div
                 key={candidate.id}
                 className="
-
-
-                bg-white/15
+                bg-white
 
 
                 dark:bg-white/10
 
 
-
                 backdrop-blur-xl
-
 
 
                 border
 
-                border-white/20
+                border-slate-200
 
+                dark:border-white/20
 
 
                 rounded-2xl
 
 
-
                 p-4
-
 
 
                 flex
 
 
-
                 items-center
-
 
 
                 justify-between
 
 
+                hover:shadow-md
 
-                hover:bg-white/25
 
+                hover:-translate-y-1
 
 
                 transition-all
 
 
-
                 duration-300
-
-
                 "
               >
                 {/* Candidate Info */}
 
                 <div
                   className="
-
                   flex
 
                   items-center
 
                   gap-3
-
                   "
                 >
                   <div
                     className="
-
-                    bg-white/20
+                    bg-[#0CA0C7]/10
 
                     dark:bg-white/10
-
 
 
                     p-3
 
 
-
                     rounded-xl
-
                     "
                   >
-                    <User size={22} />
+                    <User
+                      size={22}
+                      className="
+                      text-[#0CA0C7]
+
+                      dark:text-[#61D7E5]
+                      "
+                    />
                   </div>
 
                   <div>
                     <h3
                       className="
-
                       font-black
 
+                      text-slate-800
+
+                      dark:text-white
                       "
                     >
                       {candidate.name}
@@ -324,7 +305,6 @@ export default function TopCandidates({ candidates = [] }) {
 
                     <div
                       className="
-
                       flex
 
                       items-center
@@ -333,8 +313,9 @@ export default function TopCandidates({ candidates = [] }) {
 
                       text-sm
 
-                      text-white/70
+                      text-slate-500
 
+                      dark:text-white/70
                       "
                     >
                       <Mail size={13} />
@@ -349,41 +330,31 @@ export default function TopCandidates({ candidates = [] }) {
                 <div className="text-right">
                   <div
                     className="
-
-                    bg-white
-
+                    bg-[#61D7E5]/20
 
 
                     dark:bg-[#0f172a]
 
 
-
-                    text-green-600
-
+                    text-[#0CA0C7]
 
 
                     dark:text-green-400
 
 
-
                     px-3
-
 
 
                     py-1
 
 
-
                     rounded-full
-
 
 
                     font-black
 
 
-
                     shadow-md
-
                     "
                   >
                     {candidate.score}%
@@ -391,13 +362,13 @@ export default function TopCandidates({ candidates = [] }) {
 
                   <p
                     className="
-
                     text-xs
 
-                    text-white/70
+                    text-slate-500
+
+                    dark:text-white/70
 
                     mt-2
-
                     "
                   >
                     Rank #{index + 1}

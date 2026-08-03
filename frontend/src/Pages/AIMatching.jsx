@@ -16,10 +16,15 @@ import MatchCard from "../components/MatchCard";
 
 export default function AIMatching() {
   const [jobs, setJobs] = useState([]);
+
   const [selectedJob, setSelectedJob] = useState("");
+
   const [matches, setMatches] = useState([]);
+
   const [loading, setLoading] = useState(false);
+
   const [jobsLoading, setJobsLoading] = useState(true);
+
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -33,7 +38,9 @@ export default function AIMatching() {
       const res = await getJobs();
 
       setJobs(res.data.data || []);
-    } catch {
+    } catch (err) {
+      console.log(err);
+
       setError("Failed to load jobs");
     } finally {
       setJobsLoading(false);
@@ -57,7 +64,9 @@ export default function AIMatching() {
       const res = await matchCandidates(selectedJob);
 
       setMatches(res.data.data || []);
-    } catch {
+    } catch (err) {
+      console.log(err);
+
       setError("AI Matching failed");
     } finally {
       setLoading(false);
@@ -65,131 +74,203 @@ export default function AIMatching() {
   }
 
   return (
-    <div className="space-y-10 max-w-7xl mx-auto">
-      {/* Hero */}
+    <div
+      className="
+space-y-10
+
+max-w-7xl
+
+mx-auto
+
+"
+    >
       {/* HERO */}
 
       <section
         className="
-        relative
+relative
 
-        overflow-hidden
+overflow-hidden
 
-        rounded-[32px]
 
-        p-10
+rounded-[32px]
 
-        border
 
-        border-slate-200
+p-10
 
-        dark:border-slate-700
 
-        bg-gradient-to-br
 
-        from-[#0CA0C7]
+border
 
-        via-[#37C8E8]
+border-white/30
 
-        to-[#61D7E5]
 
-        dark:from-[#111827]
+dark:border-slate-700
 
-        dark:via-[#0f172a]
 
-        dark:to-[#020617]
 
-        shadow-2xl
-        "
+bg-gradient-to-br
+
+from-[#0CA0C7]
+
+via-[#38BDF8]
+
+to-[#61D7E5]
+
+
+
+dark:from-[#111827]
+
+dark:via-[#0f172a]
+
+dark:to-[#020617]
+
+
+
+shadow-2xl
+
+transition-all
+
+duration-700
+
+"
       >
         <div
           className="
-          absolute
+absolute
 
-          -top-28
+w-96
 
-          -right-28
+h-96
 
-          w-96
 
-          h-96
+rounded-full
 
-          rounded-full
 
-          bg-white/20
 
-          dark:bg-cyan-400/10
+bg-white/30
 
-          blur-3xl
-          "
+
+dark:bg-[#0CA0C7]/20
+
+
+
+blur-3xl
+
+
+
+-right-28
+
+-top-28
+
+"
         />
 
         <div
           className="
-          absolute
+absolute
 
-          -bottom-20
+w-80
 
-          -left-20
+h-80
 
-          w-80
 
-          h-80
+rounded-full
 
-          rounded-full
 
-          bg-white/10
 
-          blur-3xl
-          "
+bg-white/20
+
+
+dark:bg-[#61D7E5]/10
+
+
+
+blur-3xl
+
+
+
+-bottom-20
+
+-left-20
+
+"
         />
 
         <div
           className="
-          relative
+relative
 
-          flex
 
-          flex-col
+flex
 
-          lg:flex-row
+flex-col
 
-          lg:items-center
 
-          lg:justify-between
+lg:flex-row
 
-          gap-8
-          "
+
+lg:items-center
+
+
+lg:justify-between
+
+
+
+gap-8
+
+"
         >
           <div
             className="
-            flex
+flex
 
-            items-center
+items-center
 
-            gap-6
-            "
+gap-6
+
+"
           >
             <div
               className="
-              h-24
+h-24
 
-              w-24
+w-24
 
-              rounded-3xl
 
-              flex
 
-              items-center
+rounded-3xl
 
-              justify-center
 
-              bg-white/20
 
-              backdrop-blur-xl
+flex
 
-              shadow-xl
-              "
+items-center
+
+justify-center
+
+
+
+bg-white/20
+
+
+dark:bg-white/10
+
+
+
+backdrop-blur-xl
+
+
+
+shadow-xl
+
+
+
+border
+
+border-white/20
+
+"
             >
               <BrainCircuit size={48} className="text-white" />
             </div>
@@ -197,26 +278,32 @@ export default function AIMatching() {
             <div>
               <h1
                 className="
-                text-5xl
+text-5xl
 
-                font-black
+font-black
 
-                text-white
-                "
+text-white
+
+"
               >
                 AI Matching Center
               </h1>
 
               <p
                 className="
-                mt-4
+mt-4
 
-                text-lg
 
-                text-white/90
+text-lg
 
-                max-w-2xl
-                "
+
+text-white/90
+
+
+
+max-w-2xl
+
+"
               >
                 Discover the most suitable candidates using AI semantic
                 matching, skill analysis and experience comparison.
@@ -226,69 +313,128 @@ export default function AIMatching() {
 
           <div
             className="
-            flex
+flex
 
-            gap-5
-            "
+gap-5
+
+"
           >
             <div
               className="
-              min-w-[150px]
+min-w-[150px]
 
-              rounded-3xl
 
-              bg-white/15
+rounded-3xl
 
-              backdrop-blur-xl
 
-              p-6
 
-              text-center
-              "
+bg-white/15
+
+
+dark:bg-white/10
+
+
+
+backdrop-blur-xl
+
+
+
+border
+
+border-white/20
+
+
+
+p-6
+
+
+
+text-center
+
+"
             >
-              <div
+              <h2
                 className="
-                text-4xl
+text-4xl
 
-                font-black
+font-black
 
-                text-white
-                "
+text-white
+
+"
               >
                 {jobs.length}
-              </div>
+              </h2>
 
-              <p className="mt-2 text-white/80">Jobs</p>
+              <p
+                className="
+mt-2
+
+text-white/80
+
+"
+              >
+                Jobs
+              </p>
             </div>
 
             <div
               className="
-              min-w-[150px]
+min-w-[150px]
 
-              rounded-3xl
 
-              bg-white/15
+rounded-3xl
 
-              backdrop-blur-xl
 
-              p-6
 
-              text-center
-              "
+bg-white/15
+
+
+dark:bg-white/10
+
+
+
+backdrop-blur-xl
+
+
+
+border
+
+border-white/20
+
+
+
+p-6
+
+
+
+text-center
+
+"
             >
-              <div
+              <h2
                 className="
-                text-4xl
+text-4xl
 
-                font-black
+font-black
 
-                text-white
-                "
+text-white
+
+"
               >
                 {matches.length}
-              </div>
+              </h2>
 
-              <p className="mt-2 text-white/80">Matches</p>
+              <p
+                className="
+mt-2
+
+text-white/80
+
+"
+              >
+                Matches
+              </p>
             </div>
           </div>
         </div>
@@ -299,90 +445,149 @@ export default function AIMatching() {
       {error && (
         <div
           className="
-          rounded-2xl
+rounded-2xl
 
-          border
 
-          border-red-200
+border
 
-          dark:border-red-500/20
+border-red-200
 
-          bg-red-50
 
-          dark:bg-red-500/10
+dark:border-red-500/30
 
-          p-5
 
-          flex
 
-          items-center
+bg-red-50
 
-          gap-3
 
-          text-red-600
+dark:bg-red-500/10
 
-          dark:text-red-400
 
-          font-bold
-          "
+
+p-5
+
+
+
+flex
+
+items-center
+
+
+
+gap-3
+
+
+
+text-red-600
+
+
+dark:text-red-400
+
+
+
+font-bold
+
+"
         >
           <AlertCircle size={22} />
 
           {error}
         </div>
       )}
+
       {/* JOB SELECT */}
 
       <section
         className="
-        rounded-[30px]
 
-        border
+rounded-[30px]
 
-        border-slate-200
 
-        dark:border-slate-700
 
-        bg-white
+border
 
-        dark:bg-[#0f172a]
+border-slate-200
 
-        shadow-xl
 
-        p-8
-        "
+dark:border-slate-700
+
+
+
+bg-white
+
+
+dark:bg-gradient-to-br
+
+dark:from-[#111827]
+
+dark:via-[#0f172a]
+
+dark:to-[#020617]
+
+
+
+shadow-xl
+
+
+
+p-8
+
+
+
+transition-all
+
+duration-700
+
+"
       >
         <div
           className="
-          flex
 
-          items-center
+flex
 
-          gap-3
+items-center
 
-          mb-8
-          "
+gap-3
+
+mb-8
+
+"
         >
           <div
             className="
-            w-14
 
-            h-14
+w-14
 
-            rounded-2xl
+h-14
 
-            flex
 
-            items-center
 
-            justify-center
+rounded-2xl
 
-            bg-cyan-100
 
-            dark:bg-[#123548]
 
-            text-[#0CA0C7]
-            "
+flex
+
+items-center
+
+justify-center
+
+
+
+bg-cyan-100
+
+
+
+dark:bg-[#123548]
+
+
+
+text-[#0CA0C7]
+
+
+dark:text-[#61D7E5]
+
+"
           >
             <Briefcase size={28} />
           </div>
@@ -390,26 +595,36 @@ export default function AIMatching() {
           <div>
             <h2
               className="
-              text-2xl
 
-              font-black
+text-2xl
 
-              text-slate-800
 
-              dark:text-white
-              "
+font-black
+
+
+
+text-slate-800
+
+
+dark:text-white
+
+"
             >
               Select Job Position
             </h2>
 
             <p
               className="
-              mt-1
 
-              text-slate-500
+mt-1
 
-              dark:text-slate-400
-              "
+
+text-slate-500
+
+
+dark:text-slate-400
+
+"
             >
               Choose a job and let AI rank the best candidates.
             </p>
@@ -418,14 +633,19 @@ export default function AIMatching() {
 
         <div
           className="
-          flex
 
-          flex-col
+flex
 
-          lg:flex-row
+flex-col
 
-          gap-5
-          "
+
+lg:flex-row
+
+
+
+gap-5
+
+"
         >
           <select
             value={selectedJob}
@@ -435,34 +655,57 @@ export default function AIMatching() {
               setMatches([]);
             }}
             className="
-            flex-1
 
-            h-16
+flex-1
 
-            rounded-2xl
 
-            border
 
-            border-slate-200
+h-16
 
-            dark:border-slate-700
 
-            bg-slate-50
 
-            dark:bg-slate-800
+rounded-2xl
 
-            px-6
 
-            text-slate-800
 
-            dark:text-white
+border
 
-            outline-none
+border-slate-200
 
-            focus:ring-2
 
-            focus:ring-[#0CA0C7]
-            "
+dark:border-slate-700
+
+
+
+bg-slate-50
+
+
+dark:bg-[#020617]
+
+
+
+px-6
+
+
+
+text-slate-800
+
+
+dark:text-white
+
+
+
+outline-none
+
+
+
+focus:ring-2
+
+
+
+focus:ring-[#0CA0C7]
+
+"
           >
             <option value="">
               {jobsLoading ? "Loading jobs..." : "Choose Job"}
@@ -479,40 +722,66 @@ export default function AIMatching() {
             onClick={runMatching}
             disabled={loading}
             className="
-            h-16
+  h-16
 
-            px-10
+  px-10
 
-            rounded-2xl
+  rounded-2xl
 
-            flex
+  flex
 
-            items-center
+  items-center
 
-            justify-center
+  justify-center
 
-            gap-3
+  gap-3
 
-            font-black
 
-            text-white
+  font-black
 
-            bg-gradient-to-r
 
-            from-[#0CA0C7]
+  text-white
 
-            to-[#61D7E5]
 
-            hover:scale-105
 
-            transition-all
+  bg-gradient-to-r
 
-            duration-300
+  from-[#0CA0C7]
 
-            disabled:opacity-60
+  to-[#61D7E5]
 
-            shadow-lg
-            "
+
+
+  dark:from-[#111827]
+
+  dark:via-[#0f172a]
+
+  dark:to-[#020617]
+
+
+
+  border
+
+  border-white/30
+
+  dark:border-slate-700
+
+
+
+  shadow-xl
+
+
+
+  hover:scale-105
+
+  transition-all
+
+  duration-500
+
+
+
+  disabled:opacity-60
+  "
           >
             {loading ? (
               <>
@@ -534,53 +803,68 @@ export default function AIMatching() {
       {matches.length > 0 && (
         <section
           className="
-          space-y-8
-          "
+space-y-8
+"
         >
           <div
             className="
-            flex
+flex
 
-            items-center
+items-center
 
-            justify-between
+justify-between
 
-            flex-wrap
+flex-wrap
 
-            gap-4
-            "
+gap-4
+
+"
           >
             <div
               className="
-              flex
+flex
 
-              items-center
+items-center
 
-              gap-4
-              "
+gap-4
+
+"
             >
               <div
                 className="
-                w-14
+w-14
 
-                h-14
+h-14
 
-                rounded-2xl
 
-                flex
 
-                items-center
+rounded-2xl
 
-                justify-center
 
-                bg-yellow-100
 
-                dark:bg-yellow-500/20
+flex
 
-                text-yellow-600
+items-center
 
-                dark:text-yellow-300
-                "
+justify-center
+
+
+
+bg-yellow-100
+
+
+
+dark:bg-yellow-500/20
+
+
+
+text-yellow-600
+
+
+
+dark:text-yellow-300
+
+"
               >
                 <Trophy size={28} />
               </div>
@@ -588,26 +872,36 @@ export default function AIMatching() {
               <div>
                 <h2
                   className="
-                  text-3xl
+text-3xl
 
-                  font-black
+font-black
 
-                  text-slate-800
 
-                  dark:text-white
-                  "
+
+text-slate-800
+
+
+
+dark:text-white
+
+"
                 >
                   Top AI Candidates
                 </h2>
 
                 <p
                   className="
-                  mt-1
+mt-1
 
-                  text-slate-500
 
-                  dark:text-slate-400
-                  "
+
+text-slate-500
+
+
+
+dark:text-slate-400
+
+"
                 >
                   Ranked from highest AI score to lowest.
                 </p>
@@ -616,35 +910,49 @@ export default function AIMatching() {
 
             <div
               className="
-              px-5
+px-5
 
-              py-3
+py-3
 
-              rounded-2xl
 
-              bg-cyan-50
 
-              dark:bg-[#123548]
+rounded-2xl
 
-              text-[#0CA0C7]
 
-              font-bold
-              "
+
+bg-cyan-50
+
+
+
+dark:bg-[#123548]
+
+
+
+text-[#0CA0C7]
+
+
+
+dark:text-[#61D7E5]
+
+
+
+font-black
+
+"
             >
               {matches.length} Candidates
             </div>
           </div>
 
-          {/* MATCH CARDS */}
-
           <div
             className="
-            flex
+flex
 
-            flex-col
+flex-col
 
-            gap-8
-            "
+gap-8
+
+"
           >
             {matches.map((candidate, index) => (
               <MatchCard
@@ -662,64 +970,110 @@ export default function AIMatching() {
       {!loading && selectedJob && matches.length === 0 && (
         <section
           className="
-            rounded-[30px]
 
-            border
+rounded-[30px]
 
-            border-slate-200
 
-            dark:border-slate-700
 
-            bg-white
+border
 
-            dark:bg-[#0f172a]
+border-slate-200
 
-            shadow-xl
 
-            p-16
 
-            text-center
-            "
+dark:border-slate-700
+
+
+
+bg-white
+
+
+
+dark:bg-gradient-to-br
+
+dark:from-[#111827]
+
+dark:via-[#0f172a]
+
+dark:to-[#020617]
+
+
+
+shadow-xl
+
+
+
+p-16
+
+
+
+text-center
+
+"
         >
           <Users
             size={72}
             className="
-              mx-auto
 
-              mb-6
+mx-auto
 
-              text-slate-300
+mb-6
 
-              dark:text-slate-600
-              "
+
+
+text-slate-300
+
+
+
+dark:text-slate-600
+
+"
           />
 
           <h2
             className="
-              text-3xl
 
-              font-black
+text-3xl
 
-              text-slate-700
 
-              dark:text-white
-              "
+
+font-black
+
+
+
+text-slate-700
+
+
+
+dark:text-white
+
+"
           >
             No Candidates Matched
           </h2>
 
           <p
             className="
-              mt-4
 
-              text-slate-500
+mt-4
 
-              dark:text-slate-400
 
-              max-w-xl
 
-              mx-auto
-              "
+text-slate-500
+
+
+
+dark:text-slate-400
+
+
+
+max-w-xl
+
+
+
+mx-auto
+
+"
           >
             No suitable candidates were found for this position. Try selecting
             another job or upload more candidate resumes.

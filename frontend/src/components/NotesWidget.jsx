@@ -26,21 +26,16 @@ export default function NotesWidget() {
   return (
     <div
       className="
-
       relative
 
       overflow-hidden
 
 
-
       bg-gradient-to-br
 
-      from-[#0CA0C7]
+      from-white
 
-      via-[#38BDF8]
-
-      to-[#61D7E5]
-
+      to-[#e6fbff]
 
 
       dark:from-[#111827]
@@ -50,74 +45,61 @@ export default function NotesWidget() {
       dark:to-[#020617]
 
 
-
-      rounded-[2rem]
-
+      rounded-3xl
 
 
       shadow-2xl
 
 
-
       p-6
 
 
+      text-slate-800
 
-      text-white
-
+      dark:text-white
 
 
       border
 
-      border-white/30
+      border-slate-200
 
       dark:border-slate-700
-
 
 
       transition-all
 
       duration-700
-
       "
     >
       {/* GLOW */}
 
       <div
         className="
-
         absolute
 
-        w-44
+        w-52
 
-        h-44
+        h-52
 
 
+        right-[-60px]
 
-        right-[-50px]
-
-        top-[-50px]
-
+        top-[-60px]
 
 
         rounded-full
 
 
-
-        bg-white/30
-
+        bg-[#61D7E5]/30
 
 
         dark:bg-[#0CA0C7]/20
 
 
-
         blur-3xl
 
 
-
         animate-float
-
         "
       />
 
@@ -126,7 +108,6 @@ export default function NotesWidget() {
 
         <div
           className="
-
           flex
 
           items-center
@@ -134,47 +115,52 @@ export default function NotesWidget() {
           gap-3
 
           mb-6
-
           "
         >
           <div
             className="
+            bg-[#0CA0C7]/10
 
-            bg-white/20
 
             dark:bg-white/10
-
 
 
             backdrop-blur-xl
 
 
-
             p-3
-
 
 
             rounded-2xl
 
 
-
             border
 
-            border-white/20
+            border-[#0CA0C7]/20
 
+            dark:border-white/20
             "
           >
-            <NotebookPen size={26} />
+            <NotebookPen
+              size={26}
+              className="
+              text-[#0CA0C7]
+
+              dark:text-[#61D7E5]
+              "
+            />
           </div>
 
           <div>
             <h2
               className="
-
               text-xl
 
               font-black
 
+              text-slate-800
+
+              dark:text-white
               "
             >
               HR Notes
@@ -182,11 +168,11 @@ export default function NotesWidget() {
 
             <p
               className="
-
               text-sm
 
-              text-white/80
+              text-slate-500
 
+              dark:text-white/70
               "
             >
               Save your recruitment notes
@@ -198,29 +184,25 @@ export default function NotesWidget() {
 
         <div
           className="
-
-          bg-white/20
+          bg-white
 
           dark:bg-white/10
-
 
 
           rounded-2xl
 
 
-
           p-4
-
 
 
           backdrop-blur-xl
 
 
-
           border
 
-          border-white/20
+          border-slate-200
 
+          dark:border-white/20
           "
         >
           <textarea
@@ -228,7 +210,6 @@ export default function NotesWidget() {
             onChange={(e) => setNote(e.target.value)}
             placeholder="Write a new note..."
             className="
-
             w-full
 
             bg-transparent
@@ -236,30 +217,27 @@ export default function NotesWidget() {
             outline-none
 
 
+            placeholder:text-slate-400
 
-            placeholder:text-white/60
+            dark:placeholder:text-white/50
 
 
+            text-slate-700
 
-            text-white
-
+            dark:text-white
 
 
             resize-none
 
 
-
             h-24
-
             "
           />
 
           <button
             onClick={saveNote}
             className="
-
             mt-3
-
 
 
             flex
@@ -270,20 +248,18 @@ export default function NotesWidget() {
 
 
 
-            bg-white
+            bg-gradient-to-r
+
+            from-[#0CA0C7]
+
+            to-[#61D7E5]
 
 
-
-            dark:bg-[#020617]
-
-
-
-            text-[#0CA0C7]
+            text-white
 
 
 
             px-5
-
 
 
             py-2
@@ -307,7 +283,6 @@ export default function NotesWidget() {
 
 
             duration-300
-
             "
           >
             <Save size={18} />
@@ -319,18 +294,15 @@ export default function NotesWidget() {
 
         <div
           className="
-
           mt-6
 
           space-y-3
-
           "
         >
           {savedNotes.map((item, index) => (
             <div
               key={index}
               className="
-
               flex
 
               justify-between
@@ -339,7 +311,7 @@ export default function NotesWidget() {
 
 
 
-              bg-white/20
+              bg-white
 
 
 
@@ -353,7 +325,9 @@ export default function NotesWidget() {
 
               border
 
-              border-white/20
+              border-slate-200
+
+              dark:border-white/20
 
 
 
@@ -365,21 +339,22 @@ export default function NotesWidget() {
 
 
 
-              transition
+              transition-all
 
 
 
-              hover:bg-white/30
-
+              hover:shadow-md
               "
             >
               <p
                 className="
-
                 text-sm
 
                 font-semibold
 
+                text-slate-700
+
+                dark:text-white
                 "
               >
                 {item}
@@ -388,12 +363,16 @@ export default function NotesWidget() {
               <button
                 onClick={() => deleteNote(index)}
                 className="
-
-                bg-white/20
-
+                bg-red-100
 
 
                 dark:bg-white/10
+
+
+                text-red-600
+
+
+                dark:text-red-300
 
 
 
@@ -405,12 +384,15 @@ export default function NotesWidget() {
 
 
 
-                hover:bg-red-500/40
+                hover:bg-red-200
+
+
+
+                dark:hover:bg-red-500/20
 
 
 
                 transition
-
                 "
               >
                 <Trash2 size={17} />

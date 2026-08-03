@@ -10,9 +10,12 @@ import {
 } from "lucide-react";
 
 import { useNavigate } from "react-router-dom";
+import DeleteModal from "./DeleteModal";
+import { useState } from "react";
 
 export default function JobCard({ job, onDelete, onEdit }) {
   const navigate = useNavigate();
+  const [showDelete, setShowDelete] = useState(false);
 
   return (
     <div
@@ -379,7 +382,7 @@ export default function JobCard({ job, onDelete, onEdit }) {
         {/* DELETE */}
 
         <button
-          onClick={() => onDelete(job)}
+          onClick={() => setShowDelete(true)}
           className="
     w-12
 
@@ -436,6 +439,13 @@ export default function JobCard({ job, onDelete, onEdit }) {
           <Trash2 size={20} />
         </button>
       </div>
+      <DeleteModal
+        isOpen={showDelete}
+        onClose={() => setShowDelete(false)}
+        onConfirm={() => deleteJob(job.id)}
+        title="Delete Job"
+        message="Are you sure you want to delete this job?"
+      />
     </div>
   );
 }

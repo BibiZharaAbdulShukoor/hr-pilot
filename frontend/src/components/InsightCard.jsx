@@ -8,21 +8,16 @@ export default function InsightCard({ data = {} }) {
   return (
     <div
       className="
-
       relative
 
       overflow-hidden
 
 
-
       bg-gradient-to-br
 
-      from-[#0CA0C7]
+      from-white
 
-      via-[#38BDF8]
-
-      to-[#61D7E5]
-
+      to-[#e6fbff]
 
 
       dark:from-[#111827]
@@ -32,42 +27,36 @@ export default function InsightCard({ data = {} }) {
       dark:to-[#020617]
 
 
-
       rounded-3xl
-
 
 
       shadow-2xl
 
 
-
       p-8
 
 
+      text-slate-800
 
-      text-white
-
+      dark:text-white
 
 
       border
 
-      border-white/30
+      border-slate-200
 
       dark:border-slate-700
-
 
 
       transition-all
 
       duration-700
-
       "
     >
       {/* MOVING LIGHT */}
 
       <div
         className="
-
         absolute
 
         w-72
@@ -77,17 +66,13 @@ export default function InsightCard({ data = {} }) {
         rounded-full
 
 
-
-        bg-white/30
-
+        bg-[#61D7E5]/30
 
 
         dark:bg-[#0CA0C7]/20
 
 
-
         blur-3xl
-
 
 
         -right-20
@@ -95,15 +80,12 @@ export default function InsightCard({ data = {} }) {
         -top-20
 
 
-
         animate-float
-
         "
       />
 
       <div
         className="
-
         absolute
 
         w-60
@@ -113,17 +95,13 @@ export default function InsightCard({ data = {} }) {
         rounded-full
 
 
-
-        bg-[#61D7E5]/40
-
+        bg-[#0CA0C7]/20
 
 
         dark:bg-[#61D7E5]/10
 
 
-
         blur-3xl
-
 
 
         -left-20
@@ -131,24 +109,21 @@ export default function InsightCard({ data = {} }) {
         -bottom-20
 
 
-
         animate-float
-
         "
       />
 
       <div
         className="
-
         relative
 
         z-10
-
         "
       >
+        {/* HEADER */}
+
         <div
           className="
-
           flex
 
           items-center
@@ -156,38 +131,50 @@ export default function InsightCard({ data = {} }) {
           gap-3
 
           mb-6
-
           "
         >
           <div
             className="
-
-            bg-white/20
+            bg-[#0CA0C7]/10
 
             dark:bg-white/10
 
+
             backdrop-blur-xl
+
 
             p-3
 
+
             rounded-2xl
+
 
             border
 
-            border-white/20
+            border-[#0CA0C7]/20
 
+            dark:border-white/20
             "
           >
-            <Sparkles size={30} />
+            <Sparkles
+              size={30}
+              className="
+              text-[#0CA0C7]
+
+              dark:text-[#61D7E5]
+              "
+            />
           </div>
 
           <h2
             className="
-
             text-2xl
 
             font-black
 
+            text-slate-800
+
+            dark:text-white
             "
           >
             AI Insight
@@ -196,63 +183,77 @@ export default function InsightCard({ data = {} }) {
 
         <p
           className="
+          text-slate-600
 
-          text-white/90
+          dark:text-white/80
+
 
           leading-7
-
           "
         >
           AI engine analyzed your recruitment data and generated intelligent
           hiring insights.
         </p>
 
+        {/* STATS */}
+
         <div
           className="
-
           mt-6
 
           space-y-4
-
           "
         >
+          {/* AI ACCURACY */}
+
           <div
             className="
-
-            bg-white/20
+            bg-white
 
             dark:bg-white/10
 
+
             backdrop-blur-xl
+
 
             rounded-2xl
 
+
             p-4
+
 
             flex
 
+
             items-center
+
 
             gap-4
 
 
-
             border
 
-            border-white/20
+            border-slate-200
 
+            dark:border-white/20
             "
           >
-            <Brain />
+            <Brain
+              className="
+              text-[#0CA0C7]
+
+              dark:text-[#61D7E5]
+              "
+            />
 
             <div>
               <p
                 className="
-
                 text-sm
 
-                text-white/80
+                text-slate-500
 
+                dark:text-white/70
                 "
               >
                 AI Accuracy
@@ -260,11 +261,13 @@ export default function InsightCard({ data = {} }) {
 
               <h3
                 className="
-
                 text-2xl
 
                 font-black
 
+                text-slate-800
+
+                dark:text-white
                 "
               >
                 {aiAccuracy}%
@@ -272,43 +275,56 @@ export default function InsightCard({ data = {} }) {
             </div>
           </div>
 
+          {/* HIRING RATE */}
+
           <div
             className="
-
-            bg-white/20
+            bg-white
 
             dark:bg-white/10
 
+
             backdrop-blur-xl
+
 
             rounded-2xl
 
+
             p-4
+
 
             flex
 
+
             items-center
+
 
             gap-4
 
 
-
             border
 
-            border-white/20
+            border-slate-200
 
+            dark:border-white/20
             "
           >
-            <Target />
+            <Target
+              className="
+              text-[#0CA0C7]
+
+              dark:text-[#61D7E5]
+              "
+            />
 
             <div>
               <p
                 className="
-
                 text-sm
 
-                text-white/80
+                text-slate-500
 
+                dark:text-white/70
                 "
               >
                 Hiring Rate
@@ -316,11 +332,13 @@ export default function InsightCard({ data = {} }) {
 
               <h3
                 className="
-
                 text-2xl
 
                 font-black
 
+                text-slate-800
+
+                dark:text-white
                 "
               >
                 {hiringRate}%
@@ -328,14 +346,15 @@ export default function InsightCard({ data = {} }) {
             </div>
           </div>
 
+          {/* BEST CANDIDATE */}
+
           {bestCandidate && (
             <div
               className="
-
               bg-white
 
-              dark:bg-[#111827]
 
+              dark:bg-[#111827]
 
 
               text-slate-800
@@ -343,32 +362,26 @@ export default function InsightCard({ data = {} }) {
               dark:text-white
 
 
-
               rounded-2xl
-
 
 
               p-5
 
 
-
               border
 
-              border-white/30
+              border-slate-200
 
               dark:border-slate-700
-
 
 
               transition-all
 
               duration-500
-
               "
             >
               <div
                 className="
-
                 flex
 
                 items-center
@@ -378,11 +391,9 @@ export default function InsightCard({ data = {} }) {
                 font-black
 
 
-
                 text-[#0CA0C7]
 
                 dark:text-[#61D7E5]
-
                 "
               >
                 <Trophy size={20} />
@@ -391,13 +402,15 @@ export default function InsightCard({ data = {} }) {
 
               <h2
                 className="
-
                 text-xl
 
                 font-black
 
                 mt-3
 
+                text-slate-800
+
+                dark:text-white
                 "
               >
                 {bestCandidate.name}
@@ -405,27 +418,22 @@ export default function InsightCard({ data = {} }) {
 
               <p
                 className="
-
                 text-slate-500
 
                 dark:text-slate-400
-
                 "
               >
                 AI Match Score:
                 <span
                   className="
-
                   ml-1
 
                   font-bold
 
 
-
                   text-green-600
 
                   dark:text-green-400
-
                   "
                 >
                   {bestCandidate.score}%

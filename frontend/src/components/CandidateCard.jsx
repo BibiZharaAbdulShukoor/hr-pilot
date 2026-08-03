@@ -14,9 +14,13 @@ import {
 } from "lucide-react";
 
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import DeleteModal from "./DeleteModal";
 
 export default function CandidateCard({ candidate, onDelete }) {
   const navigate = useNavigate();
+
+  const [showDelete, setShowDelete] = useState(false);
 
   const skills = Array.isArray(candidate.skills)
     ? candidate.skills
@@ -346,7 +350,6 @@ export default function CandidateCard({ candidate, onDelete }) {
           </div>
         </div>
 
-        {/* INFORMATION */}
         {/* INFORMATION */}
 
         <div
@@ -756,7 +759,7 @@ export default function CandidateCard({ candidate, onDelete }) {
         {/* DELETE */}
 
         <button
-          onClick={() => onDelete(candidate)}
+          onClick={() => setShowDelete(true)}
           className="
 
           w-12
@@ -824,6 +827,16 @@ export default function CandidateCard({ candidate, onDelete }) {
           <Trash2 size={20} />
         </button>
       </div>
+      <DeleteModal
+        isOpen={showDelete}
+        onClose={() => setShowDelete(false)}
+        onConfirm={() => {
+          onDelete(candidate);
+          setShowDelete(false);
+        }}
+        title="Delete Candidate"
+        message="Are you sure you want to delete this candidate?"
+      />
     </div>
   );
 }
