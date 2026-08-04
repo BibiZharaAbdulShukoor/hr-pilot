@@ -1,4 +1,6 @@
 import { useState } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 import {
   User,
@@ -432,71 +434,48 @@ export default function MatchCard({ candidate, rank }) {
             </div>
           </div>
 
-          {/* AI Recommendation */}
+          {/* ================= AI Recommendation ================= */}
 
           {explanation && (
             <div
               className="
-              mt-6
-
-              rounded-2xl
-
-              border
-
-              border-slate-200
-
-              dark:border-slate-700
-
-              overflow-hidden
-              "
+    mt-6
+    rounded-2xl
+    border
+    border-slate-200
+    dark:border-slate-700
+    overflow-hidden
+    "
             >
               <button
                 onClick={() => setOpenRecommendation(!openRecommendation)}
                 className="
-                w-full
-
-                px-4
-
-                py-3
-
-                flex
-
-                items-center
-
-                justify-between
-
-                bg-cyan-50
-
-                hover:bg-cyan-100
-
-                dark:bg-white/10
-
-                dark:hover:bg-white/20
-
-                transition
-                "
+      w-full
+      px-4
+      py-3
+      flex
+      items-center
+      justify-between
+      bg-cyan-50
+      hover:bg-cyan-100
+      dark:bg-white/10
+      dark:hover:bg-white/20
+      transition
+      "
               >
                 <div className="flex items-center gap-3">
                   <div
                     className="
-                    w-9
-
-                    h-9
-
-                    rounded-xl
-
-                    bg-gradient-to-br
-
-                    from-[#0CA0C7]
-
-                    to-[#61D7E5]
-
-                    flex
-
-                    items-center
-
-                    justify-center
-                    "
+          w-9
+          h-9
+          rounded-xl
+          bg-gradient-to-br
+          from-[#0CA0C7]
+          to-[#61D7E5]
+          flex
+          items-center
+          justify-center
+          "
                   >
                     <Sparkles size={16} className="text-white" />
                   </div>
@@ -504,24 +483,21 @@ export default function MatchCard({ candidate, rank }) {
                   <div className="text-left">
                     <h4
                       className="
-                      text-sm
-
-                      font-bold
-
-                      text-slate-800
-                      dark:text-white
-                      "
+            text-sm
+            font-bold
+            text-slate-800
+            dark:text-white
+            "
                     >
                       AI Recommendation
                     </h4>
 
                     <p
                       className="
-                      text-xs
-
-                      text-slate-600
-                      dark:text-slate-400
-                      "
+            text-xs
+            text-slate-600
+            dark:text-slate-400
+            "
                     >
                       View AI analysis
                     </p>
@@ -531,16 +507,16 @@ export default function MatchCard({ candidate, rank }) {
                 {openRecommendation ? (
                   <ChevronUp
                     className="
-                    text-[#0CA0C7]
-                    dark:text-[#61D7E5]
-                    "
+          text-[#0CA0C7]
+          dark:text-[#61D7E5]
+          "
                   />
                 ) : (
                   <ChevronDown
                     className="
-                    text-[#0CA0C7]
-                    dark:text-[#61D7E5]
-                    "
+          text-[#0CA0C7]
+          dark:text-[#61D7E5]
+          "
                   />
                 )}
               </button>
@@ -548,43 +524,80 @@ export default function MatchCard({ candidate, rank }) {
               {openRecommendation && (
                 <div
                   className="
-                  p-5
-
-                  bg-white
-
-                  dark:bg-[#111827]
-
-                  border-t
-
-                  border-slate-200
-
-                  dark:border-slate-700
-                  "
+        p-5
+        bg-white
+        dark:bg-[#111827]
+        border-t
+        border-slate-200
+        dark:border-slate-700
+        "
                 >
                   <div
                     className="
-                    border-l-4
-
-                    border-[#0CA0C7]
-
-                    dark:border-[#61D7E5]
-
-                    pl-4
-                    "
+          border-l-4
+          border-[#0CA0C7]
+          dark:border-[#61D7E5]
+          pl-5
+          "
                   >
-                    <p
-                      className="
-                      text-sm
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
+                      components={{
+                        h1: ({ children }) => (
+                          <h1 className="text-2xl font-bold mb-4 text-slate-900 dark:text-white">
+                            {children}
+                          </h1>
+                        ),
 
-                      leading-7
+                        h2: ({ children }) => (
+                          <h2 className="text-xl font-bold mt-6 mb-3 text-slate-900 dark:text-white">
+                            {children}
+                          </h2>
+                        ),
 
-                      text-slate-600
+                        h3: ({ children }) => (
+                          <h3 className="text-lg font-bold mt-5 mb-2 text-slate-900 dark:text-white">
+                            {children}
+                          </h3>
+                        ),
 
-                      dark:text-slate-300
-                      "
+                        h4: ({ children }) => (
+                          <h4 className="text-base font-semibold mt-4 mb-2 text-slate-900 dark:text-white">
+                            {children}
+                          </h4>
+                        ),
+
+                        p: ({ children }) => (
+                          <p className="text-sm leading-7 mb-4 text-slate-700 dark:text-slate-300">
+                            {children}
+                          </p>
+                        ),
+
+                        strong: ({ children }) => (
+                          <strong className="font-bold text-slate-900 dark:text-white">
+                            {children}
+                          </strong>
+                        ),
+
+                        ul: ({ children }) => (
+                          <ul className="list-disc pl-6 mb-4 space-y-2 text-slate-700 dark:text-slate-300">
+                            {children}
+                          </ul>
+                        ),
+
+                        ol: ({ children }) => (
+                          <ol className="list-decimal pl-6 mb-4 space-y-2 text-slate-700 dark:text-slate-300">
+                            {children}
+                          </ol>
+                        ),
+
+                        li: ({ children }) => (
+                          <li className="leading-7">{children}</li>
+                        ),
+                      }}
                     >
                       {explanation}
-                    </p>
+                    </ReactMarkdown>
                   </div>
                 </div>
               )}

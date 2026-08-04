@@ -355,8 +355,10 @@ export default function Jobs() {
 
       <div
         className="
-    flex
-    flex-col
+    grid
+    grid-cols-1
+    md:grid-cols-2
+    xl:grid-cols-3
     gap-7
     w-full
   "
