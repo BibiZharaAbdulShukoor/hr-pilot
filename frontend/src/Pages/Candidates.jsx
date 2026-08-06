@@ -41,16 +41,12 @@ export default function Candidates() {
   }
 
   async function handleDelete(candidate) {
-    const confirmDelete = window.confirm(`Delete ${candidate.name}?`);
-
-    if (!confirmDelete) return;
-
     try {
       await deleteCandidate(candidate.id);
 
       setCandidates((prev) => prev.filter((item) => item.id !== candidate.id));
-    } catch (error) {
-      console.error("Delete Error:", error);
+    } catch (err) {
+      console.log(err);
 
       alert("Delete failed");
     }

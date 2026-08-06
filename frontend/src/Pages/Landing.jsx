@@ -13,8 +13,11 @@ import { Link } from "react-router-dom";
 
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { useAuth } from "../context/AuthContext";
 
 export default function Landing() {
+  const { user, logout } = useAuth();
+
   const features = [
     {
       icon: <Brain size={35} />,
@@ -216,63 +219,86 @@ gap-4
 
 "
           >
-            <Link
-              to="/register"
-              className="
+            <div className="mt-8 flex flex-wrap gap-4">
+              {user ? (
+                <>
+                  <Link
+                    to="/dashboard"
+                    className="
+          px-8
+          py-4
+          rounded-2xl
+          bg-gradient-to-r
+          from-[#0CA0C7]
+          to-[#61D7E5]
+          text-white
+          font-bold
+          shadow-xl
+          hover:scale-105
+          transition
+        "
+                  >
+                    Go to Dashboard
+                  </Link>
 
-px-8
+                  <button
+                    onClick={logout}
+                    className="
+          px-8
+          py-4
+          rounded-2xl
+          border
+          border-red-500
+          text-red-500
+          font-bold
+          hover:bg-red-500
+          hover:text-white
+          transition
+        "
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/register"
+                    className="
+          px-8
+          py-4
+          rounded-2xl
+          bg-gradient-to-r
+          from-[#0CA0C7]
+          to-[#61D7E5]
+          text-white
+          font-bold
+          shadow-xl
+          hover:scale-105
+          transition
+        "
+                  >
+                    Get Started
+                  </Link>
 
-py-4
-
-rounded-2xl
-
-bg-gradient-to-r
-
-from-[#0CA0C7]
-
-to-[#61D7E5]
-
-text-white
-
-font-bold
-
-shadow-xl
-
-hover:scale-105
-
-transition
-
-"
-            >
-              Get Started
-            </Link>
-
-            <Link
-              to="/login"
-              className="
-
-px-8
-
-py-4
-
-rounded-2xl
-
-border
-
-border-[#0CA0C7]
-
-text-[#0CA0C7]
-
-font-bold
-
-hover:bg-[#61D7E5]/20
-
-transition
-
-"
-            >
-              Login
-            </Link>
+                  <Link
+                    to="/login"
+                    className="
+          px-8
+          py-4
+          rounded-2xl
+          border
+          border-[#0CA0C7]
+          text-[#0CA0C7]
+          font-bold
+          hover:bg-[#61D7E5]/20
+          transition
+        "
+                  >
+                    Login
+                  </Link>
+                </>
+              )}
+            </div>
           </div>
         </div>
         {/* AI IMAGE */}
@@ -729,30 +755,39 @@ text-white/90
           Start building smarter teams with AI recruitment technology.
         </p>
 
-        <Link
-          to="/register"
-          className="
-
-inline-block
-
-mt-8
-
-bg-white
-
-text-[#0CA0C7]
-
-px-8
-
-py-4
-
-rounded-2xl
-
-font-bold
-
-"
-        >
-          Create Account
-        </Link>
+        {user ? (
+          <Link
+            to="/dashboard"
+            className="
+      inline-block
+      mt-8
+      bg-white
+      text-[#0CA0C7]
+      px-8
+      py-4
+      rounded-2xl
+      font-bold
+    "
+          >
+            Go to Dashboard
+          </Link>
+        ) : (
+          <Link
+            to="/register"
+            className="
+      inline-block
+      mt-8
+      bg-white
+      text-[#0CA0C7]
+      px-8
+      py-4
+      rounded-2xl
+      font-bold
+    "
+          >
+            Create Account
+          </Link>
+        )}
       </section>
       <Footer />
     </div>

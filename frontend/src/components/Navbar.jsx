@@ -11,6 +11,7 @@ import {
   Moon,
   Sun,
   LogOut,
+  Home,
 } from "lucide-react";
 
 import { useTheme } from "../context/ThemeContext";
@@ -226,36 +227,27 @@ function Navbar() {
               to={item.path}
               className={({ isActive }) =>
                 `
+  flex
+  items-center
+  gap-2
 
-                flex
+  px-4
+  py-2
 
-                items-center
+  rounded-xl
 
-                gap-2
+  text-sm
+  font-semibold
 
+  transition-all
+  duration-300
 
-                text-sm
-
-
-                font-medium
-
-
-
-                transition-all
-
-
-                duration-300
-
-
-
-                ${
-                  isActive
-                    ? "text-[#0CA0C7]"
-                    : "text-slate-600 dark:text-white/70 hover:text-[#0CA0C7]"
-                }
-
-
-                `
+  ${
+    isActive
+      ? "bg-[#0CA0C7]/10 text-[#0CA0C7] shadow-md"
+      : "text-slate-600 dark:text-white/70 hover:bg-[#61D7E5]/10 hover:text-[#0CA0C7]"
+  }
+  `
               }
             >
               <Icon size={18} />
@@ -400,6 +392,29 @@ function Navbar() {
         >
           {darkMode ? <Sun size={20} /> : <Moon size={20} />}
         </button>
+        {/* HOME BUTTON */}
+
+        {!isLanding && (
+          <button
+            onClick={() => navigate("/")}
+            className="
+      p-2
+      rounded-xl
+      bg-white/60
+      dark:bg-white/10
+      border
+      border-[#61D7E5]/30
+      text-[#0CA0C7]
+      dark:text-[#61D7E5]
+      hover:scale-110
+      transition
+      duration-300
+    "
+            title="Home"
+          >
+            <Home size={20} />
+          </button>
+        )}
 
         {/* NOTIFICATION */}
 
@@ -516,63 +531,55 @@ function Navbar() {
             >
               <div
                 className="
+  w-11
+  h-11
 
-                w-11
+  rounded-full
 
-                h-11
+  overflow-hidden
 
+  bg-gradient-to-br
 
-                rounded-full
+  from-[#0CA0C7]
 
+  to-[#61D7E5]
 
+  dark:from-[#111827]
 
-                bg-gradient-to-br
-
-
-                from-[#0CA0C7]
-
-
-                to-[#61D7E5]
-
+  dark:to-[#0f172a]
 
 
-                dark:from-[#111827]
+  dark:border
 
-                dark:to-[#0f172a]
-
-
-
-                dark:border
-
-                dark:border-white/10
+  dark:border-white/10
 
 
+  text-white
 
-                text-white
+  flex
 
+  items-center
 
+  justify-center
 
-                flex
+  font-bold
 
-
-
-                items-center
-
-
-
-                justify-center
-
-
-
-                font-bold
-
-
-
-                shadow-lg
-
-                "
+  shadow-lg
+  "
               >
-                {getUserInitials()}
+                {user?.image ? (
+                  <img
+                    src={user.image}
+                    alt="Profile"
+                    className="
+      w-full
+      h-full
+      object-cover
+      "
+                  />
+                ) : (
+                  getUserInitials()
+                )}
               </div>
 
               <ChevronDown
@@ -652,35 +659,108 @@ function Navbar() {
                   {user?.email}
                 </p>
 
+                {/*View Profile*/}
+                <button
+                  onClick={() => navigate("/profile")}
+                  className="
+  w-full
+
+  mb-3
+
+  py-2
+
+  rounded-xl
+
+
+  bg-gradient-to-r
+
+  from-[#0CA0C7]
+
+  to-[#61D7E5]
+
+
+  dark:from-[#111827]
+
+  dark:via-[#0f172a]
+
+  dark:to-[#020617]
+
+
+  dark:border
+
+  dark:border-[#61D7E5]/30
+
+
+  text-white
+
+
+  font-bold
+
+
+  shadow-lg
+
+
+  transition-all
+
+
+  duration-300
+
+
+  hover:scale-105
+
+  "
+                >
+                  View Profile
+                </button>
+
                 <button
                   onClick={handleLogout}
                   className="
+  w-full
 
-                  w-full
+  flex
 
-                  flex
+  items-center
 
-                  items-center
+  justify-center
 
-                  justify-center
+  gap-2
 
-                  gap-2
 
-                  bg-red-500
+  bg-red-500
 
-                  hover:bg-red-600
+  hover:bg-red-600
 
-                  text-white
 
-                  py-2
+  dark:bg-red-500/20
 
-                  rounded-xl
+  dark:hover:bg-red-500/40
 
-                  font-bold
 
-                  transition
+  dark:border
 
-                  "
+  dark:border-red-400/30
+
+
+  text-white
+
+
+  py-2
+
+
+  rounded-xl
+
+
+  font-bold
+
+
+  transition-all
+
+
+  duration-300
+
+
+  "
                 >
                   <LogOut size={18} />
                   Logout

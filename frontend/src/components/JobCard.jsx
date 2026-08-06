@@ -442,7 +442,10 @@ export default function JobCard({ job, onDelete, onEdit }) {
       <DeleteModal
         isOpen={showDelete}
         onClose={() => setShowDelete(false)}
-        onConfirm={() => deleteJob(job.id)}
+        onConfirm={() => {
+          onDelete(job);
+          setShowDelete(false);
+        }}
         title="Delete Job"
         message="Are you sure you want to delete this job?"
       />

@@ -44,10 +44,6 @@ export default function Jobs() {
   }
 
   async function handleDelete(job) {
-    const ok = window.confirm(`Delete "${job.title}" ?`);
-
-    if (!ok) return;
-
     try {
       await deleteJob(job.id);
 

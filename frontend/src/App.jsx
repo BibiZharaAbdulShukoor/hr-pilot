@@ -2,11 +2,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Layout from "./components/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
-
 import Landing from "./Pages/Landing";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
-
+import Profile from "./Pages/Profile";
 import Dashboard from "./Pages/Dashboard";
 import Jobs from "./Pages/Jobs";
 import UploadCandidate from "./Pages/UploadCandidate";
@@ -20,6 +19,7 @@ import EditJob from "./Pages/EditJob";
 import About from "./Pages/About";
 import Contact from "./Pages/Contact";
 import Notifications from "./Pages/Notification";
+import PublicRoute from "./components/PublicRoute";
 
 function App() {
   return (
@@ -29,9 +29,23 @@ function App() {
 
         <Route path="/" element={<Landing />} />
 
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/login"
+          element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          }
+        />
 
-        <Route path="/register" element={<Register />} />
+        <Route
+          path="/register"
+          element={
+            <PublicRoute>
+              <Register />
+            </PublicRoute>
+          }
+        />
 
         {/* PUBLIC INFORMATION PAGES */}
 
@@ -49,6 +63,7 @@ function App() {
           }
         >
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/profile" element={<Profile />} />
 
           <Route path="/jobs" element={<Jobs />} />
 
